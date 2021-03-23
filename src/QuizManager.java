@@ -15,7 +15,7 @@ public class QuizManager {
     /**
      * 
      */
-    public void main() {
+    public static void main(String[] argStrings) {
         // TODO implement here
     }
 

@@ -12,11 +12,5 @@ public class Profesor extends User {
     public Profesor() {
     }
 
-    /**
-     * 
-     */
-    public ArrayList<Student> student;
-
-
 
 }

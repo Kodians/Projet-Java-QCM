@@ -7,13 +7,6 @@ import javax.swing.JTextArea;
  * 
  */
 public class ConceptQuiz {
-
-    /**
-     * Default constructor
-     */
-    public ConceptQuiz() {
-    }
-
     /**
      * 
      */
@@ -23,36 +16,56 @@ public class ConceptQuiz {
      * 
      */
     public  String title;
+    
+    private  int id;
 
 
     /**
      * 
      */
     public Student Answers;
+    
+    
+    /**
+     * Default constructor
+     */
+    public ConceptQuiz() {
+    }
+    
+    
+    public ConceptQuiz(String title) {
+    	this.title = title;
+    }
 
 
     /**
+     * Permet d'afficher une question à multiple réponses
      * @param MultipleChoise titre 
      * @return
      */
-    public void displayMC( MultipleChoice titre) {
-        // TODO implement here
+    public void displayMC( MultipleChoice multipleChoice) {
+    	System.out.println(multipleChoice.getTitle());
+    	System.out.println(multipleChoice.getCode());
+    	
+    	System.out.println(multipleChoice.getAnswers());
     }
 
     /**
-     * @param TrueFalse titre 
+     * Permet d'afficher une question à réponse Vrai ou Faux
+     * @param TrueFalse questionTrueFalse 
      * @return
      */
-    public void displayTrueFalse( TrueFalse titre) {
-        // TODO implement here
+    public void displayTrueFalse( TrueFalse questionTrueFalse) {
+        System.out.println(questionTrueFalse.getTitle());
+        System.out.println(questionTrueFalse.getCode());
+        
+        System.out.println(questionTrueFalse.getAnswers());
     }
 
     /**
      * 
      */
-    public ArrayList<Question> randomize(ArrayList<Question>titre) {
-    	
-        // TODO implement here
+    public ArrayList<Question> randomize(ArrayList<Question>titre) {    	
     	return null;
     }
 
@@ -79,25 +92,57 @@ public class ConceptQuiz {
      * @return
      */
     public void addQuestion( String titre,  JTextArea code) {
-        // TODO implement here
+        this.questions.add(new Question(titre,code));
     }
 
     /**
+     * Permet d'éditer une question
      * @param String titre 
      * @param TextArea code 
      * @return
      */
-    public void editQuestion( String titre,  JTextArea code) {
-        // TODO implement here
+    public void editQuestion(int id,String titre,  JTextArea code) {
+    	this.questions.get(id).setQuestion(titre, code);
     }
 
     /**
+     * Supprime la Question dont 'ID est passé en paramètre
      * @param String titre 
      * @param TextArea code 
      * @return
      */
-    public void removeQuestion( String titre,  JTextArea code) {
-        // TODO implement here
+    public void removeQuestion(int id) {
+    	this.questions.remove(this.questions.get(id));
     }
+
+
+	public ArrayList<Question> getQuestions() {
+		return questions;
+	}
+
+
+	public void setQuestions(ArrayList<Question> questions) {
+		this.questions = questions;
+	}
+
+
+	public String getTitle() {
+		return title;
+	}
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 }

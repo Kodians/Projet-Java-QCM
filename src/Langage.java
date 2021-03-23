@@ -23,7 +23,6 @@ public class Langage {
     public Set<ConceptQuiz> conceptQuiz;
 
 
-
     /**
      * @param String title 
      * @return
@@ -36,7 +35,7 @@ public class Langage {
      * @param String title 
      * @return
      */
-    public void editConceptQuiz( String title) {
+    public void editConceptQuiz(int id, String title) {
         // TODO implement here
     }
 
@@ -44,7 +43,7 @@ public class Langage {
      * @param String title 
      * @return
      */
-    public void removeConceptQuiz( String title) {
+    public void removeConceptQuiz( int id) {
         // TODO implement here
     }
 

@@ -56,5 +56,6 @@ public class User {
     public void register( String firstName,  String lastName,  String userName,  char password,  String role) {
         // TODO implement here
     }
+    
 
 }

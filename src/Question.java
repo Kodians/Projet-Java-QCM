@@ -17,21 +17,25 @@ public class Question {
     /**
      * 
      */
-    private String titre;
+    private String title;
 
     /**
      * 
      */
     private JTextArea code;
+    
+    private int id;
 
 
 
     /**
-     * @param String titre 
+     * Constructor
+     * @param String title 
      * @param TextArea code
      */
-    public void Question( String titre,  JTextArea code) {
-        // TODO implement here
+    public Question( String title,  JTextArea code) {
+        this.title = title;
+        this.code = code;
     }
 
     /**
@@ -47,8 +51,9 @@ public class Question {
      * @param code 
      * @return
      */
-    public void setQuestion( String titre, JTextArea code) {
-        // TODO implement here
+    public void setQuestion( String title, JTextArea code) {
+        this.title = title;
+        this.code = code;
         
     }
 
@@ -68,4 +73,30 @@ public class Question {
         return false;
     }
 
+    
+    /******************** SETTERS & GETTERS *****/
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public JTextArea getCode() {
+		return code;
+	}
+
+	public void setCode(JTextArea code) {
+		this.code = code;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }
