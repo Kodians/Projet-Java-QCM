@@ -11,7 +11,7 @@ public class ConceptQuiz {
     /**
      * 
      */
-    public ArrayList<Question> questions;
+    public ArrayList<Question> questions= new ArrayList<>();
 
     /**
      * 
@@ -34,8 +34,9 @@ public class ConceptQuiz {
     }
     
     
-    public ConceptQuiz(String title) {
+    public ConceptQuiz(String title, int id) {
     	this.title = title;
+    	this.id=id;
     }
 
 
@@ -61,8 +62,6 @@ public class ConceptQuiz {
         System.out.println(questionTrueFalse.getCode());
         
         System.out.println(questionTrueFalse.getAnswers());
-        
-        System.out.println("Hello WORLD");
     }
 
     /**
@@ -94,8 +93,8 @@ public class ConceptQuiz {
      * @param TextArea code 
      * @return
      */
-    public void addQuestion( String titre,  JTextArea code) {
-        this.questions.add(new Question(titre,code));
+    public void addQuestion( Question q) {
+        this.questions.add(q);
     }
 
     /**
@@ -104,7 +103,7 @@ public class ConceptQuiz {
      * @param TextArea code 
      * @return
      */
-    public void editQuestion(int id,String titre,  JTextArea code) {
+    public void editQuestion(int id,String titre,  String code) {
     	this.questions.get(id).setQuestion(titre, code);
     }
 
@@ -146,6 +145,12 @@ public class ConceptQuiz {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+
+	@Override
+	public String toString() {
+		return this.getTitle();
 	}
 
 }

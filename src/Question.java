@@ -13,6 +13,7 @@ public class Question {
      */
     public Question() {
     }
+     
 
     /**
      * 
@@ -22,7 +23,7 @@ public class Question {
     /**
      * 
      */
-    private JTextArea code;
+    private String code;
     
     private int id;
 
@@ -33,9 +34,10 @@ public class Question {
      * @param String title 
      * @param TextArea code
      */
-    public Question( String title,  JTextArea code) {
+    public Question( String title,  String code, int id) {
         this.title = title;
         this.code = code;
+        this.id=id;
     }
 
     /**
@@ -51,20 +53,13 @@ public class Question {
      * @param code 
      * @return
      */
-    public void setQuestion( String title, JTextArea code) {
+    public void setQuestion( String title, String code) {
         this.title = title;
         this.code = code;
         
     }
 
-    /**
-     * @return
-     */
-    public String toString() {
-        // TODO implement here
-        return "";
-    }
-
+   
     /**
      * @return
      */
@@ -84,11 +79,11 @@ public class Question {
 		this.title = title;
 	}
 
-	public JTextArea getCode() {
+	public String getCode() {
 		return code;
 	}
 
-	public void setCode(JTextArea code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 
@@ -98,5 +93,12 @@ public class Question {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	public String toString() {
+		return this.title;
+		
+	}
+	public ArrayList<String> getAnswers(){
+		return null;
 	}
 }
