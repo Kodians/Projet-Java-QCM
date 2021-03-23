@@ -8,59 +8,66 @@ import javax.swing.JTextArea;
  */
 public class MultipleChoice extends Question {
 
-    /**
-     * Default constructor
-     */
-    public MultipleChoice() {
-    }
+	private ArrayList<String> correctAnswers;
+	private ArrayList<String> incorrectAnswers;
 
-    /**
-     * 
-     */
-    private ArrayList<Character> correctAnswers;
+	/**
+	 * Default constructor
+	 */
+	public MultipleChoice() {
 
-    /**
-     * 
-     */
-    private ArrayList<Character> incorrectAnswers;
+	}
 
-    /**
-     * 
-     */
-    public void SingleMC(String titre, JTextArea code,ArrayList<Character>correctAnswers,ArrayList<Character>incorrectAnswers) {
-        // TODO implement here
-    }
+	public MultipleChoice(String titre, String code, int id, ArrayList<String> correctAnswers,
+			ArrayList<String> incorrectAnswers) {
 
-    /**
-     * @return
-     */
-    public String getAnswers() {
-        // TODO implement here
-        return "";
-    }
+		super(titre, code, id);
+		this.correctAnswers = correctAnswers;
+		this.incorrectAnswers = incorrectAnswers;
 
-    /**
-     * @return
-     */
-    public void setAnswers() {
-        // TODO implement here
-        
-    }
+	}
 
-    /**
-     * @return
-     */
-    public String toString() {
-        // TODO implement here
-        return "";
-    }
+	/**
+	 * 
+	 */
+	public void SingleMC(String titre, JTextArea code, ArrayList<Character> correctAnswers,
+			ArrayList<Character> incorrectAnswers) {
+		// TODO implement here
+	}
 
-    /**
-     * @return
-     */
-    public boolean isCorrect() {
-        // TODO implement here
-        return false;
-    }
+	/**
+	 * @return
+	 */
+	public ArrayList<String> getAnswers() {
+		ArrayList<String> answers= new ArrayList<>();
+		answers.addAll(correctAnswers);
+		answers.addAll(incorrectAnswers);
+		Collections.shuffle(answers);
+		return answers;
+	}
+
+	/**
+	 * @return
+	 */
+	public void setAnswers() {
+		// TODO implement here
+
+	}
+
+	/**
+	 * @return
+	 */
+	public String toString() {
+		// TODO implement here
+		return "";
+	}
+
+	/**
+	 * @return
+	 */
+	public boolean isCorrect() {
+		// TODO implement here
+		return false;
+	}
 
 }
