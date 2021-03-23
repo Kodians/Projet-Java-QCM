@@ -4,6 +4,7 @@ import java.util.*;
 import javax.swing.JTextArea;
 
 /**
+ * @author Mamadou Niakate
  * 
  */
 public class ConceptQuiz {
