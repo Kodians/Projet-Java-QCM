@@ -8,6 +8,8 @@ import javax.swing.JTextArea;
  * 
  */
 public class ConceptQuiz {
+	private static int count;
+	
     /**
      * 
      */
@@ -31,12 +33,13 @@ public class ConceptQuiz {
      * Default constructor
      */
     public ConceptQuiz() {
+    	this.questions = null;
+    	this.title = "";
     }
     
-    
-    public ConceptQuiz(String title, int id) {
+    public ConceptQuiz(String title) {
     	this.title = title;
-    	this.id=id;
+    	this.id= ++count;
     }
 
 
@@ -65,10 +68,13 @@ public class ConceptQuiz {
     }
 
     /**
-     * 
+     * Melange / désordonne les éléments d'une liste
+     * @return
      */
-    public ArrayList<Question> randomize(ArrayList<Question>titre) {    	
-    	return null;
+    public ArrayList<Question> randomize(ArrayList<Question> questions) { 
+    	Collections.shuffle(questions);
+    	
+    	return questions;
     }
 
     /**
@@ -89,6 +95,7 @@ public class ConceptQuiz {
     }
 
     /**
+     * Ajotuer une question à la liste des questions d'un ConceptQuiz
      * @param String titre 
      * @param TextArea code 
      * @return
@@ -118,6 +125,10 @@ public class ConceptQuiz {
     }
 
 
+    /**
+     * Retourne la listes des questions d'un conceptQuiz
+     * @return
+     */
 	public ArrayList<Question> getQuestions() {
 		return questions;
 	}

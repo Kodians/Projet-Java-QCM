@@ -18,10 +18,10 @@ public class MultipleChoice extends Question {
 
 	}
 
-	public MultipleChoice(String titre, String code, int id, ArrayList<String> correctAnswers,
+	public MultipleChoice(String titre, String code, ArrayList<String> correctAnswers,
 			ArrayList<String> incorrectAnswers) {
 
-		super(titre, code, id);
+		super(titre, code);
 		this.correctAnswers = correctAnswers;
 		this.incorrectAnswers = incorrectAnswers;
 

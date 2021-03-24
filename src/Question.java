@@ -6,16 +6,11 @@ import javax.swing.JTextArea;
 /**
  * 
  */
-public class Question {
+public abstract class Question {
+	private static int count;
 
     /**
-     * Default constructor
-     */
     public Question() {
-    }
-     
-
-    /**
      * 
      */
     private String title;
@@ -27,6 +22,12 @@ public class Question {
     
     private int id;
 
+    
+    /**
+     * Default constructor
+     */
+    public Question() {
+    }
 
 
     /**
@@ -34,10 +35,10 @@ public class Question {
      * @param String title 
      * @param TextArea code
      */
-    public Question( String title,  String code, int id) {
+    public Question( String title,  String code) {
         this.title = title;
         this.code = code;
-        this.id=id;
+        this.id= ++count;
     }
 
     /**
@@ -98,7 +99,10 @@ public class Question {
 		return this.title;
 		
 	}
-	public ArrayList<String> getAnswers(){
-		return null;
-	}
+	
+	/**
+	 * Méthode abtraite permettant de retourner les réponse à une question
+	 * @return
+	 */
+	public abstract ArrayList<String> getAnswers();
 }

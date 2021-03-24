@@ -7,9 +7,11 @@ import java.util.*;
  */
 public class Langage {
 	
-	  private String name;
-	  private Set<ConceptQuiz> conceptQuiz=new HashSet<>();
-	  private int id;
+	 private static int count;
+	 
+	 private String name;
+	 private Set<ConceptQuiz> conceptQuiz=new HashSet<>();
+	 private int id;
 
     /**
      * Default constructor
@@ -18,9 +20,10 @@ public class Langage {
     	
     }
 
-   public Langage( String name, int id) {
+   public Langage( String name) {
 	   this.name=name;
-	   this.id=id;
+	   this.id= ++count;
+	   this.id -= 1;
    }
   
 
@@ -41,7 +44,7 @@ public class Langage {
      * @param String title 
      * @return
      */
-    public void editConceptQuiz(int id, String title) {
+    public void editConceptQuiz(String title) {
        
     	Iterator iterator = this.conceptQuiz.iterator();
     	while(iterator.hasNext()) {
@@ -85,6 +88,14 @@ public class Langage {
 	
 	public String toString() {
 		return this.getName();
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
     
 
