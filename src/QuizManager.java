@@ -1,9 +1,7 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Scanner;
 
-import java.util.*;
-
-/**
- * 
- */
 public class QuizManager {
 	static Scanner scanner = new Scanner(System.in);
 	
@@ -51,6 +49,7 @@ public class QuizManager {
 		String langageConcept = "";
 		int langID;
 		int langConceptID;
+		int questionType;
 		
 		while (choice == 1 || choice == 2) {
 			switch (choice) {
@@ -93,6 +92,9 @@ public class QuizManager {
 					break;
 				case 2:
 					//Créer des questions par rapport à un concept d'un langage donné
+					
+					
+					/***************** SELECTION DU LANGAGE POUR LE QCM  *****************/
 					System.out.println("Choisissez un langage pour lequel vous souhaitez créer un QCM");
 					
 					for(Langage l : baseLangage.getLangages()) {
@@ -106,6 +108,7 @@ public class QuizManager {
 					
 					Langage chosenLangage = baseLangage.getLangages().get(langID);
 					
+					/***************** SELECTION DU CONCEPTION DU LANGAGE CHOISI *****************/
 					System.out.println(
 							"Choisissez le concept du langage "
 							+ chosenLangage.getName()
@@ -122,20 +125,81 @@ public class QuizManager {
 					
 					Iterator <ConceptQuiz> iterator = chosenLangage.getConceptQuiz().iterator();
 					ConceptQuiz chosenConceptQuiz = null;
-					
-					boolean isFound = false;
-					
-					while (iterator.hasNext() && !isFound) {
-						if(((ConceptQuiz) iterator.next()).getId() == langConceptID) {
-							System.out.println(((ConceptQuiz) iterator.next()).getTitle());
-							//erreur
-							chosenConceptQuiz = (ConceptQuiz)iterator.next();
-							isFound = !isFound;
+										
+					for(ConceptQuiz conceptQuiz : chosenLangage.getConceptQuiz()) {
+						if(conceptQuiz.getId() == langConceptID) {
+							chosenConceptQuiz = conceptQuiz;
 						}
 					}
 					
-					System.out.println(chosenConceptQuiz.getTitle());
 					
+					/*** CREER UNE QUESTION */
+					System.out.println("\n======================================\n"
+							+ "1. Créer une question à réponse multiple \n\n"
+							+ "2. Créer une question à réponse VRAI/FAUX \n\n"
+							+ "======================================\n\n"
+							+ "Faire une action : ");
+					
+					questionType = scanner.nextInt();
+					
+					while (questionType == 1 || questionType == 2) {
+						switch (questionType) {
+							case 1:
+								/***************** SAISIE DES QUESTIONS À RÉPONSES MULTIPLE*****************/
+								scanner.nextLine();
+								System.out.println("Entrez la question : ");
+								String questionTitle = scanner.nextLine();
+								
+								System.out.println("Entrez le code : ");
+								String questionCode = scanner.nextLine();
+								
+								MultipleChoice mChoice = new MultipleChoice();
+								
+								mChoice.setTitle(questionTitle);
+								mChoice.setCode(questionCode);
+								
+								/***************** ENTRÉE DES BONNES RÉPONSES *****************/
+								System.out.println("Entrez les bonnes réponses et cliquez sur \'Entrez\' pour finir : ");
+								ArrayList<String> questionCorrectAnswers = new ArrayList<>();
+								String correctAnswer = "";
+								correctAnswer = scanner.nextLine();
+								
+								while (!correctAnswer.equals("")) {
+									questionCorrectAnswers.add(correctAnswer);
+									System.out.println("Entrez les bonnes réponses et cliquez sur \'Entrez\' pour finir : ");
+									correctAnswer = scanner.nextLine();
+								}
+								
+								mChoice.setCorrectAnswers(questionCorrectAnswers);
+								
+								/***************** ENTRÉE DES MAUVAISES RÉPONSES *****************/
+								System.out.println("Entrez les mauvaises réponses et cliquez sur \'Entrez\' pour finir : ");
+								ArrayList<String> questionInCorrectAnswers = new ArrayList<>();
+								String inCorrectAnswer = "";
+								inCorrectAnswer = scanner.nextLine();
+								
+								while (!inCorrectAnswer.equals("")) {
+									questionInCorrectAnswers.add(inCorrectAnswer);
+									System.out.println("Entrez les mauvaises réponses et cliquez sur \'Entrez\' pour finir : ");
+									inCorrectAnswer = scanner.nextLine();
+								}
+								
+								mChoice.setIncorrectAnswers(questionInCorrectAnswers);
+								
+								break;
+							case 2: break;
+	
+							default: break;
+						}
+						
+						System.out.println("\n======================================\n"
+								+ "1. Créer une question à réponse multiple \n\n"
+								+ "2. Créer une question à réponse VRAI/FAUX \n\n"
+								+ "======================================\n\n"
+								+ "Faire une action : ");
+						
+						questionType = scanner.nextInt();
+					}	
 					break;
 				default: break;
 			}
@@ -215,6 +279,4 @@ public class QuizManager {
     		}
     	}*/
     }
-    
-
 }

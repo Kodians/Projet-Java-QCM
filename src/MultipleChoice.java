@@ -15,7 +15,8 @@ public class MultipleChoice extends Question {
 	 * Default constructor
 	 */
 	public MultipleChoice() {
-
+		this.correctAnswers = null;
+		this.incorrectAnswers = null;
 	}
 
 	public MultipleChoice(String titre, String code, ArrayList<String> correctAnswers,
@@ -68,6 +69,22 @@ public class MultipleChoice extends Question {
 	public boolean isCorrect() {
 		// TODO implement here
 		return false;
+	}
+
+	public ArrayList<String> getCorrectAnswers() {
+		return correctAnswers;
+	}
+
+	public void setCorrectAnswers(ArrayList<String> correctAnswers) {
+		this.correctAnswers = correctAnswers;
+	}
+
+	public ArrayList<String> getIncorrectAnswers() {
+		return incorrectAnswers;
+	}
+
+	public void setIncorrectAnswers(ArrayList<String> incorrectAnswers) {
+		this.incorrectAnswers = incorrectAnswers;
 	}
 
 }
