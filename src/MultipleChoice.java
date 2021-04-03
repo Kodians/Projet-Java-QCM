@@ -14,18 +14,15 @@ public class MultipleChoice extends Question {
 	/**
 	 * Default constructor
 	 */
-	public MultipleChoice() {
-		this.correctAnswers = null;
-		this.incorrectAnswers = null;
+	public MultipleChoice() {   
+		this.correctAnswers = new ArrayList<String>();
+		this.incorrectAnswers = new ArrayList<String>();
 	}
 
-	public MultipleChoice(String titre, String code, ArrayList<String> correctAnswers,
-			ArrayList<String> incorrectAnswers) {
-
+	public MultipleChoice(String titre, String code, ArrayList<String> correctAnswers,ArrayList<String> incorrectAnswers) {
 		super(titre, code);
 		this.correctAnswers = correctAnswers;
 		this.incorrectAnswers = incorrectAnswers;
-
 	}
 
 	/**
@@ -59,8 +56,16 @@ public class MultipleChoice extends Question {
 	 * @return
 	 */
 	public String toString() {
-		// TODO implement here
-		return "";
+
+		String output = "\n\t" + this.title + "\n\t" + this.code + "\n";
+				
+		ArrayList<String> answers = getAnswers(); 
+		
+		for(int index=0; index<answers.size(); index++) {
+			output += "\n" + index + " - Pour --> " + answers.get(index) + "\n";
+		}
+		
+		return output ;
 	}
 
 	/**

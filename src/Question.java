@@ -13,14 +13,9 @@ public abstract class Question {
     public Question() {
      * 
      */
-    private String title;
-
-    /**
-     * 
-     */
-    private String code;
-    
-    private int id;
+    protected String title;
+    protected String code;
+    protected int id;
 
     
     /**
@@ -29,7 +24,7 @@ public abstract class Question {
     public Question() {
     }
 
-
+ 
     /**
      * Constructor
      * @param String title 
