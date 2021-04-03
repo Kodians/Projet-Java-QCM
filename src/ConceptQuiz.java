@@ -4,13 +4,16 @@ import java.util.*;
 import javax.swing.JTextArea;
 
 /**
+ * @author Mamadou Niakate
  * 
  */
 public class ConceptQuiz {
+	private static int count;
+	
     /**
      * 
      */
-    public ArrayList<Question> questions;
+    public ArrayList<Question> questions= new ArrayList<>();
 
     /**
      * 
@@ -30,11 +33,13 @@ public class ConceptQuiz {
      * Default constructor
      */
     public ConceptQuiz() {
+    	this.questions = null;
+    	this.title = "";
     }
-    
     
     public ConceptQuiz(String title) {
     	this.title = title;
+    	this.id= ++count;
     }
 
 
@@ -63,10 +68,13 @@ public class ConceptQuiz {
     }
 
     /**
-     * 
+     * Melange / désordonne les éléments d'une liste
+     * @return
      */
-    public ArrayList<Question> randomize(ArrayList<Question>titre) {    	
-    	return null;
+    public ArrayList<Question> randomize(ArrayList<Question> questions) { 
+    	Collections.shuffle(questions);
+    	
+    	return questions;
     }
 
     /**
@@ -87,12 +95,13 @@ public class ConceptQuiz {
     }
 
     /**
+     * Ajotuer une question à la liste des questions d'un ConceptQuiz
      * @param String titre 
      * @param TextArea code 
      * @return
      */
-    public void addQuestion( String titre,  JTextArea code) {
-        this.questions.add(new Question(titre,code));
+    public void addQuestion( Question q) {
+        this.questions.add(q);
     }
 
     /**
@@ -101,7 +110,7 @@ public class ConceptQuiz {
      * @param TextArea code 
      * @return
      */
-    public void editQuestion(int id,String titre,  JTextArea code) {
+    public void editQuestion(int id,String titre,  String code) {
     	this.questions.get(id).setQuestion(titre, code);
     }
 
@@ -116,6 +125,10 @@ public class ConceptQuiz {
     }
 
 
+    /**
+     * Retourne la listes des questions d'un conceptQuiz
+     * @return
+     */
 	public ArrayList<Question> getQuestions() {
 		return questions;
 	}
@@ -143,6 +156,12 @@ public class ConceptQuiz {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+
+	@Override
+	public String toString() {
+		return this.getTitle();
 	}
 
 }

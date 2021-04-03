@@ -6,36 +6,34 @@ import javax.swing.JTextArea;
 /**
  * 
  */
-public class Question {
+public abstract class Question {
+	private static int count;
 
+    /**
+    public Question() {
+     * 
+     */
+    protected String title;
+    protected String code;
+    protected int id;
+
+    
     /**
      * Default constructor
      */
     public Question() {
     }
 
-    /**
-     * 
-     */
-    private String title;
-
-    /**
-     * 
-     */
-    private JTextArea code;
-    
-    private int id;
-
-
-
+ 
     /**
      * Constructor
      * @param String title 
      * @param TextArea code
      */
-    public Question( String title,  JTextArea code) {
+    public Question( String title,  String code) {
         this.title = title;
         this.code = code;
+        this.id= ++count;
     }
 
     /**
@@ -51,20 +49,13 @@ public class Question {
      * @param code 
      * @return
      */
-    public void setQuestion( String title, JTextArea code) {
+    public void setQuestion( String title, String code) {
         this.title = title;
         this.code = code;
         
     }
 
-    /**
-     * @return
-     */
-    public String toString() {
-        // TODO implement here
-        return "";
-    }
-
+   
     /**
      * @return
      */
@@ -84,11 +75,11 @@ public class Question {
 		this.title = title;
 	}
 
-	public JTextArea getCode() {
+	public String getCode() {
 		return code;
 	}
 
-	public void setCode(JTextArea code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 
@@ -99,4 +90,14 @@ public class Question {
 	public void setId(int id) {
 		this.id = id;
 	}
+	public String toString() {
+		return this.title;
+		
+	}
+	
+	/**
+	 * Méthode abtraite permettant de retourner les réponse à une question
+	 * @return
+	 */
+	public abstract ArrayList<String> getAnswers();
 }

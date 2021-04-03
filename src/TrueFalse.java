@@ -28,9 +28,9 @@ public class TrueFalse extends Question {
     /**
      * @return
      */
-    public String getAnswers() {
+    public ArrayList<String> getAnswers() {
         // TODO implement here
-        return "";
+        return null;
     }
 
     /**

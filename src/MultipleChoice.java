@@ -8,59 +8,88 @@ import javax.swing.JTextArea;
  */
 public class MultipleChoice extends Question {
 
-    /**
-     * Default constructor
-     */
-    public MultipleChoice() {
-    }
+	private ArrayList<String> correctAnswers;
+	private ArrayList<String> incorrectAnswers;
 
-    /**
-     * 
-     */
-    private ArrayList<Character> correctAnswers;
+	/**
+	 * Default constructor
+	 */
+	public MultipleChoice() {   
+		this.correctAnswers = new ArrayList<String>();
+		this.incorrectAnswers = new ArrayList<String>();
+	}
 
-    /**
-     * 
-     */
-    private ArrayList<Character> incorrectAnswers;
+	public MultipleChoice(String titre, String code, ArrayList<String> correctAnswers,ArrayList<String> incorrectAnswers) {
+		super(titre, code);
+		this.correctAnswers = correctAnswers;
+		this.incorrectAnswers = incorrectAnswers;
+	}
 
-    /**
-     * 
-     */
-    public void SingleMC(String titre, JTextArea code,ArrayList<Character>correctAnswers,ArrayList<Character>incorrectAnswers) {
-        // TODO implement here
-    }
+	/**
+	 * 
+	 */
+	public void SingleMC(String titre, JTextArea code, ArrayList<Character> correctAnswers,
+			ArrayList<Character> incorrectAnswers) {
+		// TODO implement here
+	}
 
-    /**
-     * @return
-     */
-    public String getAnswers() {
-        // TODO implement here
-        return "";
-    }
+	/**
+	 * @return
+	 */
+	public ArrayList<String> getAnswers() {
+		ArrayList<String> answers= new ArrayList<>();
+		answers.addAll(correctAnswers);
+		answers.addAll(incorrectAnswers);
+		Collections.shuffle(answers);
+		return answers;
+	}
 
-    /**
-     * @return
-     */
-    public void setAnswers() {
-        // TODO implement here
-        
-    }
+	/**
+	 * @return
+	 */
+	public void setAnswers() {
+		// TODO implement here
 
-    /**
-     * @return
-     */
-    public String toString() {
-        // TODO implement here
-        return "";
-    }
+	}
 
-    /**
-     * @return
-     */
-    public boolean isCorrect() {
-        // TODO implement here
-        return false;
-    }
+	/**
+	 * @return
+	 */
+	public String toString() {
+
+		String output = "\n\t" + this.title + "\n\t" + this.code + "\n";
+				
+		ArrayList<String> answers = getAnswers(); 
+		
+		for(int index=0; index<answers.size(); index++) {
+			output += "\n" + index + " - Pour --> " + answers.get(index) + "\n";
+		}
+		
+		return output ;
+	}
+
+	/**
+	 * @return
+	 */
+	public boolean isCorrect() {
+		// TODO implement here
+		return false;
+	}
+
+	public ArrayList<String> getCorrectAnswers() {
+		return correctAnswers;
+	}
+
+	public void setCorrectAnswers(ArrayList<String> correctAnswers) {
+		this.correctAnswers = correctAnswers;
+	}
+
+	public ArrayList<String> getIncorrectAnswers() {
+		return incorrectAnswers;
+	}
+
+	public void setIncorrectAnswers(ArrayList<String> incorrectAnswers) {
+		this.incorrectAnswers = incorrectAnswers;
+	}
 
 }

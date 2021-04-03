@@ -7,24 +7,23 @@ import java.util.*;
 public class BaseLangage {
 
     /**
-     * Default constructor
-     */
-    public BaseLangage() {
-    }
-
-    /**
      * 
      */
     public ArrayList<Langage> langages;
 
-
+    /**
+     * Default constructor
+     */
+    public BaseLangage() {
+    	this.langages = new ArrayList<>();
+    }
 
     /**
      * @param String nom 
      * @return
      */
-    public void AddLangage( String nom) {
-        // TODO implement here
+    public void AddLangage(Langage langage) {
+        this.langages.add(langage);
     }
 
     /**
@@ -44,5 +43,13 @@ public class BaseLangage {
         // TODO implement here
         
     }
+
+	public ArrayList<Langage> getLangages() {
+		return langages;
+	}
+
+	public void setLangages(ArrayList<Langage> langages) {
+		this.langages = langages;
+	}
 
 }
