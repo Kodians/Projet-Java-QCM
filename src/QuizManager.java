@@ -11,7 +11,7 @@ public class QuizManager {
     	
     	initialize(scanner, profesor, student);
     }
-    
+    //Methode d'initialisation
     public static void initialize(Scanner scanner, Profesor profesor, Student student) {
     	System.out.println("======== Menu ========\n");
 
