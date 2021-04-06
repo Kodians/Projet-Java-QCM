@@ -50,11 +50,8 @@ public class Backup {
 		
 		while (choice == 1 || choice == 2 || choice == 3) {
 			switch (choice) {
-				// créer un langage et ses, concepts
 				case 1: createLangageAndConcepts(); break;
-				//Créer des questions par rapport à un concept d'un langage donné
 				case 2: createQuestionForLangageConcept();break;
-				// revenir au menu
 				case 3: menu(); break;
 				default: break;
 			}
@@ -62,8 +59,8 @@ public class Backup {
 			System.out.println("\n======================================\n"
 					+ "1. Ajouter un langage \n\n"
 					+ "2. Créer une question\n\n"
-					+ "3. Revenir au Menu oooooooooo\n\n"
-					+ "N'importe quel chiffre POUR QUITTER \n"
+					+ "3. Revenir au Menu\n\n"
+					+ "N'importe quel autre chiffre POUR QUITTER \n"
 					+ "======================================\n\n"
 					+ "Faire une action : ");
 			choice = scanner.nextInt();
@@ -72,9 +69,7 @@ public class Backup {
 		System.out.println("\n\n************OPÉRATION TERMINÉ*************\n\n");
 	}
     
-	/**
-	 * Permettre à un étudiant de répondre à des QCM
-	 */
+	// Permettre à un étudiant de répondre à des QCM
 	public static void studentActions() {
 		System.out.println("\n***************************** BON QUIZ *****************************\n");
 		
@@ -115,35 +110,64 @@ public class Backup {
 				}
 				
 				if(!(chosenQuiz.getQuestions().size() < 1)) {
+					
+					ArrayList<String> userMultipleAnswers = new ArrayList<>();
+					ArrayList<String> userTrueFalseAnswers= new ArrayList<>();
+					ArrayList<String> userNumericAnswers  = new ArrayList<>(); 
+					
 					for (Question question : chosenQuiz.getQuestions()) {
 						if(question != null) {
 							System.out.println(question);
+							String answer = "";						
+							switch (question.getClass().getName()) {
+								case "MultipleChoice":
+									System.out.print("Saisir le N° d'une réponse ou cliquez sur 'Entrez' pour continuer : ");
+									answer = scanner.nextLine();
+									while (!answer.equals("")) {
+										int index = Integer.parseInt(answer);
+										if(userMultipleAnswers.get(index) != null) {
+											userMultipleAnswers.add(question.getAnswers().get(Integer.parseInt(answer)));
+										} else {
+											System.out.println("\n**ATTENTION!!! Vous avez déjà choisi cette réponse**\n");
+										}
+										System.out.print("Saisir le N° d'une réponse ou cliquez sur 'Entrez' pour continuer : ");
+										answer = scanner.nextLine();
+									}
+									break;
+								case "TrueFalse":
+									System.out.print("Saisir OUI ou NON: ");
+									answer = scanner.nextLine();
+									while(!(answer.equals("oui") || answer.equals("non"))) {
+										System.out.print("\nDésolé vous devez répondre par OUI ou NON pour continuer\n");
+										System.out.print("Saisir OUI ou NON: ");
+										answer = scanner.nextLine();
+									}
+									userNumericAnswers.add(answer);
+									break;
+								case "Numeric": 
+									System.out.print("Saisir votre réponse : ");
+									answer = scanner.nextLine();
+									while(answer.equals("")) {
+										System.out.print("\nDésolé vous ne pouvez pas laisser la question sans réponse\n");
+										System.out.print("Saisir votre réponse: ");
+										answer = scanner.nextLine();
+									}
+									userTrueFalseAnswers.add(answer);
+									break;
+								default: break;
+							}
 						}
-						/*System.out.println("\n\t" + question.getTitle() + "\n");
-						System.out.println("\t" + question.getCode() + "\n");
-												
-						switch (question.getClass().getName()) {
-							case "MultipleChoice": 
-								System.out.println(question.getClass().getName());
-								for (String answer : question.getAnswers()) {
-									System.out.println(answer); 
-								}
-								break;
-							case "TrueFalse": break;
-							case "Numeric": break;
-							default: break;
-						}*/
 					}
 				} else {
-					System.out.println("\n\nDésolé aucune question n'existe pour " + chosenQuiz + ", veillez ressayer ultérieurement\n\n");	
+					System.out.println("\n\nDésolé aucune question n'existe pour "+chosenQuiz+", veillez ressayer ultérieurement\n\n");	
 				}
 				
 			} else {
-				System.out.println("\n\nDésolé aucun concept n'existe pour " + chosenLangage + ", veillez ressayer ultérieurement\n\n");	
+				System.out.println("\n\nDésolé aucun concept n'existe pour "+chosenLangage+", veillez ressayer ultérieurement\n\n");	
 			}
 			
 		} else {
-			System.out.println("\n\nDésolé aucun langage n'existe pour l'instant, veillez ressayer ultérieurement\n\n");	
+			System.out.println("\n\nDésolé aucun langage n'existe, veillez ressayer ultérieurement\n\n");	
 		}
 	};
 	
@@ -153,7 +177,6 @@ public class Backup {
     public static void main(String[] argStrings) {
     	menu();
     }
-    
     
     public static void createLangageAndConcepts() {
     	System.out.print("Entrez le nom d'un langage : ");
@@ -166,14 +189,9 @@ public class Backup {
 			langage = new Langage(newLangage);
 			baseLangage.AddLangage(langage);
 			
-			/** vérifier que notre langage à bien 
-			 * été ajouté à notre collection de langage*/
+			/** vérifier que notre langage à bien été ajouté à notre collection de langage*/
 			if(baseLangage.getLangages().get(langage.getId()) != null) {
-				System.out.println(""
-						+ "Entrer un concept du langage "
-						+ langage.getName() + " "
-						+ "ou clique sur 'Entrez' pour finir "
-						);
+				System.out.println("Entrer un concept de " + langage.getName() + "ou clique sur 'Entrez' pour finir");
 				
 				langageConcept = scanner.nextLine();
 				
@@ -181,16 +199,14 @@ public class Backup {
 					ConceptQuiz newConceptQuiz = new ConceptQuiz(langageConcept);
 					langage.addConceptQuiz(newConceptQuiz);
 					
-					System.out.println(""
-							+ "Entrer un concept du langage "
-							+ langage.getName() + " "
-							+ "ou cliquz sur 'Entrer' pour finir ");
+					System.out.println("Entrer un concept de " + langage.getName() + "ou cliquz sur 'Entrer' pour finir");
 					
 					langageConcept = scanner.nextLine();
 				}
 			}
 		}
     }
+    
     public static void createQuestionForLangageConcept() {
 		/***************** SELECTION DU LANGAGE POUR LE QCM  *****************/
 		System.out.println("Choisissez un langage pour lequel vous souhaitez créer un QCM");
@@ -207,10 +223,7 @@ public class Backup {
 		Langage chosenLangage = baseLangage.getLangages().get(langID);
 		
 		/***************** SELECTION DU CONCEPTION DU LANGAGE CHOISI *****************/
-		System.out.println(
-				"Choisissez le concept du langage "
-				+ chosenLangage.getName()
-				+ " pour lequel vous souhaitez créer un QCM");
+		System.out.println("Choisissez le concept du langage "+chosenLangage.getName()+" pour lequel vous souhaitez créer un QCM");
 		
 		for(ConceptQuiz cq : chosenLangage.getConceptQuiz()) {
 			if(cq != null) {
@@ -221,7 +234,6 @@ public class Backup {
 		System.out.print("Entrez votre choix de Concept : ");
 		langConceptID = scanner.nextInt();
 		
-		Iterator <ConceptQuiz> iterator = chosenLangage.getConceptQuiz().iterator();
 		ConceptQuiz chosenConceptQuiz = null;
 							
 		for(ConceptQuiz conceptQuiz : chosenLangage.getConceptQuiz()) {
@@ -230,21 +242,23 @@ public class Backup {
 			}
 		}
 		
-		
 		/*** CREER UNE QUESTION */
 		System.out.println("\n======================================\n"
 				+ "1. Créer une question à réponse multiple \n\n"
 				+ "2. Créer une question à réponse VRAI/FAUX \n\n"
-				+ "N'importe quel chiffre POUR QUITTER \n"
+				+ "3. Créer une question à réponse Numérique \n\n"
+				+ "N'importe quel autre chiffre POUR QUITTER \n"
 				+ "======================================\n\n"
 				+ "Faire une action : ");
 		
 		questionType = scanner.nextInt();
 		
-		while (questionType == 1 || questionType == 2) {
+		while (questionType == 1 || questionType == 2 || questionType == 3) {
 			switch (questionType) {
 				case 1:
 					/***************** SAISIE DES QUESTIONS À RÉPONSES MULTIPLE*****************/
+					System.out.println("\n\t********************* RÉPONSES MULTIPLE***************\n");
+
 					scanner.nextLine();
 					System.out.println("Entrez la question : ");
 					String questionTitle = scanner.nextLine();
@@ -258,7 +272,7 @@ public class Backup {
 					mChoice.setCode(questionCode);
 					
 					/***************** ENTRÉE DES BONNES RÉPONSES *****************/
-					System.out.println("\n\n\t***************** BONNES RÉPONSES *****************\n\n");
+					System.out.println("\n\n\t***************** SAISIES DES BONNES RÉPONSES *****************\n\n");
 					System.out.println("Entrez les bonnes réponses et cliquez sur \'Entrez\' pour finir : ");
 					ArrayList<String> questionCorrectAnswers = new ArrayList<>();
 					String correctAnswer = "";
@@ -273,7 +287,7 @@ public class Backup {
 					mChoice.setCorrectAnswers(questionCorrectAnswers);
 					
 					/***************** ENTRÉE DES MAUVAISES RÉPONSES *****************/
-					System.out.println("\n\n\t***************** MAUVAISES RÉPONSES *****************\n\n");
+					System.out.println("\n\n\t***************** SAISIES DES MAUVAISES RÉPONSES *****************\n\n");
 					System.out.println("Entrez les mauvaises réponses et cliquez sur \'Entrez\' pour finir : ");
 					ArrayList<String> questionInCorrectAnswers = new ArrayList<>();
 					String inCorrectAnswer = "";
@@ -292,6 +306,7 @@ public class Backup {
 					
 					break;
 				case 2:
+					System.out.println("\n\t********************* RÉPONSES VRAI/FAUX***************\n");
 					scanner.nextLine();
 					System.out.println("Entrez la question : ");
 					String qTitle = scanner.nextLine();
@@ -300,6 +315,46 @@ public class Backup {
 					String qCode = scanner.nextLine();
 					
 					TrueFalse trueFalse = new TrueFalse();
+					
+					trueFalse.setTitle(qTitle);
+					trueFalse.setCode(qCode);
+					
+					System.out.println("Saisissez la bonne réponse (OUI|NON) : ");
+					String goodAnswer = scanner.nextLine();
+					
+					while (!(goodAnswer.equals("oui") || goodAnswer.equals("non"))) {
+						System.out.println("Désolé la réponse doit être OUI ou NON : ");
+						goodAnswer = scanner.nextLine();
+					}
+										
+					trueFalse.setAnswer(goodAnswer);
+					
+					chosenConceptQuiz.addQuestion(trueFalse);
+					
+					break;
+				case 3:
+					scanner.nextLine();
+					System.out.println("Entrez la question : ");
+					String numQTitle = scanner.nextLine();
+					
+					System.out.println("Entrez le code : ");
+					String numQCode = scanner.nextLine();
+					
+					Numeric numeric = new Numeric();
+					numeric.setTitle(numQTitle);
+					numeric.setCode(numQCode);
+					
+					System.out.println("Saisissez la bonne réponse : ");
+					String goodAnswer1 = scanner.nextLine();
+					
+					while (goodAnswer1.equals("")) {
+						System.out.println("Désolé vous devez donner la bonne réponse : ");
+						goodAnswer1 = scanner.nextLine();
+					}
+										
+					numeric.setAnswer(goodAnswer1);
+					
+					chosenConceptQuiz.addQuestion(numeric);
 					break;
 				default: break;
 			}
@@ -307,7 +362,8 @@ public class Backup {
 			System.out.println("\n======================================\n"
 					+ "1. Créer une question à réponse multiple \n\n"
 					+ "2. Créer une question à réponse VRAI/FAUX \n\n"
-					+ "N'importe quel autre chiffre POUR QUITTER \\n"
+					+ "3. Créer une question à réponse Numérique \n\n"
+					+ "N'importe quel autre chiffre POUR QUITTER \n"
 					+ "======================================\n\n"
 					+ "Faire une action : ");
 			

@@ -6,23 +6,22 @@ import java.util.*;
  */
 public class Numeric extends Question {
 
+	private String answer;
     /**
      * Default constructor
      */
     public Numeric() {
+    	this.setAnswer("");
     }
 
-    /**
-     * 
-     */
-    private int answer;
 
     /**
      * @param String titre 
      * @param int answer
      */
-    public void Numeric(String titre,  int answer) {
-        // TODO implement here
+    public Numeric(String title, String code,String answer) {
+        super(title,code);
+        this.answer = answer;
     }
 
     /**
@@ -36,17 +35,10 @@ public class Numeric extends Question {
     /**
      * @return
      */
-    public void setAnswers() {
-        // TODO implement here
-        
-    }
-
-    /**
-     * @return
-     */
     public String toString() {
-        // TODO implement here
-        return "";
+    	String output = "\n\t" + this.title + "\n\t" + this.code + "\n";
+
+		return output ;
     }
 
     /**
@@ -56,5 +48,21 @@ public class Numeric extends Question {
         // TODO implement here
         return false;
     }
+
+
+	/**
+	 * @return the answer
+	 */
+	public String getAnswer() {
+		return answer;
+	}
+
+
+	/**
+	 * @param answer the answer to set
+	 */
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
 
 }

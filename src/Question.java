@@ -1,8 +1,6 @@
 
 import java.util.*;
 
-import javax.swing.JTextArea;
-
 /**
  * 
  */
@@ -38,11 +36,10 @@ public abstract class Question {
 
     /**
      * @return
-     */
     public String[] getQuestion() {
         // TODO implement here
         return null;
-    }
+    }*/
 
     /**
      * @param titre 
@@ -52,20 +49,16 @@ public abstract class Question {
     public void setQuestion( String title, String code) {
         this.title = title;
         this.code = code;
-        
     }
 
    
     /**
      * @return
      */
-    public boolean isCorrect() {
-        // TODO implement here
-        return false;
-    }
+    public abstract boolean isCorrect();
 
     
-    /******************** SETTERS & GETTERS *****/
+    /******************** SETTERS & GETTERS *******************/
 
 	public String getTitle() {
 		return title;

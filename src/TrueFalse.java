@@ -5,24 +5,22 @@ import java.util.*;
  * 
  */
 public class TrueFalse extends Question {
-
-    /**
-     * Default constructor
-     */
-    public TrueFalse() {
-    }
-
-    /**
+	
+	/**
      * 
      */
     private String answer;
 
     /**
-     * @param String titre 
-     * @param int answer
+     * Constructor par défault
      */
-    public void Numeric( String titre,  int answer) {
-        // TODO implement here
+    public TrueFalse() {
+    	this.setAnswer("");
+    }
+    
+    public TrueFalse(String title, String code, String answer) {
+    	super(title,code);
+    	this.answer = answer;
     }
 
     /**
@@ -34,18 +32,13 @@ public class TrueFalse extends Question {
     }
 
     /**
-     * @return
-     */
-    public void setAnswers() {
-        // TODO implement here
-    }
-
-    /**
+     * tranforme la classe en chaine de caractère
      * @return
      */
     public String toString() {
-        // TODO implement here
-        return "";
+    	String output = "\n\t" + this.title + "\n\t" + this.code + "\n"
+    			+ "\n - Oui \n - NON";		
+		return output ;
     }
 
     /**
@@ -55,5 +48,19 @@ public class TrueFalse extends Question {
         // TODO implement here
         return false;
     }
+
+	/**
+	 * @return the answer
+	 */
+	public String getAnswer() {
+		return answer;
+	}
+
+	/**
+	 * @param answer the answer to set
+	 */
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
 
 }
