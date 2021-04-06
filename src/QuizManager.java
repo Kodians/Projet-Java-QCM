@@ -8,7 +8,7 @@ public class QuizManager {
     	BaseLangage baseLangage = new BaseLangage();
     	Profesor profesor = new Profesor(baseLangage);
     	Student student = new Student(baseLangage);
-    	
+    	//appel de la méthode initialize
     	initialize(scanner, profesor, student);
     }
     //Methode d'initialisation
