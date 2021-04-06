@@ -1,8 +1,6 @@
 
 import java.util.*;
 
-import javax.swing.JTextArea;
-
 /**
  * 
  */
@@ -26,14 +24,6 @@ public class MultipleChoice extends Question {
 	}
 
 	/**
-	 * 
-	 */
-	public void SingleMC(String titre, JTextArea code, ArrayList<Character> correctAnswers,
-			ArrayList<Character> incorrectAnswers) {
-		// TODO implement here
-	}
-
-	/**
 	 * @return
 	 */
 	public ArrayList<String> getAnswers() {
@@ -42,14 +32,6 @@ public class MultipleChoice extends Question {
 		answers.addAll(incorrectAnswers);
 		Collections.shuffle(answers);
 		return answers;
-	}
-
-	/**
-	 * @return
-	 */
-	public void setAnswers() {
-		// TODO implement here
-
 	}
 
 	/**
