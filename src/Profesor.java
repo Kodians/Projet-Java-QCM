@@ -35,13 +35,17 @@ public class Profesor extends User {
      * Choisir un langage à modifier
      * @return void
      */
-    public void chooseLangageToEdit() {
+    public Langage chooseLangageToEdit() {
     	 ArrayList<Langage> langages = baseLangage.getLangages(); 
     	 for (Langage langage : langages) {
 			if (langage != null) {
 				System.out.println(langages.indexOf(langage) + ". Pour ---> " + langage);
 			}
-		}
+		 }
+    	 System.out.print("Entrez le numero du langage à modifié : ");
+    	 int choice = scanner.nextInt();
+    	 Langage langage = baseLangage.getLangages().get(choice);
+    	 return langage;
     }
     
     
@@ -65,7 +69,10 @@ public class Profesor extends User {
 			switch (choice) {
 				case 1: createLangageAndConcepts(); break;
 				case 2: createQuestionForLangageConcept();break;
-				case 0: editLangage(langage);break;
+				case 0: 
+					Langage langageToEdit= chooseLangageToEdit();
+					editLangage(langageToEdit);break;
+				
 				case 3: menu.setMenu(); break;
 				default: break;
 			}
@@ -89,7 +96,7 @@ public class Profesor extends User {
 	 * Permet d'éditer un langage en changeant son nom ou en y ajoutant des concepts après sa création
 	 * @param langage
 	 */
-	private void editLangage(Langage langage) {		
+	private void editLangage(Langage langage) {	
 		System.out.println("\n=============="+ langage +"========================\n"
 				+ "1. Modifier le nom du langage \n\n"
 				+ "2. Ajouter des concepts \n\n"
@@ -102,7 +109,6 @@ public class Profesor extends User {
 		int choice = scanner.nextInt();
 		
 		while (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
-			System.out.println("Choix " + choice);
 			switch (choice) {
 				case 1: 
 					scanner.nextLine();
@@ -110,7 +116,8 @@ public class Profesor extends User {
 					String name = scanner.nextLine();
 					langage.setName(name);
 					break;
-				case 2: addConcept(langage); System.out.println("Add concept");break;
+				case 2: scanner.nextLine();
+					addConcept(langage);break;
 				case 3: baseLangage.deletLangage(langage);break;
 				case 4: menu.setMenu(); break;
 				default: break;
@@ -146,7 +153,7 @@ public class Profesor extends User {
 			/** vérifier que notre langage à bien été ajouté à notre collection de langage*/
 			if(baseLangage.getLangages().get(langage.getId()) != null) {
 				addConcept(langage);
-				System.out.println("Entrer un concept de " + langage.getName() + "ou clique sur 'Entrez' pour finir");
+				System.out.println("Entrer un concept de " + langage.getName() + " ou clique sur 'Entrez' pour finir");
 				
 				String langageConcept = scanner.nextLine();
 				
@@ -154,9 +161,10 @@ public class Profesor extends User {
 					ConceptQuiz newConceptQuiz = new ConceptQuiz(langageConcept);
 					langage.addConceptQuiz(newConceptQuiz);
 					
-					System.out.println("Entrer un concept de " + langage.getName() + "ou cliquz sur 'Entrer' pour finir");
+					System.out.println("Entrer un concept de " + langage.getName() +  " ou cliquez sur 'Entrer' pour finir");
 					
 					langageConcept = scanner.nextLine();
+					
 				}
 			}
 		}
@@ -168,7 +176,7 @@ public class Profesor extends User {
      * @return void
      */
     private void addConcept(Langage langage) {
-		scanner.nextLine();
+		//scanner.nextLine();
     	System.out.println("Entrer un concept de " + langage.getName() + "ou clique sur 'Entrez' pour finir");
 		String langageConcept = scanner.nextLine();
 		
