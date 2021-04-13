@@ -32,9 +32,10 @@ public class Profesor extends User {
     
     /**
      * Affiche la liste des langages créés par le Professeur
+     * Choisir un langage à modifier
      * @return void
      */
-    public void displayLangageList() {
+    public void chooseLangageToEdit() {
     	 ArrayList<Langage> langages = baseLangage.getLangages(); 
     	 for (Langage langage : langages) {
 			if (langage != null) {
@@ -88,7 +89,7 @@ public class Profesor extends User {
 	 * Permet d'éditer un langage en changeant son nom ou en y ajoutant des concepts après sa création
 	 * @param langage
 	 */
-	private void editLangage(Langage langage) {
+	private void editLangage(Langage langage) {		
 		System.out.println("\n=============="+ langage +"========================\n"
 				+ "1. Modifier le nom du langage \n\n"
 				+ "2. Ajouter des concepts \n\n"
