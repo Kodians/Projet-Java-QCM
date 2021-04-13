@@ -99,6 +99,7 @@ public class Student extends User {
 									}
 									break;
 								case "TrueFalse":
+									scanner.nextLine();
 									System.out.print("Saisir OUI ou NON: ");
 									answer = scanner.nextLine();
 									while(!(answer.equals("oui") || answer.equals("non"))) {

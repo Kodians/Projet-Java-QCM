@@ -39,9 +39,8 @@ public class BaseLangage {
      * @param String nom 
      * @return
      */
-    public void deletLangage(String nom) {
-        // TODO implement here
-        
+    public void deletLangage(Langage langage) {
+        this.langages.remove(langage);       
     }
 
 	public ArrayList<Langage> getLangages() {
