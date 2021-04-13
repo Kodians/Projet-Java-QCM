@@ -1,33 +1,18 @@
+import java.util.Scanner;
 
 /**
  * 
  */
 public class User {
-	
-    /**
-     * 
-     */
     private String firstName;
-
-    /**
-     * 
-     */
     public String lastName;
-
-    /**
-     * 
-     */
     public String userName;
-
-    /**
-     * 
-     */
     public char password;
-
-    /**
-     * 
-     */
     public String role;
+    
+	//protected BaseLangage baseLangage = null;
+	//protected Scanner scanner = new Scanner(System.in);
+
     
     /**
      * Default constructor

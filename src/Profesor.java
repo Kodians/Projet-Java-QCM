@@ -7,7 +7,7 @@ import java.util.*;
 public class Profesor extends User {
 	private BaseLangage baseLangage = null;
 	private Scanner scanner = new Scanner(System.in);
-	private Langage langage = null;
+	//private Langage langage = null;
 	private Menu menu = new Menu();
 
     /**
@@ -35,14 +35,14 @@ public class Profesor extends User {
      * Choisir un langage à modifier
      * @return void
      */
-    public Langage chooseLangageToEdit() {
+    public Langage chooseLangageFromLangageCollection() {
     	 ArrayList<Langage> langages = baseLangage.getLangages(); 
     	 for (Langage langage : langages) {
 			if (langage != null) {
 				System.out.println(langages.indexOf(langage) + ". Pour ---> " + langage);
 			}
 		 }
-    	 System.out.print("Entrez le numero du langage à modifié : ");
+    	 System.out.print("Entrez le numero du langage de votre choix : ");
     	 int choice = scanner.nextInt();
     	 Langage langage = baseLangage.getLangages().get(choice);
     	 return langage;
@@ -70,9 +70,9 @@ public class Profesor extends User {
 				case 1: createLangageAndConcepts(); break;
 				case 2: createQuestionForLangageConcept();break;
 				case 0: 
-					Langage langageToEdit= chooseLangageToEdit();
-					editLangage(langageToEdit);break;
-				
+					Langage langageToEdit= chooseLangageFromLangageCollection();
+					editLangage(langageToEdit);
+					break;
 				case 3: menu.setMenu(); break;
 				default: break;
 			}
@@ -147,7 +147,7 @@ public class Profesor extends User {
 		String newLangage = scanner.nextLine();
 				
 		if(!newLangage.equals("")) {
-			langage = new Langage(newLangage);
+			Langage langage = new Langage(newLangage);
 			baseLangage.AddLangage(langage);
 			
 			/** vérifier que notre langage à bien été ajouté à notre collection de langage*/
@@ -164,7 +164,6 @@ public class Profesor extends User {
 					System.out.println("Entrer un concept de " + langage.getName() +  " ou cliquez sur 'Entrer' pour finir");
 					
 					langageConcept = scanner.nextLine();
-					
 				}
 			}
 		}
@@ -176,7 +175,6 @@ public class Profesor extends User {
      * @return void
      */
     private void addConcept(Langage langage) {
-		//scanner.nextLine();
     	System.out.println("Entrer un concept de " + langage.getName() + "ou clique sur 'Entrez' pour finir");
 		String langageConcept = scanner.nextLine();
 		
@@ -198,16 +196,7 @@ public class Profesor extends User {
 		/***************** SELECTION DU LANGAGE POUR LE QCM  *****************/
 		System.out.println("Choisissez un langage pour lequel vous souhaitez créer un QCM");
 		
-		for(Langage l : baseLangage.getLangages()) {
-			if(l != null) {
-				System.out.println(l.getId() + " --> Pour " + l.getName().toUpperCase());
-			}
-		}	
-		
-		System.out.print("Entrez votre choix de Langage : ");
-		int langID = scanner.nextInt();
-		
-		Langage chosenLangage = baseLangage.getLangages().get(langID);
+		Langage chosenLangage = chooseLangageFromLangageCollection();
 		
 		/***************** SELECTION DU CONCEPTION DU LANGAGE CHOISI *****************/
 		System.out.println("Choisissez le concept du langage "+chosenLangage.getName()+" pour lequel vous souhaitez créer un QCM");
