@@ -91,15 +91,14 @@ public class Profesor extends User {
 				+ "2. Supprimer le langage \n\n"
 				+ "3. Ajouter des concepts \n\n"
 				+ "4. Modifier un concept \n\n"
-				+ "5. Supprimer un concept \n\n"
-				+ "6. RETOURNER AU MENU \n\n"
+				+ "5. RETOURNER AU MENU \n\n"
 				+ "N'importe quel chiffre POUR QUITTER \n"
 				+ "======================================\n\n"
 				+ "Faire une action : ");
 		
 		int choice = scanner.nextInt();
 		
-		while (choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6) {
+		while (choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 ) {
 			switch (choice) {
 				case 1 : 
 					scanner.nextLine();
@@ -110,8 +109,7 @@ public class Profesor extends User {
 				case 2 : baseLangage.deletLangage(langage); break;
 				case 3 : scanner.nextLine(); addConcept(langage);break;
 				case 4 : editConcept(langage); break;
-				case 5 : deleteConceptFromLangage(langage);break;
-				case 6 : menu.setMenu(); break;
+				case 5 : menu.setMenu(); break;
 				default: break;
 			}
 			
@@ -120,8 +118,7 @@ public class Profesor extends User {
 					+ "2. Ajouter des concepts \n\n"
 					+ "3. Modifier un concept \n\n"
 					+ "4. Supprimer un concept \n\n"
-					+ "5. Supprimer le langage \n\n"
-					+ "6. RETOURNER AU MENU \n\n"
+					+ "5. RETOURNER AU MENU \n\n"
 					+ "N'importe quel chiffre POUR QUITTER \n"
 					+ "======================================\n\n"
 					+ "Faire une action : ");
@@ -131,9 +128,9 @@ public class Profesor extends User {
 		System.out.println("\n\n************OPÉRATION TERMINÉ*************\n\n");
 	}
     
-    private void deleteConceptFromLangage(Langage langage) {
+    private void deleteConceptFromLangage(Langage langage, ConceptQuiz conceptQuiz) {
 		// TODO Auto-generated method stub
-		
+    	langage.removeConceptQuiz(conceptQuiz);
 	}
 
 	private void editConcept(Langage langage) {

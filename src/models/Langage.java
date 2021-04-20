@@ -60,14 +60,8 @@ public class Langage {
      * @param String title 
      * @return
      */
-    public void removeConceptQuiz( int id) {
-    	Iterator iterator = this.conceptQuiz.iterator();
-    	while(iterator.hasNext()) {
-    		
-    		if(((ConceptQuiz)iterator.next()).getId() == id) {
-    			 this.conceptQuiz.remove(iterator.next());
-    		}
-    	}
+    public void removeConceptQuiz( ConceptQuiz conceptQuiz) {
+    	this.conceptQuiz.remove(conceptQuiz);
     }
 
 	public String getName() {
