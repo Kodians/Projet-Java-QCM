@@ -1,12 +1,17 @@
+package controllers;
 
 import java.util.*;
+
+import models.BaseLangage;
+import models.ConceptQuiz;
+import models.Langage;
+import models.Question;
 
 /**
  * 
  */
 public class Student extends User {
 	private Scanner scanner = new Scanner(System.in);
-	private BaseLangage baseLangage = null;
     private double score;
 	
     /**
@@ -16,12 +21,16 @@ public class Student extends User {
     	this.baseLangage = new BaseLangage();
     }
     
+    public Student(String firstName, String lastName, String userName,  char password, String role) {
+    	super(firstName,lastName,userName,password,role);
+    }
+    
     /**
      * Constructeur avec paramètre
      * @param baseLangage
      */
     public Student(BaseLangage baseLangage) {
-    	this.baseLangage = baseLangage;
+    	super(baseLangage);
     }
 
     /**
@@ -42,36 +51,16 @@ public class Student extends User {
 		
 		if(!(langages.size() < 1)) {
 			System.out.println("\nChoissez le langage pour lequel vous souhaitez faire le QCM \n");
-			for(Langage l : langages) {
-				if(l != null) {
-					System.out.println(l.getId() + " -- Pour --> " + l.getName());
-				}
-			}
 			
-			System.out.print("Saisissez le nom du Langage de votre choix : ");
-			int langID = scanner.nextInt();
-			
-			Langage chosenLangage = langages.get(langID);
+			Langage chosenLangage = this.chooseLangageFromLangageCollection();
 			
 			// afficher la liste des concepts d'un langage choisi
 			if(!(chosenLangage.getConceptQuiz().size() < 1)) {
+				
 				System.out.println("--------------- " + chosenLangage + "---------------------");
-				for (ConceptQuiz c : chosenLangage.getConceptQuiz()) {
-					if(c != null) {
-						System.out.println(c.getId() + " -- Pour --> " + c.getTitle());
-					}
-				}
 				
-				System.out.print("Saisissez le nom du concept de votre choix : ");
-				int langConceptID = scanner.nextInt();
-				
-				ConceptQuiz chosenQuiz = null;
-								
-				for(ConceptQuiz conceptQuiz : chosenLangage.getConceptQuiz()) {
-					if(conceptQuiz.getId() == langConceptID) {
-						chosenQuiz = conceptQuiz;
-					}
-				}
+				ConceptQuiz chosenQuiz = this.chooseConceptQuizFromConceptQuizCollections(chosenLangage);
+
 				
 				if(!(chosenQuiz.getQuestions().size() < 1)) {
 					

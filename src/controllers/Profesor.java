@@ -1,63 +1,74 @@
+package controllers;
+
 import java.util.*;
 
-public class Backup {
-	static Scanner scanner = new Scanner(System.in);
-	static BaseLangage baseLangage = new BaseLangage();
-	static int choice;
-	static String newLangage = "";
-	static String langageConcept = "";
-	static int langID;
-	static int langConceptID;
-	static int questionType;
-	
-	/**
-	 * Retourne le type d'utilisateur
-	 * @return
-	 */
-	public static void menu() {				
-		System.out.println("======== Menu ========\n");
+import models.BaseLangage;
+import models.ConceptQuiz;
+import models.Langage;
+import models.MultipleChoice;
+import models.Numeric;
+import models.TrueFalse;
+import views.Menu;
 
-		System.out.println("1. Vous êtes Professeur");
-		System.out.println("2. Vous êtes Étudiant");
-		
-		System.out.print("Choisissez votre type : ");
-		
-		int userType = scanner.nextInt();
-				
-		while (userType == 1 || userType == 2 ) {
-			switch (userType) {
-				case 1: adminActions(); break;
-				case 2: studentActions(); break;
-				default: break;
-			}
-			userType = scanner.nextInt();
-		}
-	}
-	
-	/**
-	 * Permet à un admin (professeur) de créer un QCM
-	 */
-	public static void adminActions() {		
+/**
+ * 
+ */
+public class Profesor extends User {
+	private Scanner scanner = new Scanner(System.in);
+	private Menu menu = new Menu();
+
+    /**
+     * Constructor Par défaut de la classe Profesor
+     */
+    public Profesor() {
+    	this.baseLangage = new BaseLangage();
+    }
+    
+    /**
+     * Constructeur avec paramètre de la classe Profesor
+     * @param baseLangage
+     */
+    public Profesor(BaseLangage baseLangage) {
+    	super(baseLangage);
+    }
+    
+    public Profesor(String firstName, String lastName, String userName,  char password, String role, BaseLangage baseLangage) {
+    	super(firstName,lastName,userName,password,role);
+    	this.baseLangage = baseLangage;
+    }
+    
+    
+    /**
+     * Permet au Professeur de créer des langages et leurs concepts
+     * @return void
+     */
+	public void adminActions() {		
 		System.out.println("\n======================================\n"
 				+ "1. Ajouter un langage \n\n"
+				+ "0. Modifier un langage \n\n"
 				+ "2. Créer une question\n\n"
 				+ "3. Revenir au Menu \n\n"
 				+ "N'importe quel chiffre POUR QUITTER \n"
 				+ "======================================\n\n"
 				+ "Faire une action : ");
 		
-		choice = scanner.nextInt();
+		int choice = scanner.nextInt();
 		
-		while (choice == 1 || choice == 2 || choice == 3) {
+		while (choice == 1 || choice == 2 || choice == 3 || choice == 0) {
 			switch (choice) {
 				case 1: createLangageAndConcepts(); break;
 				case 2: createQuestionForLangageConcept();break;
-				case 3: menu(); break;
+				case 0: 
+					Langage langageToEdit= this.chooseLangageFromLangageCollection();
+					editLangage(langageToEdit);
+					break;
+				case 3: menu.setMenu(); break;
 				default: break;
 			}
 			
 			System.out.println("\n======================================\n"
 					+ "1. Ajouter un langage \n\n"
+					+ "0. Modifier un langage \n\n"
 					+ "2. Créer une question\n\n"
 					+ "3. Revenir au Menu\n\n"
 					+ "N'importe quel autre chiffre POUR QUITTER \n"
@@ -68,138 +79,93 @@ public class Backup {
 		
 		System.out.println("\n\n************OPÉRATION TERMINÉ*************\n\n");
 	}
-    
-	// Permettre à un étudiant de répondre à des QCM
-	public static void studentActions() {
-		System.out.println("\n***************************** BON QUIZ *****************************\n");
-		
-		// affichage de la liste des langage
-		ArrayList<Langage> langages = baseLangage.getLangages();
-		
-		if(!(langages.size() < 1)) {
-			System.out.println("\nChoissez le langage pour lequel vous souhaitez faire le QCM \n");
-			for(Langage l : langages) {
-				if(l != null) {
-					System.out.println(l.getId() + " -- Pour --> " + l.getName());
-				}
-			}
-			
-			System.out.print("Saisissez le nom du Langage de votre choix : ");
-			langID = scanner.nextInt();
-			
-			Langage chosenLangage = langages.get(langID);
-			
-			// afficher la liste des concepts d'un langage choisi
-			if(!(chosenLangage.getConceptQuiz().size() < 1)) {
-				System.out.println("--------------- " + chosenLangage + "---------------------");
-				for (ConceptQuiz c : chosenLangage.getConceptQuiz()) {
-					if(c != null) {
-						System.out.println(c.getId() + " -- Pour --> " + c.getTitle());
-					}
-				}
-				
-				System.out.print("Saisissez le nom du concept de votre choix : ");
-				langConceptID = scanner.nextInt();
-				
-				ConceptQuiz chosenQuiz = null;
-								
-				for(ConceptQuiz conceptQuiz : chosenLangage.getConceptQuiz()) {
-					if(conceptQuiz.getId() == langConceptID) {
-						chosenQuiz = conceptQuiz;
-					}
-				}
-				
-				if(!(chosenQuiz.getQuestions().size() < 1)) {
-					
-					ArrayList<String> userMultipleAnswers = new ArrayList<>();
-					ArrayList<String> userTrueFalseAnswers= new ArrayList<>();
-					ArrayList<String> userNumericAnswers  = new ArrayList<>(); 
-					
-					for (Question question : chosenQuiz.getQuestions()) {
-						if(question != null) {
-							System.out.println(question);
-							String answer = "";						
-							switch (question.getClass().getName()) {
-								case "MultipleChoice":
-									System.out.print("Saisir le N° d'une réponse ou cliquez sur 'Entrez' pour continuer : ");
-									answer = scanner.nextLine();
-									while (!answer.equals("")) {
-										int index = Integer.parseInt(answer);
-										if(userMultipleAnswers.get(index) != null) {
-											userMultipleAnswers.add(question.getAnswers().get(Integer.parseInt(answer)));
-										} else {
-											System.out.println("\n**ATTENTION!!! Vous avez déjà choisi cette réponse**\n");
-										}
-										System.out.print("Saisir le N° d'une réponse ou cliquez sur 'Entrez' pour continuer : ");
-										answer = scanner.nextLine();
-									}
-									break;
-								case "TrueFalse":
-									System.out.print("Saisir OUI ou NON: ");
-									answer = scanner.nextLine();
-									while(!(answer.equals("oui") || answer.equals("non"))) {
-										System.out.print("\nDésolé vous devez répondre par OUI ou NON pour continuer\n");
-										System.out.print("Saisir OUI ou NON: ");
-										answer = scanner.nextLine();
-									}
-									userNumericAnswers.add(answer);
-									break;
-								case "Numeric": 
-									System.out.print("Saisir votre réponse : ");
-									answer = scanner.nextLine();
-									while(answer.equals("")) {
-										System.out.print("\nDésolé vous ne pouvez pas laisser la question sans réponse\n");
-										System.out.print("Saisir votre réponse: ");
-										answer = scanner.nextLine();
-									}
-									userTrueFalseAnswers.add(answer);
-									break;
-								default: break;
-							}
-						}
-					}
-				} else {
-					System.out.println("\n\nDésolé aucune question n'existe pour "+chosenQuiz+", veillez ressayer ultérieurement\n\n");	
-				}
-				
-			} else {
-				System.out.println("\n\nDésolé aucun concept n'existe pour "+chosenLangage+", veillez ressayer ultérieurement\n\n");	
-			}
-			
-		} else {
-			System.out.println("\n\nDésolé aucun langage n'existe, veillez ressayer ultérieurement\n\n");	
-		}
-	};
 	
+
 	/**
-     * 
-     */
-    public static void main(String[] argStrings) {
-    	menu();
-    }
+	 * Permet d'éditer un langage en changeant son nom ou en y ajoutant des concepts après sa création
+	 * @param langage
+	 */
+	private void editLangage(Langage langage) {	
+		System.out.println("\n=============="+ langage +"========================\n"
+				+ "1. Modifier le nom du langage \n\n"
+				+ "2. Supprimer le langage \n\n"
+				+ "3. Ajouter des concepts \n\n"
+				+ "4. Modifier un concept \n\n"
+				+ "5. Supprimer un concept \n\n"
+				+ "6. RETOURNER AU MENU \n\n"
+				+ "N'importe quel chiffre POUR QUITTER \n"
+				+ "======================================\n\n"
+				+ "Faire une action : ");
+		
+		int choice = scanner.nextInt();
+		
+		while (choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6) {
+			switch (choice) {
+				case 1 : 
+					scanner.nextLine();
+					System.out.print("Entrez le nouveau le nom du langage : ");
+					String name = scanner.nextLine();
+					langage.setName(name);
+					break;
+				case 2 : baseLangage.deletLangage(langage); break;
+				case 3 : scanner.nextLine(); addConcept(langage);break;
+				case 4 : editConcept(langage); break;
+				case 5 : deleteConceptFromLangage(langage);break;
+				case 6 : menu.setMenu(); break;
+				default: break;
+			}
+			
+			System.out.println("\n=============="+ langage +"========================\n"
+					+ "1. Modifier le nom du langage \n\n"
+					+ "2. Ajouter des concepts \n\n"
+					+ "3. Modifier un concept \n\n"
+					+ "4. Supprimer un concept \n\n"
+					+ "5. Supprimer le langage \n\n"
+					+ "6. RETOURNER AU MENU \n\n"
+					+ "N'importe quel chiffre POUR QUITTER \n"
+					+ "======================================\n\n"
+					+ "Faire une action : ");
+			choice = scanner.nextInt();
+		}
+		
+		System.out.println("\n\n************OPÉRATION TERMINÉ*************\n\n");
+	}
     
-    public static void createLangageAndConcepts() {
+    private void deleteConceptFromLangage(Langage langage) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void editConcept(Langage langage) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+     * Permet de créer un langage et ses concepts
+     * @return void
+     */
+    private void createLangageAndConcepts() {
     	System.out.print("Entrez le nom d'un langage : ");
 		scanner.nextLine();
-		newLangage = scanner.nextLine();
-		
-		Langage langage = null;
-		
+		String newLangage = scanner.nextLine();
+				
 		if(!newLangage.equals("")) {
-			langage = new Langage(newLangage);
+			Langage langage = new Langage(newLangage);
 			baseLangage.AddLangage(langage);
 			
 			/** vérifier que notre langage à bien été ajouté à notre collection de langage*/
 			if(baseLangage.getLangages().get(langage.getId()) != null) {
-				System.out.println("Entrer un concept de " + langage.getName() + "ou clique sur 'Entrez' pour finir");
+				addConcept(langage);
+				System.out.println("Entrer un concept de " + langage.getName() + " ou clique sur 'Entrez' pour finir");
 				
-				langageConcept = scanner.nextLine();
+				String langageConcept = scanner.nextLine();
 				
 				while (!langageConcept.equals("")) {
 					ConceptQuiz newConceptQuiz = new ConceptQuiz(langageConcept);
 					langage.addConceptQuiz(newConceptQuiz);
 					
-					System.out.println("Entrer un concept de " + langage.getName() + "ou cliquz sur 'Entrer' pour finir");
+					System.out.println("Entrer un concept de " + langage.getName() +  " ou cliquez sur 'Entrer' pour finir");
 					
 					langageConcept = scanner.nextLine();
 				}
@@ -207,40 +173,37 @@ public class Backup {
 		}
     }
     
-    public static void createQuestionForLangageConcept() {
+    /**
+     * Ajouter un concept à un langage donné
+     * @param langage
+     * @return void
+     */
+    private void addConcept(Langage langage) {
+    	System.out.println("Entrer un concept de " + langage.getName() + " ou clique sur 'Entrez' pour finir");
+		String langageConcept = scanner.nextLine();
+		
+		while (!langageConcept.equals("")) {
+			ConceptQuiz newConceptQuiz = new ConceptQuiz(langageConcept);
+			langage.addConceptQuiz(newConceptQuiz);
+			
+			System.out.println("Entrer un concept de " + langage.getName() + "ou cliquz sur 'Entrer' pour finir");
+			
+			langageConcept = scanner.nextLine();
+		}
+    }
+    
+    /**
+     * Permet de créer des questions pour les concepts des langages
+     * @return void
+     */
+    private void createQuestionForLangageConcept() {
 		/***************** SELECTION DU LANGAGE POUR LE QCM  *****************/
 		System.out.println("Choisissez un langage pour lequel vous souhaitez créer un QCM");
-		
-		for(Langage l : baseLangage.getLangages()) {
-			if(l != null) {
-				System.out.println(l.getId() + " --> Pour " + l.getName().toUpperCase());
-			}
-		}	
-		
-		System.out.print("Entrez votre choix de Langage : ");
-		langID = scanner.nextInt();
-		
-		Langage chosenLangage = baseLangage.getLangages().get(langID);
+		Langage chosenLangage = this.chooseLangageFromLangageCollection();
 		
 		/***************** SELECTION DU CONCEPTION DU LANGAGE CHOISI *****************/
 		System.out.println("Choisissez le concept du langage "+chosenLangage.getName()+" pour lequel vous souhaitez créer un QCM");
-		
-		for(ConceptQuiz cq : chosenLangage.getConceptQuiz()) {
-			if(cq != null) {
-				System.out.println(cq.getId() + " --> Pour " + cq.getTitle());
-			}
-		}
-		
-		System.out.print("Entrez votre choix de Concept : ");
-		langConceptID = scanner.nextInt();
-		
-		ConceptQuiz chosenConceptQuiz = null;
-							
-		for(ConceptQuiz conceptQuiz : chosenLangage.getConceptQuiz()) {
-			if(conceptQuiz.getId() == langConceptID) {
-				chosenConceptQuiz = conceptQuiz;
-			}
-		}
+		ConceptQuiz chosenConceptQuiz = this.chooseConceptQuizFromConceptQuizCollections(chosenLangage);
 		
 		/*** CREER UNE QUESTION */
 		System.out.println("\n======================================\n"
@@ -251,9 +214,10 @@ public class Backup {
 				+ "======================================\n\n"
 				+ "Faire une action : ");
 		
-		questionType = scanner.nextInt();
+		int questionType = scanner.nextInt();
 		
 		while (questionType == 1 || questionType == 2 || questionType == 3) {
+			
 			switch (questionType) {
 				case 1:
 					/***************** SAISIE DES QUESTIONS À RÉPONSES MULTIPLE*****************/
@@ -370,4 +334,21 @@ public class Backup {
 			questionType = scanner.nextInt();
 		}
     }
+    
+
+    /**
+     * Retourne le menu 
+     * @return
+     */
+	public Menu getMenu() {
+		return menu;
+	}
+
+	/**
+	 * Met à jour le menu
+	 * @param menu
+	 */
+	public void setMenu(Menu menu) {
+		this.menu = menu;
+	}
 }

@@ -1,7 +1,7 @@
+package models;
 
 import java.util.*;
-
-import javax.swing.JTextArea;
+import controllers.Student;
 
 /**
  * @author Mamadou Niakate

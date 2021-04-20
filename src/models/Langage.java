@@ -1,5 +1,4 @@
-// je suis le boss
-
+package models;
 import java.util.*;
 
 /**
@@ -10,6 +9,7 @@ public class Langage {
 	 private static int count;
 	 
 	 private String name;
+	 
 	 private Set<ConceptQuiz> conceptQuiz=new HashSet<>();
 	 private int id;
 
@@ -17,7 +17,7 @@ public class Langage {
      * Default constructor
      */
     public Langage() {
-    	
+    	this.name = "";
     }
 
    public Langage( String name) {
