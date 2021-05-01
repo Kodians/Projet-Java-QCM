@@ -62,50 +62,7 @@ public class User {
     }
     
     
-    /**
-     * Affiche la liste des langages créés par le Professeur
-     * Choisir un langage donné
-     * @return void
-     */
-    public Langage chooseLangageFromLangageCollection() {
-    	 ArrayList<Langage> langages = baseLangage.getLangages(); 
-    	 for (Langage langage : langages) {
-			if (langage != null) {
-				System.out.println(langages.indexOf(langage) + ". Pour ---> " + langage);
-			}
-		 }
-    	 System.out.print("Entrez le numero du langage de votre choix : ");
-    	 int choice = scanner.nextInt();
-    	 Langage langage = baseLangage.getLangages().get(choice);
-    	 return langage;
-    }
-    
-    /**
-     * Affiche la liste des concpets créés par le Professeur pour un langage
-     * Choisir un concept donné
-     * @param chosenLangage
-     * @return
-     */
-    public ConceptQuiz chooseConceptQuizFromConceptQuizCollections(Langage chosenLangage) {    	
-    	for(ConceptQuiz cq : chosenLangage.getConceptQuiz()) {
-			if(cq != null) {
-				System.out.println(cq.getId() + " --> Pour " + cq.getTitle());
-			}
-		}
-		
-		System.out.print("Entrez votre choix de Concept : ");
-		int langConceptID = scanner.nextInt();
-		
-		ConceptQuiz chosenConceptQuiz = null;
-							
-		for(ConceptQuiz conceptQuiz : chosenLangage.getConceptQuiz()) {
-			if(conceptQuiz.getId() == langConceptID) {
-				chosenConceptQuiz = conceptQuiz;
-			}
-		}
-		
-		return chosenConceptQuiz;
-    }
+  
     
 
 }

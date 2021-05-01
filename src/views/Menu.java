@@ -9,6 +9,7 @@ import models.ConceptQuiz;
 import models.Langage;
 import models.MultipleChoice;
 import models.Numeric;
+import models.Question;
 import models.TrueFalse;
 
 public class Menu {
@@ -54,7 +55,7 @@ public class Menu {
 		while (userType == 1 || userType == 2 ) {
 			switch (userType) {
 				case 1: adminActions(); break;
-				case 2: student.studentActions(); break;
+				case 2: studentActions(); break;
 				default: break;
 			}
 			userType = scanner.nextInt();
@@ -85,7 +86,7 @@ public class Menu {
 				case 1: createLangageAndConcepts(); break;
 				case 2: createQuestionForLangageConcept();break;
 				case 0: 
-					Langage langageToEdit= profesor.chooseLangageFromLangageCollection();
+					Langage langageToEdit= chooseLangageFromLangageCollection();
 					editLangage(langageToEdit);
 					break;
 				case 3: setMenu(); break;
@@ -150,7 +151,7 @@ public class Menu {
 	}
 	
 	public void editConcept(Langage langage) {
-		ConceptQuiz chosenConceptQuiz = profesor.chooseConceptQuizFromConceptQuizCollections(langage);
+		ConceptQuiz chosenConceptQuiz = chooseConceptQuizFromConceptQuizCollections(langage);
 		System.out.println("\n=============="+ chosenConceptQuiz +"========================\n"
 				+ "1. Modifier le titre du concept \n\n"
 				+ "2. Supprimer le concept \n\n"
@@ -200,12 +201,12 @@ public class Menu {
 					
 			if(!newLangage.equals("")) {
 				Langage langage = new Langage(newLangage);
-				profesor.addLang(baseLangage,langage);
+				profesor.createLangage(baseLangage,langage);
 				
 				/** vérifier que notre langage à bien été ajouté à notre collection de langage*/
 				if(profesor.getLangagesList().get(langage.getId()) != null) {
 					addConcept(langage);
-					System.out.println("Entrer un concept de " + langage.getName() + " ou clique sur 'Entrez' pour finir");
+					System.out.println("Entrer un concept de " + langage + " ou clique sur 'Entrez' pour finir");
 					
 					String langageConcept = scanner.nextLine();
 					
@@ -213,7 +214,7 @@ public class Menu {
 						ConceptQuiz newConceptQuiz = new ConceptQuiz(langageConcept);
 						langage.addConceptQuiz(newConceptQuiz);
 						
-						System.out.println("Entrer un concept de " + langage.getName() +  " ou cliquez sur 'Entrer' pour finir");
+						System.out.println("Entrer un concept de " + langage +  " ou cliquez sur 'Entrer' pour finir");
 						
 						langageConcept = scanner.nextLine();
 					}
@@ -222,14 +223,14 @@ public class Menu {
 	    }
 	 
 	 public void addConcept(Langage langage) {
-	    	System.out.println("Entrer un concept de " + langage.getName() + " ou clique sur 'Entrez' pour finir");
+	    	System.out.println("Entrer un concept de " + langage + " ou clique sur 'Entrez' pour finir");
 			String langageConcept = scanner.nextLine();
 			
 			while (!langageConcept.equals("")) {
 				ConceptQuiz newConceptQuiz = new ConceptQuiz(langageConcept);
 				langage.addConceptQuiz(newConceptQuiz);
 				
-				System.out.println("Entrer un concept de " + langage.getName() + "ou cliquz sur 'Entrer' pour finir");
+				System.out.println("Entrer un concept de " + langage + "ou cliquz sur 'Entrer' pour finir");
 				
 				langageConcept = scanner.nextLine();
 			}
@@ -238,11 +239,11 @@ public class Menu {
 	  public void createQuestionForLangageConcept() {
 			/***************** SELECTION DU LANGAGE POUR LE QCM  *****************/
 			System.out.println("Choisissez un langage pour lequel vous souhaitez créer un QCM");
-			Langage chosenLangage = profesor.chooseLangageFromLangageCollection();
+			Langage chosenLangage = chooseLangageFromLangageCollection();
 			
 			/***************** SELECTION DU CONCEPTION DU LANGAGE CHOISI *****************/
 			System.out.println("Choisissez le concept du langage "+chosenLangage.getName()+" pour lequel vous souhaitez créer un QCM");
-			ConceptQuiz chosenConceptQuiz = profesor.chooseConceptQuizFromConceptQuizCollections(chosenLangage);
+			ConceptQuiz chosenConceptQuiz = chooseConceptQuizFromConceptQuizCollections(chosenLangage);
 			
 			/*** CREER UNE QUESTION */
 			System.out.println("\n======================================\n"
@@ -373,6 +374,132 @@ public class Menu {
 				questionType = scanner.nextInt();
 			}
 	    }
+	  /**
+	     * Affiche la liste des langages créés par le Professeur
+	     * Choisir un langage donné
+	     * @return void
+	     */
+	    public Langage chooseLangageFromLangageCollection() {
+	    	 ArrayList<Langage> langages = baseLangage.getLangages(); 
+	    	 for (Langage langage : langages) {
+				if (langage != null) {
+					System.out.println(langages.indexOf(langage) + ". Pour ---> " + langage);
+				}
+			 }
+	    	 System.out.print("Entrez le numero du langage de votre choix : ");
+	    	 int choice = scanner.nextInt();
+	    	 Langage langage = baseLangage.getLangages().get(choice);
+	    	 return langage;
+	    }
+	    
+	    /**
+	     * Affiche la liste des concpets créés par le Professeur pour un langage
+	     * Choisir un concept donné
+	     * @param chosenLangage
+	     * @return
+	     */
+	    public ConceptQuiz chooseConceptQuizFromConceptQuizCollections(Langage chosenLangage) {    	
+	    	for(ConceptQuiz cq : chosenLangage.getConceptQuiz()) {
+				if(cq != null) {
+					System.out.println(cq.getId() + " --> Pour " + cq.getTitle());
+				}
+			}
+			
+			System.out.print("Entrez votre choix de Concept : ");
+			int langConceptID = scanner.nextInt();
+			
+			ConceptQuiz chosenConceptQuiz = null;
+								
+			for(ConceptQuiz conceptQuiz : chosenLangage.getConceptQuiz()) {
+				if(conceptQuiz.getId() == langConceptID) {
+					chosenConceptQuiz = conceptQuiz;
+				}
+			}
+			
+			return chosenConceptQuiz;
+	    }
+	    
+	    public void studentActions() {
+			System.out.println("\n***************************** BON QUIZ *****************************\n");
+			
+			// affichage de la liste des langage
+			ArrayList<Langage> langages = baseLangage.getLangages();
+			
+			if(!(langages.size() < 1)) {
+				System.out.println("\nChoissez le langage pour lequel vous souhaitez faire le QCM \n");
+				
+				Langage chosenLangage = this.chooseLangageFromLangageCollection();
+				
+				// afficher la liste des concepts d'un langage choisi
+				if(!(chosenLangage.getConceptQuiz().size() < 1)) {
+					
+					System.out.println("--------------- " + chosenLangage + "---------------------");
+					
+					ConceptQuiz chosenQuiz = this.chooseConceptQuizFromConceptQuizCollections(chosenLangage);
+
+					
+					if(!(chosenQuiz.getQuestions().size() < 1)) {
+						
+						ArrayList<String> userMultipleAnswers = new ArrayList<>();
+						ArrayList<String> userTrueFalseAnswers= new ArrayList<>();
+						ArrayList<String> userNumericAnswers  = new ArrayList<>(); 
+						
+						for (Question question : chosenQuiz.getQuestions()) {
+							if(question != null) {
+								System.out.println(question);
+								String answer = "";						
+								switch (question.getClass().getName()) {
+									case "MultipleChoice":
+										System.out.print("Saisir le N° d'une réponse ou cliquez sur 'Entrez' pour continuer : ");
+										answer = scanner.nextLine();
+										while (!answer.equals("")) {
+											int index = Integer.parseInt(answer);
+											if(userMultipleAnswers.get(index) != null) {
+												userMultipleAnswers.add(question.getAnswers().get(Integer.parseInt(answer)));
+											} else {
+												System.out.println("\n**ATTENTION!!! Vous avez déjà choisi cette réponse**\n");
+											}
+											System.out.print("Saisir le N° d'une réponse ou cliquez sur 'Entrez' pour continuer : ");
+											answer = scanner.nextLine();
+										}
+										break;
+									case "TrueFalse":
+										scanner.nextLine();
+										System.out.print("Saisir OUI ou NON: ");
+										answer = scanner.nextLine();
+										while(!(answer.equals("oui") || answer.equals("non"))) {
+											System.out.print("\nDésolé vous devez répondre par OUI ou NON pour continuer\n");
+											System.out.print("Saisir OUI ou NON: ");
+											answer = scanner.nextLine();
+										}
+										userNumericAnswers.add(answer);
+										break;
+									case "Numeric": 
+										System.out.print("Saisir votre réponse : ");
+										answer = scanner.nextLine();
+										while(answer.equals("")) {
+											System.out.print("\nDésolé vous ne pouvez pas laisser la question sans réponse\n");
+											System.out.print("Saisir votre réponse: ");
+											answer = scanner.nextLine();
+										}
+										userTrueFalseAnswers.add(answer);
+										break;
+									default: break;
+								}
+							}
+						}
+					} else {
+						System.out.println("\n\nDésolé aucune question n'existe pour "+chosenQuiz+", veillez ressayer ultérieurement\n\n");	
+					}
+					
+				} else {
+					System.out.println("\n\nDésolé aucun concept n'existe pour "+chosenLangage+", veillez ressayer ultérieurement\n\n");	
+				}
+				
+			} else {
+				System.out.println("\n\nDésolé aucun langage n'existe, veillez ressayer ultérieurement\n\n");	
+			}
+		}
     
 	
 }

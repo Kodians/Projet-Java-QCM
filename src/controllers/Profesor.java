@@ -35,8 +35,7 @@ public class Profesor extends User {
      * @param  y   le paramètre de la méthode
      * @return     la somme de x et de y
     */
-   public void createLangage(BaseLangage a, String nomL) {
-	Langage l = new Langage(nomL);
+   public void createLangage(BaseLangage a,  Langage l ) {
 	addHisLangage(l);
 	addLang (a, l);
 	}
