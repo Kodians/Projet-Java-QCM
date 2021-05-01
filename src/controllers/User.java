@@ -67,7 +67,7 @@ public class User {
      * Choisir un langage donné
      * @return void
      */
-    protected Langage chooseLangageFromLangageCollection() {
+    public Langage chooseLangageFromLangageCollection() {
     	 ArrayList<Langage> langages = baseLangage.getLangages(); 
     	 for (Langage langage : langages) {
 			if (langage != null) {
@@ -86,7 +86,7 @@ public class User {
      * @param chosenLangage
      * @return
      */
-    protected ConceptQuiz chooseConceptQuizFromConceptQuizCollections(Langage chosenLangage) {    	
+    public ConceptQuiz chooseConceptQuizFromConceptQuizCollections(Langage chosenLangage) {    	
     	for(ConceptQuiz cq : chosenLangage.getConceptQuiz()) {
 			if(cq != null) {
 				System.out.println(cq.getId() + " --> Pour " + cq.getTitle());

@@ -23,7 +23,7 @@ public class BaseLangage {
      * @param String nom 
      * @return
      */
-    public void AddLangage(Langage langage) {
+    public void addLangage(Langage langage) {
         this.langages.add(langage);
     }
 
