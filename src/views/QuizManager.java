@@ -11,7 +11,9 @@ public class QuizManager {
     	Scanner scanner = new Scanner(System.in);
     	
     	BaseLangage baseLangage = new BaseLangage();
+    	
     	Profesor profesor = new Profesor(baseLangage);
+    	
     	Student student = new Student(baseLangage);
  
     	Menu menu = new Menu(scanner, profesor, student);
