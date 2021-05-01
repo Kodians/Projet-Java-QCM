@@ -128,7 +128,14 @@ public class Menu {
 					String name = scanner.nextLine();
 					langage.setName(name);
 					break;
-				case 2 : profesor.deleteLangage(baseLangage,langage); break;
+				case 2 : 
+					boolean isDeleted = profesor.deleteLangage(baseLangage,langage); 
+					if(!isDeleted) {
+						System.out.println("\n\t*****************Le langage supprimé avec succés*****************");
+					} else {
+						System.out.println("\n\t*****************Le langage n'a pas pu être supprimé*****************\n");
+					}
+					break;
 				case 3 : scanner.nextLine(); addConcept(langage);break;
 				case 4 : editConcept(langage); break;
 				case 5 : setMenu(); break;
@@ -148,6 +155,7 @@ public class Menu {
 		}
 		
 		System.out.println("\n\n************OPÉRATION TERMINÉ*************\n\n");
+		setMenu();
 	}
 	
 	public void editConcept(Langage langage) {
@@ -194,7 +202,7 @@ public class Menu {
 		System.out.println("\n\n************OPÉRATION TERMINÉ*************\n\n");
 	}
 	
-	 public void createLangageAndConcepts() {
+	public void createLangageAndConcepts() {
 	    	System.out.print("Entrez le nom d'un langage : ");
 			scanner.nextLine();
 			String newLangage = scanner.nextLine();
@@ -222,7 +230,7 @@ public class Menu {
 			}
 	    }
 	 
-	 public void addConcept(Langage langage) {
+	public void addConcept(Langage langage) {
 	    	System.out.println("Entrer un concept de " + langage + " ou clique sur 'Entrez' pour finir");
 			String langageConcept = scanner.nextLine();
 			
@@ -236,7 +244,7 @@ public class Menu {
 			}
 	    }
 	 
-	  public void createQuestionForLangageConcept() {
+	public void createQuestionForLangageConcept() {
 			/***************** SELECTION DU LANGAGE POUR LE QCM  *****************/
 			System.out.println("Choisissez un langage pour lequel vous souhaitez créer un QCM");
 			Langage chosenLangage = chooseLangageFromLangageCollection();
@@ -379,7 +387,7 @@ public class Menu {
 	     * Choisir un langage donné
 	     * @return void
 	     */
-	    public Langage chooseLangageFromLangageCollection() {
+	public Langage chooseLangageFromLangageCollection() {
 	    	 ArrayList<Langage> langages = baseLangage.getLangages(); 
 	    	 for (Langage langage : langages) {
 				if (langage != null) {
@@ -398,7 +406,7 @@ public class Menu {
 	     * @param chosenLangage
 	     * @return
 	     */
-	    public ConceptQuiz chooseConceptQuizFromConceptQuizCollections(Langage chosenLangage) {    	
+	public ConceptQuiz chooseConceptQuizFromConceptQuizCollections(Langage chosenLangage) {    	
 	    	for(ConceptQuiz cq : chosenLangage.getConceptQuiz()) {
 				if(cq != null) {
 					System.out.println(cq.getId() + " --> Pour " + cq.getTitle());
@@ -419,7 +427,7 @@ public class Menu {
 			return chosenConceptQuiz;
 	    }
 	    
-	    public void studentActions() {
+	public void studentActions() {
 			System.out.println("\n***************************** BON QUIZ *****************************\n");
 			
 			// affichage de la liste des langage

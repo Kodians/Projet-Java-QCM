@@ -5,10 +5,6 @@ import java.util.*;
 import models.BaseLangage;
 import models.ConceptQuiz;
 import models.Langage;
-import models.MultipleChoice;
-import models.Numeric;
-import models.TrueFalse;
-import views.Menu;
 
 /**
  * Décrivez votre classe Prof ici.
@@ -38,16 +34,15 @@ public class Profesor extends User {
    public void createLangage(BaseLangage a,  Langage l ) {
 	addHisLangage(l);
 	addLang (a, l);
-	}
-   public void addHisLangage(Langage l)
-    {
+   }
+   public void addHisLangage(Langage l) {
         // Insérez votre code ici
         langages.add(l); // ajoute le langage a SA liste
-    }
-    public void addLang(BaseLangage a, Langage l)
-    {
+   }
+   
+   public void addLang(BaseLangage a, Langage l) {
         a.addLangage(l);// ajoute le langage a laiste de tous les langages disponibles dans l’appli
-    }
+   }
     public String toString() {
     return "mes langages  "+ langages.toString();
     }
@@ -65,14 +60,7 @@ public class Profesor extends User {
     	return this.baseLangage;
     }
     
-    /**
-     * Constructeur avec paramètre de la classe Profesor
-     * @param baseLangage
-     */
-    public Profesor(BaseLangage baseLangage) {
-    	super(baseLangage);
-    }
-    
+
     public Profesor(String firstName, String lastName, String userName,  char password, String role, BaseLangage baseLangage) {
     	super(firstName,lastName,userName,password,role);
     	this.baseLangage = baseLangage;
@@ -85,9 +73,13 @@ public class Profesor extends User {
     	langage.removeConceptQuiz(conceptQuiz);
 	}
     
-    public void deleteLangage(BaseLangage baseLangage, Langage langage) {
+    public Boolean deleteLangage(BaseLangage baseLangage, Langage langage) {
+
     	langages.remove(langage);
     	baseLangage.deletLangage(langage);
+    	    	
+    	return (langages.indexOf(langage) >= 0 || baseLangage.getLangages().indexOf(langage) >= 0);
+    	
     }
 
 }
