@@ -42,31 +42,6 @@ public class ConceptQuiz {
     	this.id= ++count;
     }
 
-
-    /**
-     * Permet d'afficher une question à multiple réponses
-     * @param MultipleChoise titre 
-     * @return
-     */
-    public void displayMC( MultipleChoice multipleChoice) {
-    	System.out.println(multipleChoice.getTitle());
-    	System.out.println(multipleChoice.getCode());
-    	
-    	System.out.println(multipleChoice.getAnswers());
-    }
-
-    /**
-     * Permet d'afficher une question à réponse Vrai ou Faux
-     * @param TrueFalse questionTrueFalse 
-     * @return
-     */
-    public void displayTrueFalse( TrueFalse questionTrueFalse) {
-        System.out.println(questionTrueFalse.getTitle());
-        System.out.println(questionTrueFalse.getCode());
-        
-        System.out.println(questionTrueFalse.getAnswers());
-    }
-
     /**
      * Melange / désordonne les éléments d'une liste
      * @return
@@ -130,7 +105,9 @@ public class ConceptQuiz {
      * @return
      */
 	public ArrayList<Question> getQuestions() {
-		return questions;
+		ArrayList<Question> questionsRandomized = questions;
+		Collections.shuffle(questionsRandomized);
+		return questionsRandomized;
 	}
 
 

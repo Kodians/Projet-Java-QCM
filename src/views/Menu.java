@@ -61,7 +61,7 @@ public class Menu {
 			userType = scanner.nextInt();
 		} 
 		
-		scanner.close();
+		//scanner.close();
     }
 	/*
 	 * 
@@ -400,12 +400,12 @@ public class Menu {
 	    	 return langage;
 	    }
 	    
-	    /**
-	     * Affiche la liste des concpets créés par le Professeur pour un langage
-	     * Choisir un concept donné
-	     * @param chosenLangage
-	     * @return
-	     */
+    /**
+     * Affiche la liste des concpets créés par le Professeur pour un langage
+     * Choisir un concept donné
+     * @param chosenLangage
+     * @return
+     */
 	public ConceptQuiz chooseConceptQuizFromConceptQuizCollections(Langage chosenLangage) {    	
 	    	for(ConceptQuiz cq : chosenLangage.getConceptQuiz()) {
 				if(cq != null) {
@@ -430,11 +430,11 @@ public class Menu {
 	public void studentActions() {
 			System.out.println("\n***************************** BON QUIZ *****************************\n");
 			
-			// affichage de la liste des langage
+			// Récupére la liste des langages de l'application
 			ArrayList<Langage> langages = baseLangage.getLangages();
 			
 			if(!(langages.size() < 1)) {
-				System.out.println("\nChoissez le langage pour lequel vous souhaitez faire le QCM \n");
+				System.out.println("\nChoissez le langage de test \n");
 				
 				Langage chosenLangage = this.chooseLangageFromLangageCollection();
 				
@@ -444,7 +444,6 @@ public class Menu {
 					System.out.println("--------------- " + chosenLangage + "---------------------");
 					
 					ConceptQuiz chosenQuiz = this.chooseConceptQuizFromConceptQuizCollections(chosenLangage);
-
 					
 					if(!(chosenQuiz.getQuestions().size() < 1)) {
 						
@@ -455,31 +454,51 @@ public class Menu {
 						for (Question question : chosenQuiz.getQuestions()) {
 							if(question != null) {
 								System.out.println(question);
-								String answer = "";						
-								switch (question.getClass().getName()) {
+								String answer = "";	
+								switch (question.getClass().getSimpleName()) {
 									case "MultipleChoice":
 										System.out.print("Saisir le N° d'une réponse ou cliquez sur 'Entrez' pour continuer : ");
+										scanner.nextLine();
 										answer = scanner.nextLine();
+										
+										MultipleChoice questionMultipleChoice = (MultipleChoice)question;
+										
 										while (!answer.equals("")) {
+											
 											int index = Integer.parseInt(answer);
-											if(userMultipleAnswers.get(index) != null) {
-												userMultipleAnswers.add(question.getAnswers().get(Integer.parseInt(answer)));
-											} else {
-												System.out.println("\n**ATTENTION!!! Vous avez déjà choisi cette réponse**\n");
+																						
+											try {
+												if(question.isCorrect(questionMultipleChoice.getRandomizedAnswers().get(index))) {
+													// bonnesreponses(langage,concept,MultipleQ,resultat)
+												} else {
+													// mauvaisesreponses(langage,concept,MultipleQ,resultat)
+												}
+												
+												System.out.print("Saisir le N° d'une réponse ou cliquez sur 'Entrez' pour continuer : ");
+												answer = scanner.nextLine();
+											} catch (IndexOutOfBoundsException e) {
+												System.out.print("Cette valeur n'existe pas dans la liste saisissez une autre : ");
+												answer = scanner.nextLine();
 											}
-											System.out.print("Saisir le N° d'une réponse ou cliquez sur 'Entrez' pour continuer : ");
-											answer = scanner.nextLine();
 										}
 										break;
 									case "TrueFalse":
 										scanner.nextLine();
 										System.out.print("Saisir OUI ou NON: ");
 										answer = scanner.nextLine();
+										
+										TrueFalse trueFalseQuestion = (TrueFalse)question;
+
 										while(!(answer.equals("oui") || answer.equals("non"))) {
 											System.out.print("\nDésolé vous devez répondre par OUI ou NON pour continuer\n");
 											System.out.print("Saisir OUI ou NON: ");
 											answer = scanner.nextLine();
 										}
+										
+										if(trueFalseQuestion.isCorrect(answer)) {
+											
+										}
+										
 										userNumericAnswers.add(answer);
 										break;
 									case "Numeric": 

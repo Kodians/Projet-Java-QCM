@@ -1,22 +1,17 @@
 package models;
 
-import java.util.*;
-
 /**
  * 
  */
 public class TrueFalse extends Question {
-	
-	/**
-     * 
-     */
+
     private String answer;
 
     /**
      * Constructor par défault
      */
     public TrueFalse() {
-    	this.setAnswer("");
+    	this.answer = "";
     }
     
     public TrueFalse(String title, String code, String answer) {
@@ -24,13 +19,6 @@ public class TrueFalse extends Question {
     	this.answer = answer;
     }
 
-    /**
-     * @return
-     */
-    public ArrayList<String> getAnswers() {
-        // TODO implement here
-        return null;
-    }
 
     /**
      * tranforme la classe en chaine de caractère
@@ -42,13 +30,6 @@ public class TrueFalse extends Question {
 		return output ;
     }
 
-    /**
-     * @return
-     */
-    public boolean isCorrect() {
-        // TODO implement here
-        return false;
-    }
 
 	/**
 	 * @return the answer
@@ -62,6 +43,12 @@ public class TrueFalse extends Question {
 	 */
 	public void setAnswer(String answer) {
 		this.answer = answer;
+	}
+
+	@Override
+	public Boolean isCorrect(String answer) {
+		// TODO Auto-generated method stub
+		return this.answer.equals(answer);
 	}
 
 }

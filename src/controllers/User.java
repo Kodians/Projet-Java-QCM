@@ -1,10 +1,4 @@
 package controllers;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import models.BaseLangage;
-import models.ConceptQuiz;
-import models.Langage;
 
 /**
  * 
@@ -16,8 +10,7 @@ public class User {
     protected char password;
     protected String role;
     
-    private Scanner scanner = new Scanner(System.in);
-	protected BaseLangage baseLangage = null;
+  
     
     /**
      * Default constructor
@@ -30,9 +23,6 @@ public class User {
     	role = "";
     }
     
-    public User(BaseLangage baseLangage) {
-    	this.baseLangage = baseLangage;
-    }
     
     public User(String firstName, String lastName, String userName,  char password, String role) {
     	this.firstName = firstName;

@@ -9,6 +9,7 @@ public class MultipleChoice extends Question {
 
 	private ArrayList<String> correctAnswers;
 	private ArrayList<String> incorrectAnswers;
+	private ArrayList<String> randomizedAnswer;
 
 	/**
 	 * Default constructor
@@ -16,6 +17,7 @@ public class MultipleChoice extends Question {
 	public MultipleChoice() {   
 		this.correctAnswers = new ArrayList<String>();
 		this.incorrectAnswers = new ArrayList<String>();
+		this.randomizedAnswer = new ArrayList<String>();
 	}
 
 	public MultipleChoice(String titre, String code, ArrayList<String> correctAnswers,ArrayList<String> incorrectAnswers) {
@@ -23,16 +25,23 @@ public class MultipleChoice extends Question {
 		this.correctAnswers = correctAnswers;
 		this.incorrectAnswers = incorrectAnswers;
 	}
+	
 
 	/**
 	 * @return
 	 */
 	public ArrayList<String> getAnswers() {
-		ArrayList<String> answers= new ArrayList<>();
-		answers.addAll(correctAnswers);
-		answers.addAll(incorrectAnswers);
-		Collections.shuffle(answers);
-		return answers;
+		randomizedAnswer = new ArrayList<String>();
+		randomizedAnswer.addAll(correctAnswers);
+		randomizedAnswer.addAll(incorrectAnswers);
+		
+		Collections.shuffle(randomizedAnswer);
+		
+		return randomizedAnswer;
+	}
+	
+	public ArrayList<String> getRandomizedAnswers() {
+		return this.randomizedAnswer;
 	}
 
 	/**
@@ -74,5 +83,8 @@ public class MultipleChoice extends Question {
 	public void setIncorrectAnswers(ArrayList<String> incorrectAnswers) {
 		this.incorrectAnswers = incorrectAnswers;
 	}
-
+	
+	public Boolean isCorrect(String answer) {
+		return correctAnswers.contains(answer);
+	}
 }

@@ -1,37 +1,30 @@
 package controllers;
 
-import java.util.*;
-
-import models.BaseLangage;
-import models.ConceptQuiz;
-import models.Langage;
-import models.Question;
-
 /**
  * 
  */
 public class Student extends User {
-	private Scanner scanner = new Scanner(System.in);
     private double score;
+    
+    /**
+     * Score {
+     * 	resultat = 2 / 5
+     * 	source = héritage / Java
+     * }
+     */
 	
     /**
      * constructeur par défault
      */
-    public Student() {
-    	this.baseLangage = new BaseLangage();
+    public Student(String nom) {
+    	this.firstName = nom;
+    	score = 0;
     }
     
     public Student(String firstName, String lastName, String userName,  char password, String role) {
     	super(firstName,lastName,userName,password,role);
     }
     
-    /**
-     * Constructeur avec paramètre
-     * @param baseLangage
-     */
-    public Student(BaseLangage baseLangage) {
-    	super(baseLangage);
-    }
 
     /**
      * @param int correct int total 
@@ -41,7 +34,6 @@ public class Student extends User {
         // TODO implement here
         return 0.0d;
     }
-    
     
 
 	/**

@@ -12,7 +12,7 @@ public class QuizManager {
     	
     	BaseLangage baseLangage = new BaseLangage();
     	Profesor profesor = new Profesor("Danko");
-    	Student student = new Student(baseLangage);
+    	Student student = new Student("Mamadou");
  
     	Menu menu = new Menu(scanner, profesor, student ,baseLangage);
     	    	

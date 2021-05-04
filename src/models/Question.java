@@ -1,46 +1,34 @@
 package models;
 
-import java.util.*;
-
 /**
  * 
+ * @author niakate
+ *
  */
 public abstract class Question {
 	private static int count;
-
-    /**
-    public Question() {
-     * 
-     */
     protected String title;
     protected String code;
     protected int id;
 
-    
     /**
-     * Default constructor
+     * Constructor
      */
     public Question() {
+        this.title = "";
+        this.code = "";
+        this.id= ++count;
     }
-
- 
+    
     /**
      * Constructor
      * @param String title 
-     * @param TextArea code
      */
     public Question( String title,  String code) {
         this.title = title;
         this.code = code;
         this.id= ++count;
     }
-
-    /**
-     * @return
-    public String[] getQuestion() {
-        // TODO implement here
-        return null;
-    }*/
 
     /**
      * @param titre 
@@ -51,13 +39,6 @@ public abstract class Question {
         this.title = title;
         this.code = code;
     }
-
-   
-    /**
-     * @return
-     */
-    public abstract boolean isCorrect();
-
     
     /******************** SETTERS & GETTERS *******************/
 
@@ -89,9 +70,7 @@ public abstract class Question {
 		
 	}
 	
-	/**
-	 * Méthode abtraite permettant de retourner les réponse à une question
-	 * @return
-	 */
-	public abstract ArrayList<String> getAnswers();
+	/******************** MÉTHODES ABSTRAITES *******************/
+	
+	public abstract Boolean isCorrect(String answer);
 }

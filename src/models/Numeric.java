@@ -42,15 +42,6 @@ public class Numeric extends Question {
 		return output ;
     }
 
-    /**
-     * @return
-     */
-    public boolean isCorrect() {
-        // TODO implement here
-        return false;
-    }
-
-
 	/**
 	 * @return the answer
 	 */
@@ -64,6 +55,20 @@ public class Numeric extends Question {
 	 */
 	public void setAnswer(String answer) {
 		this.answer = answer;
+	}
+	
+	public Boolean checkAnswerIsTrue(String answer) {
+		return false;
+	}
+
+	public Boolean checkAnswerIsFalse(String answer) {
+		return false;
+	}
+
+
+	@Override
+	public Boolean isCorrect(String answer) {
+		return this.answer.equals(answer);
 	}
 
 }
