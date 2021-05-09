@@ -34,7 +34,7 @@ public class Student extends User {
         // TODO implement here
         return 0.0d;
     }
-    
+
 
 	/**
 	 * retourne le score d'un étudiant

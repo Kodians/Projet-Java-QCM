@@ -63,12 +63,8 @@ public class Menu {
 		
 		//scanner.close();
     }
-	/*
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
+
+
 	public void adminActions() {		
 		System.out.println("\n======================================\n"
 				+ "1. Ajouter un langage \n\n"
@@ -228,7 +224,7 @@ public class Menu {
 					}
 				}
 			}
-	    }
+	}
 	 
 	public void addConcept(Langage langage) {
 	    	System.out.println("Entrer un concept de " + langage + " ou clique sur 'Entrez' pour finir");
@@ -382,11 +378,12 @@ public class Menu {
 				questionType = scanner.nextInt();
 			}
 	    }
-	  /**
-	     * Affiche la liste des langages créés par le Professeur
-	     * Choisir un langage donné
-	     * @return void
-	     */
+  
+	/**
+     * Affiche la liste des langages créés par le Professeur
+     * Choisir un langage donné
+     * @return void
+     */
 	public Langage chooseLangageFromLangageCollection() {
 	    	 ArrayList<Langage> langages = baseLangage.getLangages(); 
 	    	 for (Langage langage : langages) {
@@ -445,12 +442,19 @@ public class Menu {
 					
 					ConceptQuiz chosenQuiz = this.chooseConceptQuizFromConceptQuizCollections(chosenLangage);
 					
+					int nbCorrectMultipleChoiseQuestions = 0;
+					int nbIncorrectMultipleChoiseQuestions = 0;
+					int nbMultipleChoiceQuestions = 0;
+					float nbMultipleChoiceQuestionAnswer = 0;
+					
+					
+					int nbTrueFalseQuestions = 0;
+					int nbCorrectTrueFalseQuestions = 0;
+					
+					int nbNumericQuestions = 0;
+					int nbCorrectNumericQuestions = 0;
+					
 					if(!(chosenQuiz.getQuestions().size() < 1)) {
-						
-						ArrayList<String> userMultipleAnswers = new ArrayList<>();
-						ArrayList<String> userTrueFalseAnswers= new ArrayList<>();
-						ArrayList<String> userNumericAnswers  = new ArrayList<>(); 
-						
 						for (Question question : chosenQuiz.getQuestions()) {
 							if(question != null) {
 								System.out.println(question);
@@ -469,11 +473,10 @@ public class Menu {
 																						
 											try {
 												if(question.isCorrect(questionMultipleChoice.getRandomizedAnswers().get(index))) {
-													// bonnesreponses(langage,concept,MultipleQ,resultat)
+													nbCorrectMultipleChoiseQuestions += 1;
 												} else {
-													// mauvaisesreponses(langage,concept,MultipleQ,resultat)
+													nbIncorrectMultipleChoiseQuestions += 1;
 												}
-												
 												System.out.print("Saisir le N° d'une réponse ou cliquez sur 'Entrez' pour continuer : ");
 												answer = scanner.nextLine();
 											} catch (IndexOutOfBoundsException e) {
@@ -481,6 +484,14 @@ public class Menu {
 												answer = scanner.nextLine();
 											}
 										}
+										nbMultipleChoiceQuestions += 1;
+										
+										if(nbCorrectMultipleChoiseQuestions == nbMultipleChoiceQuestions) {
+											nbMultipleChoiceQuestionAnswer += 1;
+										} else if(nbMultipleChoiceQuestions > nbIncorrectMultipleChoiseQuestions){
+											nbMultipleChoiceQuestionAnswer += 0.5;
+										}
+										
 										break;
 									case "TrueFalse":
 										scanner.nextLine();
@@ -496,25 +507,44 @@ public class Menu {
 										}
 										
 										if(trueFalseQuestion.isCorrect(answer)) {
-											
+											nbCorrectTrueFalseQuestions += 1;
 										}
+										nbTrueFalseQuestions += 1;
 										
-										userNumericAnswers.add(answer);
 										break;
 									case "Numeric": 
 										System.out.print("Saisir votre réponse : ");
 										answer = scanner.nextLine();
+										
+										Numeric numericQuestion = (Numeric)question;
+										
 										while(answer.equals("")) {
 											System.out.print("\nDésolé vous ne pouvez pas laisser la question sans réponse\n");
 											System.out.print("Saisir votre réponse: ");
 											answer = scanner.nextLine();
 										}
-										userTrueFalseAnswers.add(answer);
+										
+										if(numericQuestion.isCorrect(answer)) {
+											nbCorrectNumericQuestions += 1;
+										}
+										nbNumericQuestions += 1;
 										break;
 									default: break;
 								}
 							}
 						}
+												
+						float totalCorrectAnswers = nbMultipleChoiceQuestionAnswer + nbCorrectNumericQuestions + nbCorrectTrueFalseQuestions;
+						int totalAnswers = nbMultipleChoiceQuestions + nbTrueFalseQuestions + nbNumericQuestions;
+						
+						//student.calculateScore(totalCorrectAnswers, totalAnswers);
+
+						System.out.println("Multiple Choice : " + nbMultipleChoiceQuestionAnswer + "/" + nbMultipleChoiceQuestions);
+						System.out.println("True False : " + nbCorrectTrueFalseQuestions + "/" + nbTrueFalseQuestions);
+						System.out.println("Numérique  : " + nbCorrectNumericQuestions + "/" + nbNumericQuestions);
+						
+						System.out.println("Total : " + totalCorrectAnswers + "/" + totalAnswers);
+						
 					} else {
 						System.out.println("\n\nDésolé aucune question n'existe pour "+chosenQuiz+", veillez ressayer ultérieurement\n\n");	
 					}
