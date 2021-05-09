@@ -6,6 +6,10 @@ public class Score {
 	
 	private ConceptQuiz conceptScore;
 	
+<<<<<<< HEAD
+=======
+/// 
+>>>>>>> master
 	
 	
 	
