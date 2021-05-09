@@ -5,6 +5,10 @@ package controllers;
  */
 public class Student extends User {
     private double score;
+    private  double totalCorrectAnswer;
+    private  double totalAnswer;
+
+    
     
     /**
      * Score {
@@ -34,8 +38,15 @@ public class Student extends User {
         // TODO implement here
         return 0.0d;
     }
+    
+    public  void setStudentAnswersInfo(double totalCorrectAnswer, double totalAnswer ) {
+    	this.totalCorrectAnswer=totalCorrectAnswer;
+    	this.totalAnswer=totalAnswer;
+    }
 
-
+    public String getStudentAnswersInfo() {
+    	return totalCorrectAnswer + "/" + totalAnswer;
+    }
 	/**
 	 * retourne le score d'un étudiant
 	 * @return the score

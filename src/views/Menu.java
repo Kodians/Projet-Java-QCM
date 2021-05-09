@@ -486,9 +486,9 @@ public class Menu {
 										}
 										nbMultipleChoiceQuestions += 1;
 										
-										if(nbCorrectMultipleChoiseQuestions == nbMultipleChoiceQuestions) {
+										if(nbCorrectMultipleChoiseQuestions == questionMultipleChoice.getCorrectAnswers().size()) {
 											nbMultipleChoiceQuestionAnswer += 1;
-										} else if(nbMultipleChoiceQuestions > nbIncorrectMultipleChoiseQuestions){
+										} else if((nbCorrectMultipleChoiseQuestions  < questionMultipleChoice.getCorrectAnswers().size()) && (nbCorrectMultipleChoiseQuestions >= questionMultipleChoice.getCorrectAnswers().size()/2)){
 											nbMultipleChoiceQuestionAnswer += 0.5;
 										}
 										
@@ -543,7 +543,8 @@ public class Menu {
 						System.out.println("True False : " + nbCorrectTrueFalseQuestions + "/" + nbTrueFalseQuestions);
 						System.out.println("Numérique  : " + nbCorrectNumericQuestions + "/" + nbNumericQuestions);
 						
-						System.out.println("Total : " + totalCorrectAnswers + "/" + totalAnswers);
+						student.setStudentAnswersInfo(totalCorrectAnswers, totalAnswers);
+						System.out.println("Total : " + student.getStudentAnswersInfo());
 						
 					} else {
 						System.out.println("\n\nDésolé aucune question n'existe pour "+chosenQuiz+", veillez ressayer ultérieurement\n\n");	
