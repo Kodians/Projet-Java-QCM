@@ -441,6 +441,8 @@ public class Menu {
 					System.out.println("--------------- " + chosenLangage + "---------------------");
 					
 					ConceptQuiz chosenQuiz = this.chooseConceptQuizFromConceptQuizCollections(chosenLangage);
+					student.getScorEtudiant().setConceptScore(chosenQuiz);
+					ConceptQuiz studentScoreConceptQuiz = student.getScorEtudiant().getConceptScore();
 					
 					int nbCorrectMultipleChoiseQuestions = 0;
 					int nbIncorrectMultipleChoiseQuestions = 0;
@@ -466,7 +468,7 @@ public class Menu {
 										answer = scanner.nextLine();
 										
 										MultipleChoice questionMultipleChoice = (MultipleChoice)question;
-										
+										MultipleChoice q =  new MultipleChoice();										
 										while (!answer.equals("")) {
 											
 											int index = Integer.parseInt(answer);
@@ -474,16 +476,20 @@ public class Menu {
 											try {
 												if(question.isCorrect(questionMultipleChoice.getRandomizedAnswers().get(index))) {
 													nbCorrectMultipleChoiseQuestions += 1;
+													q.addCorrectAnswers(answer);
 												} else {
 													nbIncorrectMultipleChoiseQuestions += 1;
+													q.addIncorrectAnswers(answer);
 												}
 												System.out.print("Saisir le N° d'une réponse ou cliquez sur 'Entrez' pour continuer : ");
 												answer = scanner.nextLine();
 											} catch (IndexOutOfBoundsException e) {
 												System.out.print("Cette valeur n'existe pas dans la liste saisissez une autre : ");
 												answer = scanner.nextLine();
+												
 											}
 										}
+										studentScoreConceptQuiz.addQuestion(q);
 										nbMultipleChoiceQuestions += 1;
 										
 										if(nbCorrectMultipleChoiseQuestions == questionMultipleChoice.getCorrectAnswers().size()) {
@@ -499,15 +505,18 @@ public class Menu {
 										answer = scanner.nextLine();
 										
 										TrueFalse trueFalseQuestion = (TrueFalse)question;
+										TrueFalse tf = new TrueFalse();
+
 
 										while(!(answer.equals("oui") || answer.equals("non"))) {
 											System.out.print("\nDésolé vous devez répondre par OUI ou NON pour continuer\n");
 											System.out.print("Saisir OUI ou NON: ");
 											answer = scanner.nextLine();
 										}
-										
 										if(trueFalseQuestion.isCorrect(answer)) {
 											nbCorrectTrueFalseQuestions += 1;
+											tf.setAnswer(answer);
+
 										}
 										nbTrueFalseQuestions += 1;
 										
@@ -517,6 +526,7 @@ public class Menu {
 										answer = scanner.nextLine();
 										
 										Numeric numericQuestion = (Numeric)question;
+										Numeric n = new Numeric();
 										
 										while(answer.equals("")) {
 											System.out.print("\nDésolé vous ne pouvez pas laisser la question sans réponse\n");
@@ -526,6 +536,7 @@ public class Menu {
 										
 										if(numericQuestion.isCorrect(answer)) {
 											nbCorrectNumericQuestions += 1;
+											n.setAnswer(answer);
 										}
 										nbNumericQuestions += 1;
 										break;

@@ -87,4 +87,11 @@ public class MultipleChoice extends Question {
 	public Boolean isCorrect(String answer) {
 		return correctAnswers.contains(answer);
 	}
+	
+	public void addCorrectAnswers(String answ) {
+		correctAnswers.add(answ);
+	}
+	public void addIncorrectAnswers(String answ) {
+		incorrectAnswers.add(answ);
+	}
 }
