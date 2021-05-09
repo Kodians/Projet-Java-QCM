@@ -7,6 +7,7 @@ public class Student extends User {
     private double score;
     private  double totalCorrectAnswer;
     private  double totalAnswer;
+    private Score scorEtudiant= new Score();
 
     
     
@@ -61,6 +62,14 @@ public class Student extends User {
 	 */
 	public void setScore(double score) {
 		this.score = score;
+	}
+
+	public Score getScorEtudiant() {
+		return scorEtudiant;
+	}
+
+	public void setScorEtudiant(Score scorEtudiant) {
+		this.scorEtudiant = scorEtudiant;
 	};
 
 }
