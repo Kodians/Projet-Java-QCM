@@ -61,13 +61,6 @@ public class ConceptQuiz {
         return 0.0d;
     }
 
-    /**
-     * @param Scanner keyboard 
-     * @return
-     */
-    public void displayResult( Scanner keyboard) {
-        // TODO implement here
-    }
 
     /**
      * Ajotuer une question à la liste des questions d'un ConceptQuiz

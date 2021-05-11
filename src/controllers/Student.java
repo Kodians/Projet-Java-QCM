@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.ArrayList;
+
 /**
  * 
  */
@@ -7,7 +9,7 @@ public class Student extends User {
     private double score;
     private  double totalCorrectAnswer;
     private  double totalAnswer;
-    private Score scorEtudiant= new Score();
+    private ArrayList<Score> studentScores = new ArrayList<Score>();
 
     
     
@@ -64,12 +66,19 @@ public class Student extends User {
 		this.score = score;
 	}
 
-	public Score getScorEtudiant() {
-		return scorEtudiant;
+
+	/**
+	 * @return the studentScores
+	 */
+	public ArrayList<Score> getStudentScores() {
+		return studentScores;
 	}
 
-	public void setScorEtudiant(Score scorEtudiant) {
-		this.scorEtudiant = scorEtudiant;
+	/**
+	 * @param studentScores the studentScores to set
+	 */
+	public void setStudentScores(ArrayList<Score> studentScores) {
+		this.studentScores = studentScores;
 	};
 
 }

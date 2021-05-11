@@ -1,8 +1,10 @@
 package views;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import controllers.Profesor;
+import controllers.Score;
 import controllers.Student;
 import models.BaseLangage;
 import models.ConceptQuiz;
@@ -60,8 +62,6 @@ public class Menu {
 			}
 			userType = scanner.nextInt();
 		} 
-		
-		//scanner.close();
     }
 
 
@@ -385,17 +385,17 @@ public class Menu {
      * @return void
      */
 	public Langage chooseLangageFromLangageCollection() {
-	    	 ArrayList<Langage> langages = baseLangage.getLangages(); 
-	    	 for (Langage langage : langages) {
-				if (langage != null) {
-					System.out.println(langages.indexOf(langage) + ". Pour ---> " + langage);
-				}
-			 }
-	    	 System.out.print("Entrez le numero du langage de votre choix : ");
-	    	 int choice = scanner.nextInt();
-	    	 Langage langage = baseLangage.getLangages().get(choice);
-	    	 return langage;
-	    }
+    	 ArrayList<Langage> langages = baseLangage.getLangages(); 
+    	 for (Langage langage : langages) {
+			if (langage != null) {
+				System.out.println(langages.indexOf(langage) + ". Pour ---> " + langage);
+			}
+		 }
+    	 System.out.print("Entrez le numero du langage de votre choix : ");
+    	 int choice = scanner.nextInt();
+    	 Langage langage = baseLangage.getLangages().get(choice);
+    	 return langage;
+	}
 	    
     /**
      * Affiche la liste des concpets créés par le Professeur pour un langage
@@ -425,127 +425,143 @@ public class Menu {
 	    }
 	    
 	public void studentActions() {
-			System.out.println("\n***************************** BON QUIZ *****************************\n");
+		System.out.println("\n***************************** BON QUIZ *****************************\n");
+		
+		// Récupére la liste des langages de l'application
+		ArrayList<Langage> langages = baseLangage.getLangages();
+		
+		if(!(langages.size() < 1)) {
+			System.out.println("\nChoissez le langage de test \n");
 			
-			// Récupére la liste des langages de l'application
-			ArrayList<Langage> langages = baseLangage.getLangages();
+			Langage chosenLangage = this.chooseLangageFromLangageCollection();
 			
-			if(!(langages.size() < 1)) {
-				System.out.println("\nChoissez le langage de test \n");
+			// afficher la liste des concepts d'un langage choisi
+			if(!(chosenLangage.getConceptQuiz().size() < 1)) {
 				
-				Langage chosenLangage = this.chooseLangageFromLangageCollection();
+				System.out.println("--------------- " + chosenLangage + "---------------------") ;
 				
-				// afficher la liste des concepts d'un langage choisi
-				if(!(chosenLangage.getConceptQuiz().size() < 1)) {
-					
-					System.out.println("--------------- " + chosenLangage + "---------------------");
-					
-					ConceptQuiz chosenQuiz = this.chooseConceptQuizFromConceptQuizCollections(chosenLangage);
-					student.getScorEtudiant().setConceptScore(chosenQuiz);
-					ConceptQuiz studentScoreConceptQuiz = student.getScorEtudiant().getConceptScore();
-					
-					int nbCorrectMultipleChoiseQuestions = 0;
-					int nbIncorrectMultipleChoiseQuestions = 0;
-					int nbMultipleChoiceQuestions = 0;
-					float nbMultipleChoiceQuestionAnswer = 0;
-					
-					
-					int nbTrueFalseQuestions = 0;
-					int nbCorrectTrueFalseQuestions = 0;
-					
-					int nbNumericQuestions = 0;
-					int nbCorrectNumericQuestions = 0;
-					
-					if(!(chosenQuiz.getQuestions().size() < 1)) {
-						for (Question question : chosenQuiz.getQuestions()) {
-							if(question != null) {
-								System.out.println(question);
-								String answer = "";	
-								switch (question.getClass().getSimpleName()) {
-									case "MultipleChoice":
-										System.out.print("Saisir le N° d'une réponse ou cliquez sur 'Entrez' pour continuer : ");
-										scanner.nextLine();
-										answer = scanner.nextLine();
+				ConceptQuiz chosenQuiz = this.chooseConceptQuizFromConceptQuizCollections(chosenLangage);
+				
+				Score score = new Score(new ConceptQuiz(chosenQuiz.getTitle()));
+				student.getStudentScores().add(score);
+				
+				/*int nbCorrectMultipleChoiseQuestions = 0;
+				int nbIncorrectMultipleChoiseQuestions = 0;
+				int nbMultipleChoiceQuestions = 0;
+				float nbMultipleChoiceQuestionAnswer = 0;
+				
+				
+				int nbTrueFalseQuestions = 0;
+				int nbCorrectTrueFalseQuestions = 0;
+				
+				int nbNumericQuestions = 0;
+				int nbCorrectNumericQuestions = 0;*/
+				
+				if(!(chosenQuiz.getQuestions().size() < 1)) { 
+					for (Question question : chosenQuiz.getQuestions()) {
+						if(question != null) {
+							System.out.println(question);
+							String answer = "";	
+							switch (question.getClass().getSimpleName()) {
+								case "MultipleChoice":
+									System.out.print("Saisir le N° d'une réponse ou cliquez sur 'Entrez' pour continuer : ");
+									scanner.nextLine();
+									answer = scanner.nextLine();
+									
+									MultipleChoice questionMultipleChoice = (MultipleChoice)question;
+									
+									MultipleChoice q =  new MultipleChoice();
+									q.setTitle(questionMultipleChoice.getTitle());
+									q.setCode(questionMultipleChoice.getCode());
+									
+									while (!answer.equals("")) {
 										
-										MultipleChoice questionMultipleChoice = (MultipleChoice)question;
-										MultipleChoice q =  new MultipleChoice();										
-										while (!answer.equals("")) {
-											
-											int index = Integer.parseInt(answer);
-																						
-											try {
-												if(question.isCorrect(questionMultipleChoice.getRandomizedAnswers().get(index))) {
-													nbCorrectMultipleChoiseQuestions += 1;
-													q.addCorrectAnswers(answer);
-												} else {
-													nbIncorrectMultipleChoiseQuestions += 1;
-													q.addIncorrectAnswers(answer);
-												}
-												System.out.print("Saisir le N° d'une réponse ou cliquez sur 'Entrez' pour continuer : ");
-												answer = scanner.nextLine();
-											} catch (IndexOutOfBoundsException e) {
-												System.out.print("Cette valeur n'existe pas dans la liste saisissez une autre : ");
-												answer = scanner.nextLine();
-												
+										int index = Integer.parseInt(answer);
+																					
+										try {
+											if(question.isCorrect(questionMultipleChoice.getRandomizedAnswers().get(index))) {
+												//nbCorrectMultipleChoiseQuestions += 1;
+												q.addCorrectAnswers(questionMultipleChoice.getRandomizedAnswers().get(index));
+											} else {
+												//nbIncorrectMultipleChoiseQuestions += 1;
+												q.addIncorrectAnswers(questionMultipleChoice.getRandomizedAnswers().get(index));
 											}
+											System.out.print("Saisir le N° d'une réponse ou cliquez sur 'Entrez' pour continuer : ");
+											answer = scanner.nextLine();
+										} catch (IndexOutOfBoundsException e) {
+											System.out.print("Cette valeur n'existe pas dans la liste saisissez une autre : ");
+											answer = scanner.nextLine();
 										}
-										studentScoreConceptQuiz.addQuestion(q);
-										nbMultipleChoiceQuestions += 1;
-										
-										if(nbCorrectMultipleChoiseQuestions == questionMultipleChoice.getCorrectAnswers().size()) {
-											nbMultipleChoiceQuestionAnswer += 1;
-										} else if((nbCorrectMultipleChoiseQuestions  < questionMultipleChoice.getCorrectAnswers().size()) && (nbCorrectMultipleChoiseQuestions >= questionMultipleChoice.getCorrectAnswers().size()/2)){
-											nbMultipleChoiceQuestionAnswer += 0.5;
-										}
-										
-										break;
-									case "TrueFalse":
-										scanner.nextLine();
+									}
+									
+									score.getConceptScore().addQuestion(q);
+									
+									/*nbMultipleChoiceQuestions += 1;
+									
+									if(nbCorrectMultipleChoiseQuestions == questionMultipleChoice.getCorrectAnswers().size()) {
+										nbMultipleChoiceQuestionAnswer += 1;
+									} else if((nbCorrectMultipleChoiseQuestions  < questionMultipleChoice.getCorrectAnswers().size()) && (nbCorrectMultipleChoiseQuestions >= questionMultipleChoice.getCorrectAnswers().size()/2)){
+										nbMultipleChoiceQuestionAnswer += 0.5;
+									}*/
+									
+									break;
+								case "TrueFalse":
+									scanner.nextLine();
+									System.out.print("Saisir OUI ou NON: ");
+									answer = scanner.nextLine();
+									
+									TrueFalse trueFalseQuestion = (TrueFalse)question;
+									
+									TrueFalse tf = new TrueFalse();
+									tf.setTitle(trueFalseQuestion.getTitle());
+									tf.setCode(trueFalseQuestion.getCode());
+
+									while(!(answer.equals("oui") || answer.equals("non"))) {
+										System.out.print("\nDésolé vous devez répondre par OUI ou NON pour continuer\n");
 										System.out.print("Saisir OUI ou NON: ");
 										answer = scanner.nextLine();
-										
-										TrueFalse trueFalseQuestion = (TrueFalse)question;
-										TrueFalse tf = new TrueFalse();
-
-
-										while(!(answer.equals("oui") || answer.equals("non"))) {
-											System.out.print("\nDésolé vous devez répondre par OUI ou NON pour continuer\n");
-											System.out.print("Saisir OUI ou NON: ");
-											answer = scanner.nextLine();
-										}
-										if(trueFalseQuestion.isCorrect(answer)) {
-											nbCorrectTrueFalseQuestions += 1;
-											tf.setAnswer(answer);
-
-										}
-										nbTrueFalseQuestions += 1;
-										
-										break;
-									case "Numeric": 
-										System.out.print("Saisir votre réponse : ");
+									}
+									
+									
+									tf.setAnswer(answer);
+									
+									/*if(trueFalseQuestion.isCorrect(answer)) {
+										nbCorrectTrueFalseQuestions += 1;
+									}
+									nbTrueFalseQuestions += 1;*/
+									
+									break;
+								case "Numeric": 
+									System.out.print("Saisir votre réponse : ");
+									answer = scanner.nextLine();
+									
+									Numeric numericQuestion = (Numeric)question;
+									Numeric n = new Numeric();
+									n.setTitle(numericQuestion.getTitle());
+									n.setCode(numericQuestion.getCode());
+									
+									while(answer.equals("")) {
+										System.out.print("\nDésolé vous ne pouvez pas laisser la question sans réponse\n");
+										System.out.print("Saisir votre réponse: ");
 										answer = scanner.nextLine();
-										
-										Numeric numericQuestion = (Numeric)question;
-										Numeric n = new Numeric();
-										
-										while(answer.equals("")) {
-											System.out.print("\nDésolé vous ne pouvez pas laisser la question sans réponse\n");
-											System.out.print("Saisir votre réponse: ");
-											answer = scanner.nextLine();
-										}
-										
-										if(numericQuestion.isCorrect(answer)) {
-											nbCorrectNumericQuestions += 1;
-											n.setAnswer(answer);
-										}
-										nbNumericQuestions += 1;
-										break;
-									default: break;
-								}
+									}
+									
+									n.setAnswer(answer);
+
+									
+									/*if(numericQuestion.isCorrect(answer)) {
+										nbCorrectNumericQuestions += 1;
+									}
+									nbNumericQuestions += 1;*/
+									break;
+								default: break;
 							}
 						}
+					}
+						
+						displayStudentAnswers(chosenQuiz);
 												
-						float totalCorrectAnswers = nbMultipleChoiceQuestionAnswer + nbCorrectNumericQuestions + nbCorrectTrueFalseQuestions;
+						/*float totalCorrectAnswers = nbMultipleChoiceQuestionAnswer + nbCorrectNumericQuestions + nbCorrectTrueFalseQuestions;
 						int totalAnswers = nbMultipleChoiceQuestions + nbTrueFalseQuestions + nbNumericQuestions;
 						
 						//student.calculateScore(totalCorrectAnswers, totalAnswers);
@@ -555,7 +571,7 @@ public class Menu {
 						System.out.println("Numérique  : " + nbCorrectNumericQuestions + "/" + nbNumericQuestions);
 						
 						student.setStudentAnswersInfo(totalCorrectAnswers, totalAnswers);
-						System.out.println("Total : " + student.getStudentAnswersInfo());
+						System.out.println("Total : " + student.getStudentAnswersInfo());*/
 						
 					} else {
 						System.out.println("\n\nDésolé aucune question n'existe pour "+chosenQuiz+", veillez ressayer ultérieurement\n\n");	
@@ -568,7 +584,66 @@ public class Menu {
 			} else {
 				System.out.println("\n\nDésolé aucun langage n'existe, veillez ressayer ultérieurement\n\n");	
 			}
+	}
+    	
+	public void displayStudentAnswers(ConceptQuiz chosenQuiz) {
+		System.out.println("\n\n======================= RESULTATS DU TEST SUR : " + chosenQuiz + " ========================\n\n");
+		for (Score score2 : student.getStudentScores()) {
+
+			for (Question question : score2.getConceptScore().getQuestions()) {
+				
+				System.out.println("========= QUESTION ========");
+				System.out.println(question);
+				System.out.println("========= VOS REPONSES ========");
+				
+				if(question.getClass().getSimpleName().equals("MultipleChoice")) {
+					
+					MultipleChoice multipleChoice = (MultipleChoice)question;
+														
+					for (String studentAnswer : multipleChoice.getRandomizedAnswers()) {
+
+						for (Question adminQuestion : chosenQuiz.getQuestions()) {
+							
+							if(adminQuestion.getTitle().equals(multipleChoice.getTitle())) {
+								
+								if(adminQuestion.isCorrect(studentAnswer)){
+									System.out.println(studentAnswer + " --> \\/");
+								} else {
+									System.out.println(studentAnswer + " --> X");
+								}
+							}
+						}
+					}
+				} else if(question.getClass().getSimpleName().equals("TrueFalse")) {								
+					TrueFalse trueFalseQuestion = (TrueFalse)question;
+					System.out.println("TrueFalse");
+					for (Question adminQuestion : chosenQuiz.getQuestions()) {
+						
+						if(adminQuestion.getTitle().equals(trueFalseQuestion.getTitle())) {
+							
+							if(adminQuestion.isCorrect(trueFalseQuestion.getAnswer())){
+								System.out.println(trueFalseQuestion.getAnswer() + " --> \\/");
+							} else {
+								System.out.println(trueFalseQuestion.getAnswer() + " --> X");
+							}
+						}
+					}
+				} else if(question.getClass().getSimpleName().equals("Numeric")) {								
+					Numeric numericQuestion = (Numeric)question;
+					System.out.println("Numeric");
+					for (Question adminQuestion : chosenQuiz.getQuestions()) {
+						
+						if(adminQuestion.getTitle().equals(numericQuestion.getTitle())) {
+							
+							if(adminQuestion.isCorrect(numericQuestion.getAnswer())){
+								System.out.println(numericQuestion.getAnswer() + " --> \\/");
+							} else {
+								System.out.println(numericQuestion.getAnswer() + " --> X");
+							}
+						}
+					}
+				}
+			}
 		}
-    
-	
+	}
 }

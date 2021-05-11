@@ -6,13 +6,11 @@ public class Score {
 	
 	private ConceptQuiz conceptScore;
 	
-<<<<<<< HEAD
-=======
-/// 
->>>>>>> master
+
 	
-	
-	
+	public Score(ConceptQuiz conceptQuiz) {
+		this.conceptScore = conceptQuiz;
+	}
 
 	public ConceptQuiz getConceptScore() {
 		return conceptScore;
