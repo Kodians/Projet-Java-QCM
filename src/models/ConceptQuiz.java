@@ -1,16 +1,19 @@
+package models;
 
 import java.util.*;
-
-import javax.swing.JTextArea;
+import controllers.Student;
 
 /**
+ * @author Mamadou Niakate
  * 
  */
 public class ConceptQuiz {
+	private static int count;
+	
     /**
      * 
      */
-    public ArrayList<Question> questions;
+    public ArrayList<Question> questions= new ArrayList<>();
 
     /**
      * 
@@ -30,43 +33,23 @@ public class ConceptQuiz {
      * Default constructor
      */
     public ConceptQuiz() {
+    	this.questions = null;
+    	this.title = "";
     }
-    
     
     public ConceptQuiz(String title) {
     	this.title = title;
+    	this.id= ++count;
     }
 
-
     /**
-     * Permet d'afficher une question à multiple réponses
-     * @param MultipleChoise titre 
+     * Melange / désordonne les éléments d'une liste
      * @return
      */
-    public void displayMC( MultipleChoice multipleChoice) {
-    	System.out.println(multipleChoice.getTitle());
-    	System.out.println(multipleChoice.getCode());
+    public ArrayList<Question> randomize(ArrayList<Question> questions) { 
+    	Collections.shuffle(questions);
     	
-    	System.out.println(multipleChoice.getAnswers());
-    }
-
-    /**
-     * Permet d'afficher une question à réponse Vrai ou Faux
-     * @param TrueFalse questionTrueFalse 
-     * @return
-     */
-    public void displayTrueFalse( TrueFalse questionTrueFalse) {
-        System.out.println(questionTrueFalse.getTitle());
-        System.out.println(questionTrueFalse.getCode());
-        
-        System.out.println(questionTrueFalse.getAnswers());
-    }
-
-    /**
-     * 
-     */
-    public ArrayList<Question> randomize(ArrayList<Question>titre) {    	
-    	return null;
+    	return questions;
     }
 
     /**
@@ -78,21 +61,15 @@ public class ConceptQuiz {
         return 0.0d;
     }
 
-    /**
-     * @param Scanner keyboard 
-     * @return
-     */
-    public void displayResult( Scanner keyboard) {
-        // TODO implement here
-    }
 
     /**
+     * Ajotuer une question à la liste des questions d'un ConceptQuiz
      * @param String titre 
      * @param TextArea code 
      * @return
      */
-    public void addQuestion( String titre,  JTextArea code) {
-        this.questions.add(new Question(titre,code));
+    public void addQuestion( Question q) {
+        this.questions.add(q);
     }
 
     /**
@@ -101,7 +78,7 @@ public class ConceptQuiz {
      * @param TextArea code 
      * @return
      */
-    public void editQuestion(int id,String titre,  JTextArea code) {
+    public void editQuestion(int id,String titre,  String code) {
     	this.questions.get(id).setQuestion(titre, code);
     }
 
@@ -116,8 +93,14 @@ public class ConceptQuiz {
     }
 
 
+    /**
+     * Retourne la listes des questions d'un conceptQuiz
+     * @return
+     */
 	public ArrayList<Question> getQuestions() {
-		return questions;
+		ArrayList<Question> questionsRandomized = questions;
+		Collections.shuffle(questionsRandomized);
+		return questionsRandomized;
 	}
 
 
@@ -143,6 +126,12 @@ public class ConceptQuiz {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+
+	@Override
+	public String toString() {
+		return this.getTitle();
 	}
 
 }
