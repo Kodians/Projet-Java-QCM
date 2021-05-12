@@ -5,6 +5,7 @@ import models.ConceptQuiz;
 public class Score {
 	
 	private ConceptQuiz conceptScore;
+	private int scoreResult;
 	
 
 	

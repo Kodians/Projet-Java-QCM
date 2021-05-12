@@ -445,18 +445,6 @@ public class Menu {
 				Score score = new Score(new ConceptQuiz(chosenQuiz.getTitle()));
 				student.getStudentScores().add(score);
 				
-				/*int nbCorrectMultipleChoiseQuestions = 0;
-				int nbIncorrectMultipleChoiseQuestions = 0;
-				int nbMultipleChoiceQuestions = 0;
-				float nbMultipleChoiceQuestionAnswer = 0;
-				
-				
-				int nbTrueFalseQuestions = 0;
-				int nbCorrectTrueFalseQuestions = 0;
-				
-				int nbNumericQuestions = 0;
-				int nbCorrectNumericQuestions = 0;*/
-				
 				if(!(chosenQuiz.getQuestions().size() < 1)) { 
 					for (Question question : chosenQuiz.getQuestions()) {
 						if(question != null) {
@@ -480,10 +468,8 @@ public class Menu {
 																					
 										try {
 											if(question.isCorrect(questionMultipleChoice.getRandomizedAnswers().get(index))) {
-												//nbCorrectMultipleChoiseQuestions += 1;
 												q.addCorrectAnswers(questionMultipleChoice.getRandomizedAnswers().get(index));
 											} else {
-												//nbIncorrectMultipleChoiseQuestions += 1;
 												q.addIncorrectAnswers(questionMultipleChoice.getRandomizedAnswers().get(index));
 											}
 											System.out.print("Saisir le N° d'une réponse ou cliquez sur 'Entrez' pour continuer : ");
@@ -495,14 +481,6 @@ public class Menu {
 									}
 									
 									score.getConceptScore().addQuestion(q);
-									
-									/*nbMultipleChoiceQuestions += 1;
-									
-									if(nbCorrectMultipleChoiseQuestions == questionMultipleChoice.getCorrectAnswers().size()) {
-										nbMultipleChoiceQuestionAnswer += 1;
-									} else if((nbCorrectMultipleChoiseQuestions  < questionMultipleChoice.getCorrectAnswers().size()) && (nbCorrectMultipleChoiseQuestions >= questionMultipleChoice.getCorrectAnswers().size()/2)){
-										nbMultipleChoiceQuestionAnswer += 0.5;
-									}*/
 									
 									break;
 								case "TrueFalse":
@@ -525,10 +503,7 @@ public class Menu {
 									
 									tf.setAnswer(answer);
 									
-									/*if(trueFalseQuestion.isCorrect(answer)) {
-										nbCorrectTrueFalseQuestions += 1;
-									}
-									nbTrueFalseQuestions += 1;*/
+									score.getConceptScore().addQuestion(tf);
 									
 									break;
 								case "Numeric": 
@@ -547,31 +522,15 @@ public class Menu {
 									}
 									
 									n.setAnswer(answer);
-
 									
-									/*if(numericQuestion.isCorrect(answer)) {
-										nbCorrectNumericQuestions += 1;
-									}
-									nbNumericQuestions += 1;*/
+									score.getConceptScore().addQuestion(n);
 									break;
 								default: break;
 							}
 						}
 					}
-						
-						displayStudentAnswers(chosenQuiz);
-												
-						/*float totalCorrectAnswers = nbMultipleChoiceQuestionAnswer + nbCorrectNumericQuestions + nbCorrectTrueFalseQuestions;
-						int totalAnswers = nbMultipleChoiceQuestions + nbTrueFalseQuestions + nbNumericQuestions;
-						
-						//student.calculateScore(totalCorrectAnswers, totalAnswers);
-
-						System.out.println("Multiple Choice : " + nbMultipleChoiceQuestionAnswer + "/" + nbMultipleChoiceQuestions);
-						System.out.println("True False : " + nbCorrectTrueFalseQuestions + "/" + nbTrueFalseQuestions);
-						System.out.println("Numérique  : " + nbCorrectNumericQuestions + "/" + nbNumericQuestions);
-						
-						student.setStudentAnswersInfo(totalCorrectAnswers, totalAnswers);
-						System.out.println("Total : " + student.getStudentAnswersInfo());*/
+					
+					displayStudentAnswers(chosenQuiz,score);
 						
 					} else {
 						System.out.println("\n\nDésolé aucune question n'existe pour "+chosenQuiz+", veillez ressayer ultérieurement\n\n");	
@@ -586,60 +545,58 @@ public class Menu {
 			}
 	}
     	
-	public void displayStudentAnswers(ConceptQuiz chosenQuiz) {
+	public void displayStudentAnswers(ConceptQuiz chosenQuiz,Score score) {
 		System.out.println("\n\n======================= RESULTATS DU TEST SUR : " + chosenQuiz + " ========================\n\n");
-		for (Score score2 : student.getStudentScores()) {
 
-			for (Question question : score2.getConceptScore().getQuestions()) {
+		for (Question question : score.getConceptScore().getQuestions()) {
+			
+			System.out.println("========= QUESTION ========");
+			System.out.println(question);
+			System.out.println("========= VOS REPONSES ========");
+			
+			if(question.getClass().getSimpleName().equals("MultipleChoice")) { 
 				
-				System.out.println("========= QUESTION ========");
-				System.out.println(question);
-				System.out.println("========= VOS REPONSES ========");
-				
-				if(question.getClass().getSimpleName().equals("MultipleChoice")) {
+				MultipleChoice multipleChoice = (MultipleChoice)question;
+													
+				for (String studentAnswer : multipleChoice.getRandomizedAnswers()) {
+
+					for (Question adminQuestion : chosenQuiz.getQuestions()) {
+						
+						if(adminQuestion.getTitle().equals(multipleChoice.getTitle())) {
+							
+							if(adminQuestion.isCorrect(studentAnswer)){
+								System.out.println(studentAnswer + " --> V");
+							} else {
+								System.out.println(studentAnswer + " --> X");
+							}
+						}
+					}
+				}
+			} else if(question.getClass().getSimpleName().equals("TrueFalse")) {								
+				TrueFalse trueFalseQuestion = (TrueFalse)question;
+
+				for (Question adminQuestion : chosenQuiz.getQuestions()) { 
 					
-					MultipleChoice multipleChoice = (MultipleChoice)question;
-														
-					for (String studentAnswer : multipleChoice.getRandomizedAnswers()) {
+					if(adminQuestion.getTitle().equals(trueFalseQuestion.getTitle())) {
+						
+						if(adminQuestion.isCorrect(trueFalseQuestion.getAnswer())){
+							System.out.println(trueFalseQuestion.getAnswer() + " --> V");
+						} else {
+							System.out.println(trueFalseQuestion.getAnswer() + " --> X");
+						}
+					}
+				}
+			} else if(question.getClass().getSimpleName().equals("Numeric")) {								
+				Numeric numericQuestion = (Numeric)question;
 
-						for (Question adminQuestion : chosenQuiz.getQuestions()) {
-							
-							if(adminQuestion.getTitle().equals(multipleChoice.getTitle())) {
-								
-								if(adminQuestion.isCorrect(studentAnswer)){
-									System.out.println(studentAnswer + " --> \\/");
-								} else {
-									System.out.println(studentAnswer + " --> X");
-								}
-							}
-						}
-					}
-				} else if(question.getClass().getSimpleName().equals("TrueFalse")) {								
-					TrueFalse trueFalseQuestion = (TrueFalse)question;
-					System.out.println("TrueFalse");
-					for (Question adminQuestion : chosenQuiz.getQuestions()) {
+				for (Question adminQuestion : chosenQuiz.getQuestions()) {
+					
+					if(adminQuestion.getTitle().equals(numericQuestion.getTitle())) {
 						
-						if(adminQuestion.getTitle().equals(trueFalseQuestion.getTitle())) {
-							
-							if(adminQuestion.isCorrect(trueFalseQuestion.getAnswer())){
-								System.out.println(trueFalseQuestion.getAnswer() + " --> \\/");
-							} else {
-								System.out.println(trueFalseQuestion.getAnswer() + " --> X");
-							}
-						}
-					}
-				} else if(question.getClass().getSimpleName().equals("Numeric")) {								
-					Numeric numericQuestion = (Numeric)question;
-					System.out.println("Numeric");
-					for (Question adminQuestion : chosenQuiz.getQuestions()) {
-						
-						if(adminQuestion.getTitle().equals(numericQuestion.getTitle())) {
-							
-							if(adminQuestion.isCorrect(numericQuestion.getAnswer())){
-								System.out.println(numericQuestion.getAnswer() + " --> \\/");
-							} else {
-								System.out.println(numericQuestion.getAnswer() + " --> X");
-							}
+						if(adminQuestion.isCorrect(numericQuestion.getAnswer())){
+							System.out.println(numericQuestion.getAnswer() + " --> V");
+						} else {
+							System.out.println(numericQuestion.getAnswer() + " --> X");
 						}
 					}
 				}
