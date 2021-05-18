@@ -21,7 +21,7 @@ public class Menu {
 	private BaseLangage baseLangage;
 	
 	/**
-	 * Constructeur par défaut de la classe Menu
+	 * CONSTRUCTEUR PAR DEFAUT DE LA CLASSE MENU
 	 */
 	public Menu() {
 		profesor = null;
@@ -29,7 +29,7 @@ public class Menu {
 	}
 	
 	/**
-	 * Constructeur avec paramètre de la classe Menu
+	 * CONSTRUCTEUR AVEC PARAMETRE DE LA CLASSE MENU
 	 * @param scanner
 	 * @param profesor
 	 * @param student
@@ -42,7 +42,7 @@ public class Menu {
 	}
 	
 	/**
-	 * Permet de rédiriger l'utilisateur selon son rôle
+	 * PERMET DE REDIRIGER L'UTILISATEUR SELON SON ROLE
 	 */
 	public void setMenu() {
     	System.out.println("======== Menu ========\n");
@@ -63,8 +63,11 @@ public class Menu {
 			userType = scanner.nextInt();
 		} 
     }
-
-
+	
+	/**
+	 * LES ACTIONS DU PROFESSEUR
+	 * 
+	 */
 	public void adminActions() {		
 		System.out.println("\n======================================\n"
 				+ "1. Ajouter un langage \n\n"
@@ -103,6 +106,10 @@ public class Menu {
 		System.out.println("\n\n************OPÉRATION TERMINÉ*************\n\n");
 	}
 	
+	/**
+	 * PERMETD'EDITER UN LANGAGE (MODIFIER LE NOM D'UN LANGAGE,SUPPRIMER UN LANGAGE,AJOUTER, MODIFIER  DES CONCEPTS,
+	 *  RETOURNER AU MENU)
+	 */
 	public void editLangage(Langage langage) {	
 		System.out.println("\n=============="+ langage +"========================\n"
 				+ "1. Modifier le nom du langage \n\n"
@@ -153,7 +160,11 @@ public class Menu {
 		System.out.println("\n\n************OPÉRATION TERMINÉ*************\n\n");
 		setMenu();
 	}
-	
+
+	/**
+	 * PERMETD'EDITER UN CONCEPT (MODIFIER LE TITRE D'UN CONCEPT,SUPPRIMER UN CONCEPT,AJOUTER, MODIFIER  DES QUESTIONS,
+	 *  RETOURNER AU MENU)
+	 */
 	public void editConcept(Langage langage) {
 		ConceptQuiz chosenConceptQuiz = chooseConceptQuizFromConceptQuizCollections(langage);
 		System.out.println("\n=============="+ chosenConceptQuiz +"========================\n"
@@ -197,7 +208,11 @@ public class Menu {
 		
 		System.out.println("\n\n************OPÉRATION TERMINÉ*************\n\n");
 	}
-	
+
+	/**
+	 * PERMET DE CREER UN LANGAGE ET CES CONCEPTS
+	 *
+	 */
 	public void createLangageAndConcepts() {
 	    	System.out.print("Entrez le nom d'un langage : ");
 			scanner.nextLine();
@@ -225,7 +240,10 @@ public class Menu {
 				}
 			}
 	}
-	 
+
+	/**
+	 * PERMET DE CREER ET AJOUTER LES CONCEPTS AUX LANGANGES CREES
+	 */
 	public void addConcept(Langage langage) {
 	    	System.out.println("Entrer un concept de " + langage + " ou clique sur 'Entrez' pour finir");
 			String langageConcept = scanner.nextLine();
@@ -239,7 +257,10 @@ public class Menu {
 				langageConcept = scanner.nextLine();
 			}
 	    }
-	 
+	
+	/**
+	 * PERMET DE CREER UNE QUESTION SUR UN CONCEPT D'UN LANGAGE
+	 */
 	public void createQuestionForLangageConcept() {
 			/***************** SELECTION DU LANGAGE POUR LE QCM  *****************/
 			System.out.println("Choisissez un langage pour lequel vous souhaitez créer un QCM");
@@ -380,8 +401,8 @@ public class Menu {
 	    }
   
 	/**
-     * Affiche la liste des langages créés par le Professeur
-     * Choisir un langage donné
+     * AFFOCHE LA LISTE DES LANGAGES CREES PAR LE PROFESSEUR
+     * CHOISIR UN LANGAGE DONNE
      * @return void
      */
 	public Langage chooseLangageFromLangageCollection() {
@@ -398,8 +419,8 @@ public class Menu {
 	}
 	    
     /**
-     * Affiche la liste des concpets créés par le Professeur pour un langage
-     * Choisir un concept donné
+     * AFFICHE LA LISTE DES CONCEPTS CREES PAR LE PROFFESEUR POUR UN LANGAGE
+     * CHOISIR UN CONCEPT DONNE 
      * @param chosenLangage
      * @return
      */
@@ -423,7 +444,9 @@ public class Menu {
 			
 			return chosenConceptQuiz;
 	    }
-	    
+	/**
+	 * ACTIONS DE L'ETUDIANT
+	 */
 	public void studentActions() {
 		System.out.println("\n***************************** BON QUIZ *****************************\n");
 		
@@ -444,7 +467,7 @@ public class Menu {
 				
 				Score score = new Score(new ConceptQuiz(chosenQuiz.getTitle()));
 				student.getStudentScores().add(score);
-				
+				/*======== VERIFIE QU'IL Y'A DES QUESTIONS SUR LE CONCEPT CHOISIS =======*/
 				if(!(chosenQuiz.getQuestions().size() < 1)) { 
 					for (Question question : chosenQuiz.getQuestions()) {
 						if(question != null) {
@@ -544,15 +567,17 @@ public class Menu {
 				System.out.println("\n\nDésolé aucun langage n'existe, veillez ressayer ultérieurement\n\n");	
 			}
 	}
-    	
+	/**
+	 * AFFICHE LE RESULTAT DU TEST DE L'ETUDIANT AVEC LE SCORE
+	 */	
 	public void displayStudentAnswers(ConceptQuiz chosenQuiz,Score score) {
 		System.out.println("\n\n======================= RESULTATS DU TEST SUR : " + chosenQuiz + " ========================\n\n");
 
 		for (Question question : score.getConceptScore().getQuestions()) {
 			
-			System.out.println("========= QUESTION ========");
+			System.out.println("\n ========= QUESTION ========");
 			System.out.println(question);
-			System.out.println("========= VOS REPONSES ========");
+			System.out.println("\n ========= VOS REPONSES ========");
 			
 			if(question.getClass().getSimpleName().equals("MultipleChoice")) { 
 				
@@ -602,5 +627,6 @@ public class Menu {
 				}
 			}
 		}
+		System.out.println("\n ========= MERCI POUR VOTRE PARTICITATION ==========");
 	}
 }

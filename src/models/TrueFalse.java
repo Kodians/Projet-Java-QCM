@@ -47,7 +47,6 @@ public class TrueFalse extends Question {
 
 	@Override
 	public Boolean isCorrect(String answer) {
-		// TODO Auto-generated method stub
 		return this.answer.equals(answer);
 	}
 

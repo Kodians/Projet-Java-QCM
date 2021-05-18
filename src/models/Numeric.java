@@ -29,7 +29,6 @@ public class Numeric extends Question {
      * @return
      */
     public ArrayList<String> getAnswers() {
-        // TODO implement here
         return null;
     }
 

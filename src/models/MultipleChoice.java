@@ -3,7 +3,7 @@ package models;
 import java.util.*;
 
 /**
- * 
+ * MULTIPLECHOICE QUI HERITE DE QUESTION
  */
 public class MultipleChoice extends Question {
 
@@ -19,7 +19,10 @@ public class MultipleChoice extends Question {
 		this.incorrectAnswers = new ArrayList<String>();
 		this.randomizedAnswer = new ArrayList<String>();
 	}
-
+	/**
+	 * CONSTRUCTEUR AVEC PARAMETRE 
+	 * @param
+	 */
 	public MultipleChoice(String titre, String code, ArrayList<String> correctAnswers,ArrayList<String> incorrectAnswers) {
 		super(titre, code);
 		this.correctAnswers = correctAnswers;
@@ -39,6 +42,10 @@ public class MultipleChoice extends Question {
 		
 		return randomizedAnswer;
 	}
+	/**
+	 * PERMET DE RANDOMIZER LES QUESTION
+	 * @return
+	 */
 	
 	public ArrayList<String> getRandomizedAnswers() {
 		return this.randomizedAnswer;
@@ -64,7 +71,6 @@ public class MultipleChoice extends Question {
 	 * @return
 	 */
 	public boolean isCorrect() {
-		// TODO implement here
 		return false;
 	}
 
