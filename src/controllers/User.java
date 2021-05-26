@@ -41,25 +41,29 @@ public class User {
     }
 
     /**
-     * @param String userName 
-     * @param char password
+     * Véfifie que l'utilisateur a bien un compte
+     * @param userName
+     * @param password
      */
     public void login( String userName,  char password) {
         // TODO implement here
     }
 
     /**
-     * @param String firstName 
-     * @param String lastName 
-     * @param String userName 
-     * @param char password 
-     * @param String role
+     * Permettre à l'utilisateur à s'inscrire
+     * @param firstName
+     * @param lastName
+     * @param userName
+     * @param password
+     * @param role
      */
     public void register( String firstName,  String lastName,  String userName,  char password,  String role) {
         // TODO implement here
     }
 
-	@Override
+    /**
+     * Convertir la classe en chaine de caractère à travers ses attributs
+     */
 	public String toString() {
 		return "User [firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName + ", password="
 				+ password + ", role=" + role + "]";

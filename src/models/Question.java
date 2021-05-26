@@ -1,7 +1,7 @@
 package models;
 
 /**
- * 
+ * Classe abstract représentant une Question de manière générale de laquelle toute les classes spécialisées héritent
  * @author Mamadou Niakate
  * @author Danko Konaté
  */
@@ -40,7 +40,7 @@ public abstract class Question {
     
 
     /**
-     * Constructeur avec paramètre
+     * Constructeur avec paramètre initialisant le titre et le code de la question
      * @param title
      * @param code
      */

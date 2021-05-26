@@ -5,6 +5,8 @@ import java.util.*;
 /**
  * La classes présentant les concepts des langages
  * Chaque concept à sa liste de questions
+ * @author Mamadou Niakaté
+ * @author Danko Konaté
  */
 public class ConceptQuiz {
 	
@@ -41,7 +43,7 @@ public class ConceptQuiz {
     }
     
     /**
-     * Constructeur avec paramètre du concept
+     * Constructeur avec paramètre initialisant le titre du concept
      * @param title
      */
     public ConceptQuiz(String title) {
@@ -142,6 +144,23 @@ public class ConceptQuiz {
 	 */
 	public String toString() {
 		return this.getTitle();
+	}
+	
+	
+	public boolean equals(Object obj) {
+		  
+		//On vérifie si les références d'objets sont identiques
+		  if (this == obj)
+		    return true;
+
+		  //On s'assure que les objets sont du même type, ici de type ConceptQuiz
+		  if (getClass() != obj.getClass())
+		    return false;
+			
+		  //Maintenant, on compare les attributs de nos objets
+		  ConceptQuiz other = (ConceptQuiz) obj;
+
+		  return Objects.equals(other.getId(), this.getId()) && Objects.equals(other.getTitle(), this.getTitle());
 	}
 
 }
