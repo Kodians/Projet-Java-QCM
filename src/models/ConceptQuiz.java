@@ -49,7 +49,6 @@ public class ConceptQuiz {
     	this.id= ++count;
     }
 
-
     /**
      * Melange / désordonne les éléments de la liste des questions du concept
      * @param questions
@@ -61,12 +60,9 @@ public class ConceptQuiz {
     	return questions;
     }
 
-
     /**
      * Ajotuer une question à la liste des questions d'un ConceptQuiz
-     * @param String titre 
-     * @param TextArea code 
-     * @return void
+     * @param q
      */
     public void addQuestion( Question q) {
         this.questions.add(q);
@@ -74,9 +70,9 @@ public class ConceptQuiz {
 
     /**
      * Permet d'éditer une question
-     * @param String titre 
-     * @param TextArea code 
-     * @return
+     * @param id
+     * @param titre
+     * @param code
      */
     public void editQuestion(int id,String titre,  String code) {
     	this.questions.get(id).setQuestion(titre, code);
@@ -84,14 +80,11 @@ public class ConceptQuiz {
 
     /**
      * Supprime la Question dont 'ID est passé en paramètre
-     * @param String titre 
-     * @param TextArea code 
-     * @return void
+     * @param id
      */
     public void removeQuestion(int id) {
     	this.questions.remove(this.questions.get(id));
     }
-
 
     /**
      * Retourne la listes des questions d'un conceptQuiz
@@ -103,11 +96,9 @@ public class ConceptQuiz {
 		return questionsRandomized;
 	}
 
-
 	/**
 	 * Mettre à jour la liste des questions du concept dépuis l'exterieur de la classe
 	 * @param questions
-	 * @return void
 	 */
 	public void setQuestions(ArrayList<Question> questions) {
 		this.questions = questions;
@@ -121,16 +112,13 @@ public class ConceptQuiz {
 		return title;
 	}
 
-
 	/**
 	 * Mettre à jour le titre du concept dépuis l'exterieur de la classe
 	 * @param title
-	 * @return void
 	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
 
 	/**
 	 * Récupérer l'identifiant du concept dépuis l'exterieur de la classe
@@ -140,11 +128,9 @@ public class ConceptQuiz {
 		return id;
 	}
 
-
 	/**
 	 * Mettre à jour l'identifiant du concept dépuis l'exterieur de la classe
 	 * @param id
-	 * @return void
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -153,7 +139,6 @@ public class ConceptQuiz {
 
 	/**
 	 * Convertir la classe en String à travers son attribut titre
-	 * @return String
 	 */
 	public String toString() {
 		return this.getTitle();

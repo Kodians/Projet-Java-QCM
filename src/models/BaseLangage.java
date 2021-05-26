@@ -22,8 +22,7 @@ public class BaseLangage {
 
     /**
      * Ajoute un langage à la liste des langages de l'application
-     * @param String nom 
-     * @return
+     * @param langage
      */
     public void addLangage(Langage langage) {
         this.langages.add(langage);
@@ -32,16 +31,15 @@ public class BaseLangage {
 
     /**
      * Supprime un langage de la liste des langages de l'application
-     * @param String nom 
-     * @return
+     * @param langage
      */
     public void deletLangage(Langage langage) {
         this.langages.remove(langage);       
     }
 
     /**
-     * Retourne la liste des langages de l'application 
-     * @return
+     * Retourne la liste des langages de l'application
+     * @return ArrayList
      */
 	public ArrayList<Langage> getLangages() {
 		return langages;

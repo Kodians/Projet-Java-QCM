@@ -51,9 +51,9 @@ public abstract class Question {
     }
 
     /**
-     * @param titre 
-     * @param code 
-     * @return void
+     * Fixe le titre et le code de la question
+     * @param title
+     * @param code
      */
     public void setQuestion( String title, String code) {
         this.title = title;
