@@ -13,14 +13,36 @@ import models.Numeric;
 import models.Question;
 import models.TrueFalse;
 
+/**
+ * Classe permettant l'affichage des interfaces utilisateurs
+ * @author Mamadou Niakate
+ * @author Danko Konaté
+ *
+ */
 public class Menu {
+	
+	/**
+	 * Attribut Objet les entrées utilisateur sur la sortie standarde
+	 */
 	private Scanner scanner;
+	
+	/**
+	 * Attribut Objet de la classe Profesor
+	 */
 	private Profesor profesor;
+	
+	/**
+	 * Attribut objet de la classe Student
+	 */
 	private Student student;
+	
+	/**
+	 * Attribut de la classe BaseLangage
+	 */
 	private BaseLangage baseLangage;
 	
 	/**
-	 * CONSTRUCTEUR PAR DEFAUT DE LA CLASSE MENU
+	 * Constructeur par défaut de classe Menu
 	 */
 	public Menu() {
 		profesor = null;
@@ -28,7 +50,7 @@ public class Menu {
 	}
 	
 	/**
-	 * CONSTRUCTEUR AVEC PARAMETRE DE LA CLASSE MENU
+	 * Constructeur initialisant les attributs scanner, profesor, student, baseLangage de la classe Menu
 	 * @param scanner
 	 * @param profesor
 	 * @param student
@@ -41,7 +63,7 @@ public class Menu {
 	}
 	
 	/**
-	 * PERMET DE REDIRIGER L'UTILISATEUR SELON SON ROLE
+	 * Vérifie le type de l'utilisateur, puis le rédirige vers l'interface appropriée
 	 */
 	public void setMenu() {
     	System.out.println("======== Menu ========\n");
@@ -64,8 +86,7 @@ public class Menu {
     }
 	
 	/**
-	 * LES ACTIONS DU PROFESSEUR
-	 * 
+	 * Interprète les actions du professeur
 	 */
 	public void adminActions() {		
 		System.out.println("\n======================================\n"
@@ -106,8 +127,8 @@ public class Menu {
 	}
 	
 	/**
-	 * PERMETD'EDITER UN LANGAGE (MODIFIER LE NOM D'UN LANGAGE,SUPPRIMER UN LANGAGE,AJOUTER, MODIFIER  DES CONCEPTS,
-	 *  RETOURNER AU MENU)
+	 * Modifie langage le nom d'un langage
+	 * @param langage
 	 */
 	public void editLangage(Langage langage) {	
 		System.out.println("\n=============="+ langage +"========================\n"
@@ -161,8 +182,8 @@ public class Menu {
 	}
 
 	/**
-	 * PERMETD'EDITER UN CONCEPT (MODIFIER LE TITRE D'UN CONCEPT,SUPPRIMER UN CONCEPT,AJOUTER, MODIFIER  DES QUESTIONS,
-	 *  RETOURNER AU MENU)
+	 * Modifie le titre d'un concept
+	 * @param langage
 	 */
 	public void editConcept(Langage langage) {
 		ConceptQuiz chosenConceptQuiz = chooseConceptQuizFromConceptQuizCollections(langage);
@@ -209,8 +230,7 @@ public class Menu {
 	}
 
 	/**
-	 * PERMET DE CREER UN LANGAGE ET CES CONCEPTS
-	 *
+	 * Crée un langage et ces concepts
 	 */
 	public void createLangageAndConcepts() {
 	    	System.out.print("Entrez le nom d'un langage : ");
@@ -241,7 +261,8 @@ public class Menu {
 	}
 
 	/**
-	 * PERMET DE CREER ET AJOUTER LES CONCEPTS AUX LANGANGES CREES
+	 * Crée et ajouter les concepts aux langages créés
+	 * @param langage
 	 */
 	public void addConcept(Langage langage) {
 	    	System.out.println("Entrer un concept de " + langage + " ou clique sur 'Entrez' pour finir");
@@ -258,18 +279,18 @@ public class Menu {
 	    }
 	
 	/**
-	 * PERMET DE CREER UNE QUESTION SUR UN CONCEPT D'UN LANGAGE
+	 * Crée une question sur un concept d'un langage
 	 */
 	public void createQuestionForLangageConcept() {
-			/***************** SELECTION DU LANGAGE POUR LE QCM  *****************/
+			/***************** selection du langage pour le qcm  *****************/
 			System.out.println("Choisissez un langage pour lequel vous souhaitez créer un QCM");
 			Langage chosenLangage = chooseLangageFromLangageCollection();
 			
-			/***************** SELECTION DU CONCEPTION DU LANGAGE CHOISI *****************/
+			/***************** selection du conception du langage choisi *****************/
 			System.out.println("Choisissez le concept du langage "+chosenLangage.getName()+" pour lequel vous souhaitez créer un QCM");
 			ConceptQuiz chosenConceptQuiz = chooseConceptQuizFromConceptQuizCollections(chosenLangage);
 			
-			/*** CREER UNE QUESTION */
+			/*** creer une question */
 			System.out.println("\n======================================\n"
 					+ "1. Créer une question à réponse multiple \n\n"
 					+ "2. Créer une question à réponse VRAI/FAUX \n\n"
@@ -284,7 +305,7 @@ public class Menu {
 				
 				switch (questionType) {
 					case 1:
-						/***************** SAISIE DES QUESTIONS À RÉPONSES MULTIPLE*****************/
+						/***************** saisie des questions à réponses multiple*****************/
 						System.out.println("\n\t********************* RÉPONSES MULTIPLE***************\n");
 
 						scanner.nextLine();
@@ -299,7 +320,7 @@ public class Menu {
 						mChoice.setTitle(questionTitle);
 						mChoice.setCode(questionCode);
 						
-						/***************** ENTRÉE DES BONNES RÉPONSES *****************/
+						/***************** entrée des bonnes réponses *****************/
 						System.out.println("\n\n\t***************** SAISIES DES BONNES RÉPONSES *****************\n\n");
 						System.out.println("Entrez les bonnes réponses et cliquez sur \'Entrez\' pour finir : ");
 						ArrayList<String> questionCorrectAnswers = new ArrayList<>();
@@ -314,7 +335,7 @@ public class Menu {
 						
 						mChoice.setCorrectAnswers(questionCorrectAnswers);
 						
-						/***************** ENTRÉE DES MAUVAISES RÉPONSES *****************/
+						/***************** entrée des mauvaises réponses *****************/
 						System.out.println("\n\n\t***************** SAISIES DES MAUVAISES RÉPONSES *****************\n\n");
 						System.out.println("Entrez les mauvaises réponses et cliquez sur \'Entrez\' pour finir : ");
 						ArrayList<String> questionInCorrectAnswers = new ArrayList<>();
@@ -329,7 +350,7 @@ public class Menu {
 						
 						mChoice.setIncorrectAnswers(questionInCorrectAnswers);
 						
-						/***************** AJOUTER LA QUESTION AU CONCEPT *****************/
+						/***************** ajouter la question au concept *****************/
 						chosenConceptQuiz.addQuestion(mChoice);
 						
 						break;
@@ -400,10 +421,9 @@ public class Menu {
 	    }
   
 	/**
-     * AFFOCHE LA LISTE DES LANGAGES CREES PAR LE PROFESSEUR
-     * CHOISIR UN LANGAGE DONNE
-     * @return void
-     */
+	 * Affiche la liste des langages crees par le professeur choisir un langage donne
+	 * @return Langage
+	 */
 	public Langage chooseLangageFromLangageCollection() {
     	 ArrayList<Langage> langages = baseLangage.getLangages(); 
     	 for (Langage langage : langages) {
@@ -417,12 +437,11 @@ public class Menu {
     	 return langage;
 	}
 	    
-    /**
-     * AFFICHE LA LISTE DES CONCEPTS CREES PAR LE PROFFESEUR POUR UN LANGAGE
-     * CHOISIR UN CONCEPT DONNE 
-     * @param chosenLangage
-     * @return
-     */
+	/**
+	 * Affiche la liste des concepts créés par le profeseur pour un langage choisir un concept donne
+	 * @param chosenLangage
+	 * @return
+	 */
 	public ConceptQuiz chooseConceptQuizFromConceptQuizCollections(Langage chosenLangage) {    	
 	    	for(ConceptQuiz cq : chosenLangage.getConceptQuiz()) {
 				if(cq != null) {
@@ -443,8 +462,9 @@ public class Menu {
 			
 			return chosenConceptQuiz;
 	    }
+	
 	/**
-	 * ACTIONS DE L'ETUDIANT
+	 * Interprète les actions de l'etudiant
 	 */
 	public void studentActions() {
 		System.out.println("\n***************************** BON QUIZ *****************************\n");
@@ -466,7 +486,7 @@ public class Menu {
 				
 				Score score = new Score(new ConceptQuiz(chosenQuiz.getTitle()));
 				student.getStudentScores().add(score);
-				/*======== VERIFIE QU'IL Y'A DES QUESTIONS SUR LE CONCEPT CHOISIS =======*/
+				/*======== verifie qu'il y'a des questions sur le concept choisis =======*/
 				if(!(chosenQuiz.getQuestions().size() < 1)) { 
 					for (Question question : chosenQuiz.getQuestions()) {
 						if(question != null) {
@@ -566,9 +586,12 @@ public class Menu {
 				System.out.println("\n\nDésolé aucun langage n'existe, veillez ressayer ultérieurement\n\n");	
 			}
 	}
+
 	/**
-	 * AFFICHE LE RESULTAT DU TEST DE L'ETUDIANT AVEC LE SCORE
-	 */	
+	 * Affiche le resultat du test de l'etudiant avec le score
+	 * @param chosenQuiz
+	 * @param score
+	 */
 	public void displayStudentAnswers(ConceptQuiz chosenQuiz,Score score) {
 		System.out.println("\n\n======================= RESULTATS DU TEST SUR : " + chosenQuiz + " ========================\n\n");
 

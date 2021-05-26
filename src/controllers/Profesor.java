@@ -36,7 +36,6 @@ public class Profesor extends User {
 	 * @param userName
 	 * @param password
 	 * @param role
-	 * @param baseLangage
 	 */
 	public Profesor(String firstName, String lastName, String userName,  char password, String role) {
 		super(firstName,lastName,userName,password,role);
@@ -44,15 +43,14 @@ public class Profesor extends User {
 	
 	
 	/**
-	 * Crée un langage puis l'ajouter à la fois à la liste de 
-	 * langues du professeur et celle de l'application
-	 * @param  la base des langage de l'application
-	 * @param  le nouveau langage créé
-	*/
-	 public void createLangage(BaseLangage a,  Langage l ) {
+	 * Crée un langage puis l'ajouter à la fois à la liste de langues du professeur et celle de l'application
+	 * @param a
+	 * @param l
+	 */
+	public void createLangage(BaseLangage a,  Langage l ) {
 		addHisLangage(l);
 		addLang (a, l);
-	 }
+	}
 	 
 	 /**
 	  * Ajoute un langage à la liste des langages du professeur

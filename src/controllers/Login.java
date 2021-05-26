@@ -25,12 +25,12 @@ public class Login {
 
 
     /**
-     * Veifie si c'est un etudiant ou prof qui se connecte 
-     * @param String unserName 
-     * @param chaer password 
-     * @return Boolean
+     * Veifie si c'est un etudiant ou prof qui se connecte
+     * @param unserName
+     * @param password
+     * @return
      */
-    public boolean checkLogin( String unserName,  char password) {
+    public Boolean checkLogin( String unserName,  char password) {
         // TODO implement here
         return false;
     }

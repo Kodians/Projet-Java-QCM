@@ -41,18 +41,20 @@ public class Student extends User {
 
     /**
      * Calcule le score de l'etudiant
-     * @param int correct int total 
+     * @param correct
+     * @param total
      * @return
      */
     public double calculateScore( int correct, int  total) {
         // TODO implement here
         return 0.0d;
     }
+
     /**
-	 * modifie le totalCorrectAnswer & totalAnswer d'un étudiant
-	 * @param totalCorrectAnswer
-	 * @param totalAnswer
-	 */
+     * Modifie le totalCorrectAnswer et totalAnswer d'un étudiant
+     * @param totalCorrectAnswer
+     * @param totalAnswer
+     */
     public  void setStudentAnswersInfo(double totalCorrectAnswer, double totalAnswer ) {
     	this.totalCorrectAnswer=totalCorrectAnswer;
     	this.totalAnswer=totalAnswer;

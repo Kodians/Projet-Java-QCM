@@ -3,8 +3,8 @@ package models;
 import java.util.*;
 
 /**
- * Classe représentation les questions à réponses multiples
- * @author Mamadou Niakate
+ * Classe représentant les questions à réponses multiples
+ * @author Mamadou Niakaté
  * @author Danko Konaté
  *
  */
@@ -39,7 +39,7 @@ public class MultipleChoice extends Question {
 	}
 	
 	/**
-	 * Constructeur fixant le titre, le code et les bonnes réponses et les mauvaises réponses de la question
+	 * Constructeur avec paramètre initialisant le titre, le code et les bonnes réponses et les mauvaises réponses de la question
 	 * @param titre
 	 * @param code
 	 * @param correctAnswers

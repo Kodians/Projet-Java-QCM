@@ -3,6 +3,8 @@ import java.util.*;
 
 /**
  * Classe representant un lanage
+ * @author Mamadou Niakaté
+ * @author Danko Konaté
  */
 public class Langage {
 	
@@ -36,7 +38,7 @@ public class Langage {
     }
 
     /**
-     * Constructeur avec paramètre
+     * Constructeur avec paramètre initialisant le nom du langage
      * @param name
      */
     public Langage( String name) {

@@ -20,7 +20,7 @@ public class TrueFalse extends Question {
     }
     
     /**
-     * Constructeur fixant le titre, le code et la réponse de la question
+     * Constructeur avec paramètre initialisant le titre, le code et la réponse de la question
      * @param title
      * @param code
      * @param answer

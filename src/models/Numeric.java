@@ -2,7 +2,9 @@ package models;
 
 
 /**
- * 
+ * Classe représentant les questions ouvertes
+ * @author Mamadou Niakaté
+ * @author Danko Konaté
  */
 public class Numeric extends Question {
 
@@ -21,7 +23,7 @@ public class Numeric extends Question {
 
 
     /**
-     * Constructeur fixant le titre, le code et la réponse de la question
+     * Constructeur avec paramètre initialisant le titre, le code et la réponse de la question
      * @param title
      * @param code
      * @param answer
