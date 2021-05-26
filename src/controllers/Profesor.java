@@ -9,7 +9,8 @@ import models.Langage;
 /**
  * Décrivez votre classe Prof ici.
  *
- * @author (votre nom)
+ * @author Danko Konate
+ * @author Mamdou Niakaté
  * @version (un numéro de version ou une date)
  */
 public class Profesor extends User {
@@ -79,7 +80,7 @@ public class Profesor extends User {
 	 
 	/**
 	 * Retourne la liste des langages du professeur
-	 * @return
+	 * @return langage
 	 */
 	public ArrayList<Langage> getLangagesList(){
 		return langages;
@@ -108,6 +109,7 @@ public class Profesor extends User {
 	}
 	
 	/**
+	 * L'acces à l'attribut nom
 	 * @return the nom
 	 */
 	public String getNom() {
@@ -115,6 +117,7 @@ public class Profesor extends User {
 	}
 	
 	/**
+	 * Change le contenu de l'attribut nom
 	 * @param nom the nom to set
 	 */
 	public void setNom(String nom) {

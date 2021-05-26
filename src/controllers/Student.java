@@ -3,7 +3,8 @@ package controllers;
 import java.util.ArrayList;
 
 /**
- * 
+ * @author Danko Konate
+ * @author Mamadou Niakaté
  */
 public class Student extends User {
     private double score;
@@ -11,8 +12,6 @@ public class Student extends User {
     private  double totalAnswer;
     private ArrayList<Score> studentScores = new ArrayList<Score>();
 
-    
-    
     /**
      * Score {
      * 	resultat = 2 / 5
@@ -27,13 +26,21 @@ public class Student extends User {
     	this.firstName = nom;
     	score = 0;
     }
-    
+    /**
+     * constructeur avec parametre 
+     * @param firstName
+     * @param lastName
+     * @param userName
+     * @param password
+     * @param role
+     */
     public Student(String firstName, String lastName, String userName,  char password, String role) {
     	super(firstName,lastName,userName,password,role);
     }
     
 
     /**
+     * Calcule le score de l'etudiant
      * @param int correct int total 
      * @return
      */
@@ -41,12 +48,19 @@ public class Student extends User {
         // TODO implement here
         return 0.0d;
     }
-    
+    /**
+	 * modifie le totalCorrectAnswer & totalAnswer d'un étudiant
+	 * @param totalCorrectAnswer
+	 * @param totalAnswer
+	 */
     public  void setStudentAnswersInfo(double totalCorrectAnswer, double totalAnswer ) {
     	this.totalCorrectAnswer=totalCorrectAnswer;
     	this.totalAnswer=totalAnswer;
     }
-
+    /**
+	 * retourne le totalCorrectAnswer/totalAnswer d'un étudiant
+	 * @return totalCorrectAnswer/totalAnswer
+	 */
     public String getStudentAnswersInfo() {
     	return totalCorrectAnswer + "/" + totalAnswer;
     }
@@ -68,6 +82,7 @@ public class Student extends User {
 
 
 	/**
+	 * retourne la liste du score d'un étudiant
 	 * @return the studentScores
 	 */
 	public ArrayList<Score> getStudentScores() {
@@ -75,6 +90,7 @@ public class Student extends User {
 	}
 
 	/**
+	 * modifie le score d'un étudiant
 	 * @param studentScores the studentScores to set
 	 */
 	public void setStudentScores(ArrayList<Score> studentScores) {

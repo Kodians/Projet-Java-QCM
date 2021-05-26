@@ -25,12 +25,6 @@ public class Numeric extends Question {
         this.answer = answer;
     }
 
-    /**
-     * @return
-     */
-    public ArrayList<String> getAnswers() {
-        return null;
-    }
 
     /**
      * @return
@@ -56,13 +50,6 @@ public class Numeric extends Question {
 		this.answer = answer;
 	}
 	
-	public Boolean checkAnswerIsTrue(String answer) {
-		return false;
-	}
-
-	public Boolean checkAnswerIsFalse(String answer) {
-		return false;
-	}
 
 
 	@Override
