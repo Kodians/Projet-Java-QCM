@@ -33,7 +33,7 @@ public class Numeric extends Question {
 
 
     /**
-     * @return
+     * Tranforme la classe en chaine de caractère grâce à ses attributs
      */
     public String toString() {
     	String output = "\n\t" + this.title + "\n\t" + this.code + "\n";
@@ -60,7 +60,10 @@ public class Numeric extends Question {
 	
 
 
-	@Override
+	/**
+	 * Méthode hériter de la classe parent Question véfiant si la réponse passée en paramètre est vraie ou fausse
+	 * @return Boolean
+	 */
 	public Boolean isCorrect(String answer) {
 		return this.answer.equals(answer);
 	}
