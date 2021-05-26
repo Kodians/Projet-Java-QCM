@@ -2,36 +2,57 @@ package models;
 import java.util.*;
 
 /**
- * 
+ * Classe representant un lanage
+ * @author niakate
+ *
  */
 public class Langage {
 	
-	 private static int count;
-	 
-	 private String name;
-	 
-	 private Set<ConceptQuiz> conceptQuiz=new HashSet<>();
-	 private int id;
+	/** Attributs de la classe Langage */
+	
+	/**
+	 * Attribut static permettant d'avoir un identifiant unique pour chaque instance de la classe
+	 */
+	private static int count;
+ 
+	/**
+	 * Nom du lanage
+	 */
+	private String name;
+ 
+	/**
+	 * Liste des concepts du langage sous forme d'un ensemble
+	 */
+	private Set<ConceptQuiz> conceptQuiz=new HashSet<>();
+	
+	/**
+	 * L'identifiant de l'instance de la classes
+	 */
+	private int id;
 
     /**
-     * Default constructor
+     * Constructeur par défaut
      */
     public Langage() {
     	this.name = "";
     }
 
-   public Langage( String name) {
-	   this.name=name;
-	   this.id= ++count;
-	   this.id -= 1;
-   }
+    /**
+     * Constructeur avec paramètre
+     * @param name
+     */
+    public Langage( String name) {
+    	this.name=name;
+    	this.id= ++count;
+    	this.id -= 1;
+    }
   
 
 
     /**
-     * Permet de d'ajouter des nouveaux conceptes  
+     * Aajoute des nouveaux conceptes
      * @param String title 
-     * @return
+     * @return void
      */
     public void addConceptQuiz( ConceptQuiz c) {
         // TODO implement here
@@ -40,13 +61,13 @@ public class Langage {
     }
 
     /**
-     * Permet de modifier le tritre d'une concepte 
+     * Modifie le titre d'une concept
      * @param String title 
-     * @return
+     * @return void
      */
     public void editConceptQuiz(String title) {
        
-    	Iterator iterator = this.conceptQuiz.iterator();
+    	Iterator<ConceptQuiz> iterator = this.conceptQuiz.iterator();
     	while(iterator.hasNext()) {
     		
     		if(((ConceptQuiz)iterator.next()).getId() == id) {
@@ -56,41 +77,70 @@ public class Langage {
     }
 
     /**
-     * Permet de supprimer des conceptes
+     * Permet de supprimer des concept
      * @param String title 
-     * @return
+     * @return void
      */
     public void removeConceptQuiz( ConceptQuiz conceptQuiz) {
     	this.conceptQuiz.remove(conceptQuiz);
     }
 
+    /**
+     * Retourne le nom du langage
+     * @return String
+     */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Fixe le nom du langage
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Retourne la liste de concepts du langage
+	 * @return HashSet
+	 */
 	public Set<ConceptQuiz> getConceptQuiz() {
 		return conceptQuiz;
 	}
 
+	/**
+	 * Fixe la liste de concepts du langage
+	 * @param conceptQuiz
+	 */
 	public void setConceptQuiz(Set<ConceptQuiz> conceptQuiz) {
 		this.conceptQuiz = conceptQuiz;
 	}
 	
-	public String toString() {
-		return this.getName();
-	}
-
+	/**
+	 * Retourne l'identifiant du langage
+	 * @return int
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Fixe l'identifiant du langage
+	 * @param id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	/**
+	 * Retourne le langage à travers son nom
+	 */
+	public String toString() {
+		return this.getName();
+	}
+
+	
     
 
 }

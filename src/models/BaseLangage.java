@@ -3,23 +3,27 @@ package models;
 import java.util.*;
 
 /**
- * 
+ * Classes représentant la base des langages de l'application
+ * elle définit la liste 
+ * @author Mamadou Niakate
+ *
  */
 public class BaseLangage {
 
     /**
-     * 
+     * La liste des langages de l'application
      */
     public ArrayList<Langage> langages;
 
     /**
-     * Default constructor
+     * Constructer par défaut
      */
     public BaseLangage() {
     	this.langages = new ArrayList<>();
     }
 
     /**
+     * Ajoute un langage à la liste des langages de l'application
      * @param String nom 
      * @return
      */
@@ -27,16 +31,9 @@ public class BaseLangage {
         this.langages.add(langage);
     }
 
-    /**
-     * @param String nom 
-     * @return
-     */
-    public void editLanagage(String nom) {
-        // TODO implement here
-        
-    }
 
     /**
+     * Supprime un langage de la liste des langages de l'application
      * @param String nom 
      * @return
      */
@@ -44,10 +41,18 @@ public class BaseLangage {
         this.langages.remove(langage);       
     }
 
+    /**
+     * Retourne la liste des langages de l'application 
+     * @return
+     */
 	public ArrayList<Langage> getLangages() {
 		return langages;
 	}
 
+	/**
+	 * Fixer la liste des langages de l'application
+	 * @param langages
+	 */
 	public void setLangages(ArrayList<Langage> langages) {
 		this.langages = langages;
 	}
