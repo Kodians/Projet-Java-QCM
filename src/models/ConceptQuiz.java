@@ -1,50 +1,56 @@
 package models;
 
 import java.util.*;
-import controllers.Student;
 
 /**
+ * La classes présentant les concepts des langages
+ * Chaque concept à sa liste de questions
  * @author Mamadou Niakate
- * 
  */
 public class ConceptQuiz {
+	
+	/** Attributs de la classe ConceptQuiz */
+	
+	/**
+	 * Attribut static permettant d'avoir une valeur unique à l'ID dz chaque instance de la classe
+	 */
 	private static int count;
 	
-    /**
-     * 
-     */
+	/**
+	 * Liste des questions du concept
+	 */
     public ArrayList<Question> questions= new ArrayList<>();
-
+    
     /**
-     * 
+     * Titre du concept
      */
     public  String title;
     
-    private  int id;
-
-
     /**
-     * 
+     * Identifiant du concept
      */
-    public Student Answers;
+    private  int id;
     
     
     /**
-     * Default constructor
+     *  Constructeur par défaut
      */
     public ConceptQuiz() {
     	this.questions = null;
     	this.title = "";
     }
     
+    
     public ConceptQuiz(String title) {
     	this.title = title;
     	this.id= ++count;
     }
 
+
     /**
-     * Melange / désordonne les éléments d'une liste
-     * @return
+     * Melange / désordonne les éléments de la liste des questions du concept
+     * @param questions
+     * @return ArrayList
      */
     public ArrayList<Question> randomize(ArrayList<Question> questions) { 
     	Collections.shuffle(questions);
@@ -52,21 +58,12 @@ public class ConceptQuiz {
     	return questions;
     }
 
-    /**
-     * @param int correct int total 
-     * @return
-     */
-    public double calculateScore( int correct, int total) {
-        // TODO implement here
-        return 0.0d;
-    }
-
 
     /**
      * Ajotuer une question à la liste des questions d'un ConceptQuiz
      * @param String titre 
      * @param TextArea code 
-     * @return
+     * @return void
      */
     public void addQuestion( Question q) {
         this.questions.add(q);
@@ -86,7 +83,7 @@ public class ConceptQuiz {
      * Supprime la Question dont 'ID est passé en paramètre
      * @param String titre 
      * @param TextArea code 
-     * @return
+     * @return void
      */
     public void removeQuestion(int id) {
     	this.questions.remove(this.questions.get(id));
@@ -95,7 +92,7 @@ public class ConceptQuiz {
 
     /**
      * Retourne la listes des questions d'un conceptQuiz
-     * @return
+     * @return ArrayList
      */
 	public ArrayList<Question> getQuestions() {
 		ArrayList<Question> questionsRandomized = questions;
@@ -104,32 +101,57 @@ public class ConceptQuiz {
 	}
 
 
+	/**
+	 * Mettre à jour la liste des questions du concept dépuis l'exterieur de la classe
+	 * @param questions
+	 * @return void
+	 */
 	public void setQuestions(ArrayList<Question> questions) {
 		this.questions = questions;
 	}
 
-
+	/**
+	 * Permet d'accéder au titre du concept dépuis l'extérieur de la classes
+	 * @return String
+	 */
 	public String getTitle() {
 		return title;
 	}
 
 
+	/**
+	 * Mettre à jour le titre du concept dépuis l'exterieur de la classe
+	 * @param title
+	 * @return void
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
 
+	/**
+	 * Récupérer l'identifiant du concept dépuis l'exterieur de la classe
+	 * @return int
+	 */
 	public int getId() {
 		return id;
 	}
 
 
+	/**
+	 * Mettre à jour l'identifiant du concept dépuis l'exterieur de la classe
+	 * @param id
+	 * @return void
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
 
-	@Override
+	/**
+	 * Convertir la classe en String à travers son attribut titre
+	 * @return String
+	 */
 	public String toString() {
 		return this.getTitle();
 	}
