@@ -37,6 +37,22 @@ public class ConceptQuiz {
     private  int id;
 
     public Student Answers;
+=======
+	/**
+	 * Liste des questions du concept
+	 */
+    public ArrayList<Question> questions= new ArrayList<>();
+    
+    /**
+     * Titre du concept
+     */
+    public  String title;
+    
+    /**
+     *  Constructeur par défaut
+     */
+    private  int id;
+>>>>>>> master
     
     
     /**
