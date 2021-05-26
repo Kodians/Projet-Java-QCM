@@ -2,9 +2,12 @@ package models;
 
 import java.util.*;
 
+
 /**
  * Classes représentant la base des langages de l'application
  * elle définit la liste
+ * @author Danko Konate
+ * @author Mamadou Niakaté
  */
 public class BaseLangage {
 

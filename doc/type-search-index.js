@@ -1,1 +1,5 @@
+<<<<<<< Updated upstream
 typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"models","l":"BaseLangage"},{"p":"models","l":"ConceptQuiz"},{"p":"models","l":"Langage"},{"p":"controllers","l":"Login"},{"p":"views","l":"Menu"},{"p":"models","l":"MultipleChoice"},{"p":"models","l":"Numeric"},{"p":"controllers","l":"Profesor"},{"p":"models","l":"Question"},{"p":"controllers","l":"Score"},{"p":"controllers","l":"Student"},{"p":"models","l":"TrueFalse"},{"p":"controllers","l":"User"}]
+=======
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"models","l":"BaseLangage"},{"p":"models","l":"ConceptQuiz"},{"p":"models","l":"Langage"},{"p":"controllers","l":"Login"},{"p":"views","l":"Menu"},{"p":"models","l":"MultipleChoice"},{"p":"models","l":"Numeric"},{"p":"controllers","l":"Profesor"},{"p":"models","l":"Question"},{"p":"views","l":"QuizManager"},{"p":"controllers","l":"Score"},{"p":"controllers","l":"Student"},{"p":"models","l":"TrueFalse"},{"p":"controllers","l":"User"}]
+>>>>>>> Stashed changes

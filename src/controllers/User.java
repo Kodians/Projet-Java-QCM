@@ -24,14 +24,14 @@ public class User {
     	role = "";
     }
     
-    /**
-     * Constructeur avac paramtre
-     * @param firstName
-     * @param lastName
-     * @param userName
-     * @param password
-     * @param role
-     */
+   /**
+    * Constructeur avec parametre
+    * @param firstName
+    * @param lastName
+    * @param userName
+    * @param password
+    * @param role
+    */
     public User(String firstName, String lastName, String userName,  char password, String role) {
     	this.firstName = firstName;
     	this.lastName = lastName;

@@ -3,8 +3,13 @@ import java.util.*;
 
 /**
  * Classe representant un lanage
+<<<<<<< Updated upstream
  * @author Mamadou Niakaté
  * @author Danko Konaté
+=======
+ * @author Danko Konate
+ * @author Mamadou Niakaté
+>>>>>>> Stashed changes
  */
 public class Langage {
 	
