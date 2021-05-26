@@ -4,9 +4,7 @@ import java.util.*;
 
 /**
  * Classes représentant la base des langages de l'application
- * elle définit la liste 
- * @author Mamadou Niakate
- *
+ * elle définit la liste
  */
 public class BaseLangage {
 

@@ -3,8 +3,6 @@ import java.util.*;
 
 /**
  * Classe representant un lanage
- * @author niakate
- *
  */
 public class Langage {
 	
@@ -26,7 +24,7 @@ public class Langage {
 	private Set<ConceptQuiz> conceptQuiz=new HashSet<>();
 	
 	/**
-	 * L'identifiant de l'instance de la classes
+	 * L'identifiant de l'instance de la classe
 	 */
 	private int id;
 
@@ -47,8 +45,6 @@ public class Langage {
     	this.id -= 1;
     }
   
-
-
     /**
      * Aajoute des nouveaux conceptes
      * @param String title 

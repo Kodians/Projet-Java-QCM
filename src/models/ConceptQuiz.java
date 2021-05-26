@@ -5,7 +5,6 @@ import java.util.*;
 /**
  * La classes présentant les concepts des langages
  * Chaque concept à sa liste de questions
- * @author Mamadou Niakate
  */
 public class ConceptQuiz {
 	
@@ -31,17 +30,6 @@ public class ConceptQuiz {
      * Identifiant du concept
      */
     private  int id;
-    
-    /**
-     * Titre du concept
-     */
-    public  String title;
-    
-    /**
-     *  Constructeur par défaut
-     */
-    private  int id;
->>>>>>> master
     
     
     /**
