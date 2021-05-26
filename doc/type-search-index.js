@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"models","l":"BaseLangage"},{"p":"models","l":"ConceptQuiz"},{"p":"models","l":"Langage"},{"p":"models","l":"MultipleChoice"},{"p":"models","l":"Numeric"},{"p":"models","l":"Question"},{"p":"models","l":"TrueFalse"}]

@@ -22,8 +22,9 @@ public class Numeric extends Question {
 
     /**
      * Constructeur fixant le titre, le code et la réponse de la question
-     * @param String titre 
-     * @param int answer
+     * @param title
+     * @param code
+     * @param answer
      */
     public Numeric(String title, String code,String answer) {
         super(title,code);

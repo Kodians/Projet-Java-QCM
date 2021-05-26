@@ -46,20 +46,16 @@ public class Langage {
     }
   
     /**
-     * Aajoute des nouveaux conceptes
-     * @param String title 
-     * @return void
+     * Ajoute des nouveaux conceptes
+     * @param c
      */
     public void addConceptQuiz( ConceptQuiz c) {
-        // TODO implement here
     	this.conceptQuiz.add(c);
-    	
     }
 
     /**
      * Modifie le titre d'une concept
-     * @param String title 
-     * @return void
+     * @param title
      */
     public void editConceptQuiz(String title) {
        
@@ -74,8 +70,7 @@ public class Langage {
 
     /**
      * Permet de supprimer des concept
-     * @param String title 
-     * @return void
+     * @param conceptQuiz
      */
     public void removeConceptQuiz( ConceptQuiz conceptQuiz) {
     	this.conceptQuiz.remove(conceptQuiz);
