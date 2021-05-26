@@ -18,9 +18,6 @@ public class ConceptQuiz {
 	/**
 	 * Liste des questions du concept
 	 */
-    /**
-     * ATTRIBUTS DE CONCEPTQUIZ
-     */
     public ArrayList<Question> questions= new ArrayList<>();
     
     /**
@@ -43,7 +40,10 @@ public class ConceptQuiz {
     	this.title = "";
     }
     
-    
+    /**
+     * Constructeur avec paramètre du concept
+     * @param title
+     */
     public ConceptQuiz(String title) {
     	this.title = title;
     	this.id= ++count;

@@ -1,15 +1,19 @@
 package models;
 
-import java.util.*;
 
 /**
  * 
  */
 public class Numeric extends Question {
 
+	/**
+	 * Réponse de la question
+	 */
 	private String answer;
+	
+	
     /**
-     * Default constructor
+     * Constructeur par défaut
      */
     public Numeric() {
     	this.setAnswer("");
@@ -17,6 +21,7 @@ public class Numeric extends Question {
 
 
     /**
+     * Constructeur fixant le titre, le code et la réponse de la question
      * @param String titre 
      * @param int answer
      */
@@ -36,7 +41,8 @@ public class Numeric extends Question {
     }
 
 	/**
-	 * @return the answer
+	 * Retourne la réponse de la question
+	 * @return answer
 	 */
 	public String getAnswer() {
 		return answer;
@@ -44,7 +50,8 @@ public class Numeric extends Question {
 
 
 	/**
-	 * @param answer the answer to set
+	 * Fixe la réponse de la question
+	 * @param answer
 	 */
 	public void setAnswer(String answer) {
 		this.answer = answer;
