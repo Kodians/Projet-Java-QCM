@@ -8,7 +8,9 @@ public class Score {
 	private int scoreResult;
 	
 
-	
+	/**
+	 *  CONSTRUCTEUR DE SCORE 
+	 */
 	public Score(ConceptQuiz conceptQuiz) {
 		this.conceptScore = conceptQuiz;
 	}

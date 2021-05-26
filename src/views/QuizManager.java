@@ -5,6 +5,9 @@ import controllers.Profesor;
 import controllers.Student;
 import models.BaseLangage;
 
+/**
+ * CLASSE MAIN DE L'APPLICATION
+ */
 public class QuizManager {
 	
     public static void main(String[] argStrings) {

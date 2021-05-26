@@ -11,21 +11,14 @@ public class ConceptQuiz {
 	private static int count;
 	
     /**
-     * 
+     * ATTRIBUTS DE CONCEPTQUIZ
      */
     public ArrayList<Question> questions= new ArrayList<>();
 
-    /**
-     * 
-     */
     public  String title;
     
     private  int id;
 
-
-    /**
-     * 
-     */
     public Student Answers;
     
     

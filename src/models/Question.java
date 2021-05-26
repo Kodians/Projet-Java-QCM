@@ -3,7 +3,7 @@ package models;
 /**
  * 
  * @author niakate
- *
+ *@author danko
  */
 public abstract class Question {
 	private static int count;
