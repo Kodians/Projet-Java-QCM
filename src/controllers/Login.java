@@ -20,7 +20,7 @@ public class Login {
     public char password;
 
 
-<<<<<<< Updated upstream
+
     /**
      * Veifie si c'est un etudiant ou prof qui se connecte
      * @param unserName
@@ -32,9 +32,6 @@ public class Login {
         return false;
     }
 
-=======
-  
->>>>>>> Stashed changes
 
 	@Override
 	public String toString() {
